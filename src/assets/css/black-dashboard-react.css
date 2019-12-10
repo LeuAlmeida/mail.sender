@@ -1317,7 +1317,7 @@ pre {
     background-color: transparent;
     border: 0; }
   .form-control:focus {
-    color: rgba(255, 255, 255, 0.8);
+    color: #000;
     background-color: #ffffff;
     border-color: rgba(50, 151, 211, 0.25);
     outline: 0;
