@@ -6,14 +6,12 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardText,
   CardFooter,
   FormGroup,
   Form,
   Input,
   Row,
   Col,
-  TextArea,
 } from 'reactstrap';
 
 class Mailer extends Component {
