@@ -16,8 +16,8 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/mailer",
-    name: "Ações",
+    path: "/mailer/create",
+    name: "Criar Ação",
     icon: "tim-icons icon-email-85    ",
     component: Mailer,
     layout: "/admin"
