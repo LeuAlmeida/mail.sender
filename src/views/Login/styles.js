@@ -38,6 +38,7 @@ export const LoginForm = styled.form`
   margin-top: 15px;
 
   button {
+    cursor: pointer;
     background: #bc4270;
     width: 300px;
     height: 40px;
