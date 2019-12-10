@@ -48,7 +48,7 @@ class Senders extends Component {
                     </thead>
                     <tbody>
                       {senders.map(sender => (
-                        <tr>
+                        <tr key={sender.id}>
                         <td>{sender.id}</td>
                         <td>{sender.name}</td>
                         <td>{sender.email}</td>
