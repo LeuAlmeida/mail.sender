@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { FaEdit, FaTrash } from 'react-icons/fa'
 
 // reactstrap components
-import { Card, CardHeader, CardBody, Row, Col, CardTitle, Table } from "reactstrap";
+import { Card, CardHeader, CardBody, Row, Col, CardTitle, Table, Button, UncontrolledTooltip } from "reactstrap";
 
 import api from '../services/api';
 
@@ -53,8 +53,37 @@ class Senders extends Component {
                         <td>{sender.name}</td>
                         <td>{sender.email}</td>
                         <td className="text-center">
-                          <FaEdit size={20} style={{marginLeft: 5, marginRight: 5}} color="#FFF" />
-                          <FaTrash size={20} style={{marginLeft: 5, marginRight: 5}} color="#FFF" />
+                        <Button
+                              color="link"
+                              id={`edit-${sender.id}`}
+                              title="Editar"
+                              type="button"
+                            >
+                              <i className="tim-icons icon-pencil" />
+                            </Button>
+                            <UncontrolledTooltip
+                              delay={0}
+                              target={`edit-${sender.id}`}
+                              placement="top"
+                            >
+                              Editar
+                            </UncontrolledTooltip>
+
+                            <Button
+                              color="link"
+                              id={`remove-${sender.id}`}
+                              title="Remover"
+                              type="top"
+                            >
+                              <i className="tim-icons icon-trash-simple" />
+                            </Button>
+                            <UncontrolledTooltip
+                              delay={0}
+                              target={`remove-${sender.id}`}
+                              placement="left"
+                            >
+                              Remover
+                            </UncontrolledTooltip>
                         </td>
                       </tr>
                       ))}
