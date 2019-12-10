@@ -1,8 +1,6 @@
 
 import React, { Component } from "react";
 
-import { FaEdit, FaTrash } from 'react-icons/fa'
-
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col, CardTitle, Table, Button, UncontrolledTooltip } from "reactstrap";
 
