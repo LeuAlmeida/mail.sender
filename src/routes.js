@@ -1,23 +1,25 @@
 // import Login from "views/Login.js";
 import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
+import Senders from "views/Senders.js";
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 
 var routes = [
-  // {
-  //   path: "/login",
-  //   name: "Login",
-  //   icon: "tim-icons icon-chart-pie-36",
-  //   component: Login,
-  // },
   {
     path: "/dashboard",
     name: "Dashboard",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
+    layout: "/admin"
+  },
+  {
+    path: "/senders",
+    name: "Senders",
+    icon: "tim-icons icon-book-bookmark",
+    component: Senders,
     layout: "/admin"
   },
   {
