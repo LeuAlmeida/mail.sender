@@ -22,10 +22,10 @@ class Mailer extends Component {
       <>
         <div className="content">
           <Row>
-            <Col md="8">
+            <Col md="12">
               <Card>
                 <CardHeader>
-                  <h5 className="title">Edit Profile</h5>
+                  <h5 className="title">Criar Ação</h5>
                 </CardHeader>
                 <CardBody>
                   <Form>
@@ -146,7 +146,7 @@ class Mailer extends Component {
                 </CardFooter>
               </Card>
             </Col>
-            <Col md="4">
+            {/* <Col md="4">
               <Card className="card-user">
                 <CardBody>
                   <CardText />
@@ -185,7 +185,7 @@ class Mailer extends Component {
                   </div>
                 </CardFooter>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
         </div>
       </>
