@@ -1,11 +1,32 @@
 
 import React, { Component } from "react";
 
+import { FaEdit, FaTrash } from 'react-icons/fa'
+
 // reactstrap components
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import { Card, CardHeader, CardBody, Row, Col, CardTitle, Table } from "reactstrap";
+
+import api from '../services/api';
 
 class Senders extends Component {
+
+  state = {
+    senders: []
+  }
+
+  async componentDidMount() {
+    const response = await api.get(`/senders`);
+
+    this.setState({
+      senders: response.data
+    });
+
+    console.log(this.state.senders)
+  }
+
   render() {
+    const { senders } = this.state;
+
     return (
       <>
         <div className="content">
@@ -13,42 +34,37 @@ class Senders extends Component {
             <Col md="12">
               <Card>
                 <CardHeader>
-                  <h5 className="title">Destinatários</h5>
-                  <p className="category">
-                    Todos os destinatários existentes.
-                    <a href="https://nucleoapp.com/?ref=1712">NucleoApp</a>
-                  </p>
+                  <CardTitle tag="h4">Lista de Remetentes</CardTitle>
                 </CardHeader>
-                <CardBody className="all-icons">
-                  <Row>
-                    <Col
-                      className="font-icon-list col-xs-6 col-xs-6"
-                      lg="2"
-                      md="3"
-                      sm="4"
-                    >
-                      <div className="font-icon-detail">
-                        <i className="tim-icons icon-alert-circle-exc" />
-                        <p>icon-alert-circle-exc</p>
-                      </div>
-                    </Col>
-                    <Col
-                      className="font-icon-list col-xs-6 col-xs-6"
-                      lg="2"
-                      md="3"
-                      sm="4"
-                    >
-                      <div className="font-icon-detail">
-                        <i className="tim-icons icon-align-center" />
-                        <p>icon-align-center</p>
-                      </div>
-                    </Col>
-                  </Row>
+                <CardBody>
+                  <Table className="tablesorter">
+                    <thead className="text-primary">
+                      <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th className="text-center">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {senders.map(sender => (
+                        <tr>
+                        <td>{sender.id}</td>
+                        <td>{sender.name}</td>
+                        <td>{sender.email}</td>
+                        <td className="text-center">
+                          <FaEdit size={20} style={{marginLeft: 5, marginRight: 5}} color="#FFF" />
+                          <FaTrash size={20} style={{marginLeft: 5, marginRight: 5}} color="#FFF" />
+                        </td>
+                      </tr>
+                      ))}
+                    </tbody>
+                  </Table>
                 </CardBody>
               </Card>
             </Col>
-          </Row>
-        </div>
+            </Row>
+            </div>
       </>
     );
   }
