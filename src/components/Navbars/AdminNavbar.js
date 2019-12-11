@@ -21,8 +21,8 @@ class AdminNavbar extends React.Component {
     super(props);
     this.state = {
       userId: 1,
+      user: '',
       collapseOpen: false,
-      modalSearch: false,
       color: 'navbar-transparent',
     };
   }
@@ -32,9 +32,11 @@ class AdminNavbar extends React.Component {
 
     const { userId } = this.state;
 
-    const user = await api.get(`/users`);
+    const users = await api.get(`/users`);
 
-    console.log(user.data.find({ userId }));
+    this.setState({ user: users.data.find(u => u.id === userId) });
+
+    console.log(this.state.user.avatar_url);
   }
 
   componentWillUnmount() {
@@ -54,7 +56,9 @@ class AdminNavbar extends React.Component {
   };
 
   toggleCollapse = () => {
-    if (this.state.collapseOpen) {
+    const { collapseOpen } = this.state;
+
+    if (collapseOpen) {
       this.setState({
         color: 'navbar-transparent',
       });
@@ -64,28 +68,28 @@ class AdminNavbar extends React.Component {
       });
     }
     this.setState({
-      collapseOpen: !this.state.collapseOpen,
+      collapseOpen: !collapseOpen,
     });
   };
 
   render() {
+    const { user, color, collapseOpen } = this.state;
+    const { sidebarOpened, toggleSidebar, brandText } = this.props;
+
     return (
       <>
-        <Navbar
-          className={classNames('navbar-absolute', this.state.color)}
-          expand="lg"
-        >
+        <Navbar className={classNames('navbar-absolute', color)} expand="lg">
           <Container fluid>
             <div className="navbar-wrapper">
               <div
                 className={classNames('navbar-toggle d-inline', {
-                  toggled: this.props.sidebarOpened,
+                  toggled: sidebarOpened,
                 })}
               >
                 <button
                   className="navbar-toggler"
                   type="button"
-                  onClick={this.props.toggleSidebar}
+                  onClick={toggleSidebar}
                 >
                   <span className="navbar-toggler-bar bar1" />
                   <span className="navbar-toggler-bar bar2" />
@@ -93,7 +97,7 @@ class AdminNavbar extends React.Component {
                 </button>
               </div>
               <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
-                {this.props.brandText}
+                {brandText}
               </NavbarBrand>
             </div>
             <button
@@ -110,7 +114,7 @@ class AdminNavbar extends React.Component {
               <span className="navbar-toggler-bar navbar-kebab" />
               <span className="navbar-toggler-bar navbar-kebab" />
             </button>
-            <Collapse navbar isOpen={this.state.collapseOpen}>
+            <Collapse navbar isOpen={collapseOpen}>
               <Nav className="ml-auto" navbar>
                 <InputGroup className="search-bar" />
                 <UncontrolledDropdown nav>
@@ -121,7 +125,7 @@ class AdminNavbar extends React.Component {
                     nav
                   >
                     <div className="notification d-none d-lg-block d-xl-block" />
-                    <i className="tim-icons icon-sound-wave" />
+                    <i className="tim-icons icon-bell-55" />
                     <p className="d-lg-none">Notifications</p>
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
@@ -161,21 +165,19 @@ class AdminNavbar extends React.Component {
                     onClick={e => e.preventDefault()}
                   >
                     <div className="photo">
-                      <img alt="..." src={require('assets/img/anime3.png')} />
+                      <img alt={user.name} src={user.avatar_url} />
                     </div>
                     <b className="caret d-none d-lg-block d-xl-block" />
-                    <p className="d-lg-none">Log out</p>
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">Profile</DropdownItem>
-                    </NavLink>
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item">Settings</DropdownItem>
+                      <DropdownItem className="nav-item">
+                        Configurações
+                      </DropdownItem>
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">Log out</DropdownItem>
+                      <DropdownItem className="nav-item">Sair</DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>
