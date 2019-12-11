@@ -232,18 +232,20 @@ class CreateMailer extends Component {
   }
 }
 
-// CreateMailer.defaultProps = {
-//   senders: 'Nome do Remetente',
-//   selectedSender: 'informes@metodista.br',
-//   subject: 'Assunto da Mensagem',
-//   url: 'http://metodista.br',
-// };
+CreateMailer.defaultProps = {
+  senders: 'Nome do Remetente',
+  selectedSender: 'informes@metodista.br',
+  subject: 'Assunto da Mensagem',
+  url: 'http://metodista.br',
+  recipients: 'informes@metodista.br',
+};
 
-// CreateMailer.propTypes = {
-//   senders: PropTypes.string,
-//   selectedSender: PropTypes.string,
-//   subject: PropTypes.string,
-//   url: PropTypes.string,
-// };
+CreateMailer.propTypes = {
+  senders: PropTypes.string,
+  selectedSender: PropTypes.number,
+  subject: PropTypes.string,
+  url: PropTypes.string,
+  recipients: PropTypes.string,
+};
 
 export default CreateMailer;
