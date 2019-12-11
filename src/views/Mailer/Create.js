@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-// reactstrap components
 import {
   Button,
   Card,
@@ -14,8 +12,29 @@ import {
   Col,
 } from 'reactstrap';
 
+import api from '../../services/api';
+
 class CreateMailer extends Component {
+  state = {
+    senders: [],
+    selectedSender: [],
+  };
+
+  async componentDidMount() {
+    const allSenders = await api.get(`senders`);
+
+    this.setState({
+      senders: allSenders.data,
+    });
+  }
+
+  selectSender = e => {
+    this.setState({ selectedSender: e.target.value });
+  };
+
   render() {
+    const { senders } = this.state;
+
     return (
       <>
         <div className="content">
@@ -30,24 +49,28 @@ class CreateMailer extends Component {
                     <Row>
                       <Col className="pr-md-1" md="6">
                         <FormGroup>
-                          <label>Remetente</label>
-                          <Input
-                            defaultValue="informes@metodista.br"
-                            disabled
-                            type="text"
-                          />
+                          <label>E-mail do Remetente</label>
+                          <Input disabled type="text" />
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="6">
                         <FormGroup>
-                          <label>E-mail do Remetente</label>
-                          <Input type="select" name="select" id="exampleSelect">
-                            <option style={{ backgroundColor: '#d570da' }}>
-                              UMESP
-                            </option>
-                            <option style={{ backgroundColor: '#d570da' }}>
-                              UNIMEP
-                            </option>
+                          <label>Remetente</label>
+
+                          <Input
+                            type="select"
+                            name="select"
+                            id="exampleSelect"
+                            onChange={this.selectSender}
+                          >
+                            {senders.map(sender => (
+                              <option
+                                key={sender.id}
+                                style={{ backgroundColor: '#d570da' }}
+                              >
+                                {sender.name}
+                              </option>
+                            ))}
                           </Input>
                         </FormGroup>
                       </Col>
@@ -57,12 +80,12 @@ class CreateMailer extends Component {
                           <label htmlFor="exampleInputEmail1">
                             Assunto da Ação
                           </label>
-                          <Input placeholder="mike@email.com" type="email" />
+                          <Input placeholder="..." type="email" />
                         </FormGroup>
                       </Col>
                       <Col className="px-md-1" md="4">
                         <FormGroup>
-                          <label htmFor="">Autor do Disparo</label>
+                          <label htmlFor="">Autor do Disparo</label>
                           <Input
                             type="text"
                             defaultValue="Léu Almeida"
@@ -73,9 +96,10 @@ class CreateMailer extends Component {
 
                       <Col className="pr-md-1" md="6">
                         <FormGroup>
-                          <label htmFor="">Agendar Envio</label>
+                          <label htmlFor="">Agendar Envio</label>
                           <Input
                             type="datetime-local"
+                            disabled
                             style={{ textTransform: 'uppercase' }}
                           />
                         </FormGroup>
@@ -106,7 +130,10 @@ class CreateMailer extends Component {
                           <label htmlFor="exampleInputEmail1">
                             Destinatários
                           </label>
-                          <Input placeholder="leonardo.almeida@metodista.br" type="textarea" />
+                          <Input
+                            placeholder="leonardo.almeida@metodista.br"
+                            type="textarea"
+                          />
                         </FormGroup>
                       </Col>
                     </Row>
