@@ -15,8 +15,6 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import Account from '../../views/Account';
-
 import api from '../../services/api';
 
 class AdminNavbar extends React.Component {
