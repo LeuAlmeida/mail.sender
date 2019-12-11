@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { createBrowserHistory } from "history";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createBrowserHistory } from 'history';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import AdminLayout from "layouts/Admin/Admin.js";
-import Login from '../src/views/Login'
+import AdminLayout from './layouts/Admin/Admin';
+import Login from './views/Login';
 
-import "assets/scss/black-dashboard-react.scss";
-import "assets/demo/demo.css";
-import "assets/css/nucleo-icons.css";
+import './assets/scss/black-dashboard-react.scss';
+import './assets/demo/demo.css';
+import './assets/css/nucleo-icons.css';
 
 const hist = createBrowserHistory();
 
@@ -20,5 +20,5 @@ ReactDOM.render(
       <Redirect from="/" to="/admin/dashboard" />
     </Switch>
   </Router>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
