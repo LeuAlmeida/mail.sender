@@ -1,25 +1,33 @@
-
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 // reactstrap components
-import { Card, CardHeader, CardBody, Row, Col, CardTitle, Table, Button, UncontrolledTooltip } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Row,
+  Col,
+  CardTitle,
+  Table,
+  Button,
+  UncontrolledTooltip,
+} from 'reactstrap';
 
 import api from '../services/api';
 
 class Senders extends Component {
-
   state = {
-    senders: []
-  }
+    senders: [],
+  };
 
   async componentDidMount() {
     const response = await api.get(`/senders`);
 
     this.setState({
-      senders: response.data
+      senders: response.data,
     });
 
-    console.log(this.state.senders)
+    console.log(this.state.senders);
   }
 
   render() {
@@ -47,11 +55,11 @@ class Senders extends Component {
                     <tbody>
                       {senders.map(sender => (
                         <tr key={sender.id}>
-                        <td>{sender.id}</td>
-                        <td>{sender.name}</td>
-                        <td>{sender.email}</td>
-                        <td className="text-center">
-                        <Button
+                          <td>{sender.id}</td>
+                          <td>{sender.name}</td>
+                          <td>{sender.email}</td>
+                          <td className="text-center">
+                            <Button
                               color="link"
                               id={`edit-${sender.id}`}
                               title="Editar"
@@ -82,16 +90,16 @@ class Senders extends Component {
                             >
                               Remover
                             </UncontrolledTooltip>
-                        </td>
-                      </tr>
+                          </td>
+                        </tr>
                       ))}
                     </tbody>
                   </Table>
                 </CardBody>
               </Card>
             </Col>
-            </Row>
-            </div>
+          </Row>
+        </div>
       </>
     );
   }

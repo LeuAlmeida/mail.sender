@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path: '/mailer/list',
-    name: 'Listar Ações',
+    name: 'Ações Enviadas',
     icon: 'tim-icons icon-email-85',
     component: MailerList,
     layout: '/admin',
