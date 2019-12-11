@@ -1,5 +1,5 @@
-import React from "react";
-import classNames from "classnames";
+import React from 'react';
+import classNames from 'classnames';
 import {
   Collapse,
   DropdownToggle,
@@ -12,31 +12,43 @@ import {
   NavLink,
   Nav,
   Container,
-} from "reactstrap";
+} from 'reactstrap';
+
+import api from '../../services/api';
 
 class AdminNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: 1,
       collapseOpen: false,
       modalSearch: false,
-      color: "navbar-transparent"
+      color: 'navbar-transparent',
     };
   }
-  componentDidMount() {
-    window.addEventListener("resize", this.updateColor);
+
+  async componentDidMount() {
+    window.addEventListener('resize', this.updateColor);
+
+    const { userId } = this.state;
+
+    const user = await api.get(`/users`);
+
+    console.log(user.data.find({ userId }));
   }
+
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateColor);
+    window.removeEventListener('resize', this.updateColor);
   }
+
   updateColor = () => {
     if (window.innerWidth < 993 && this.state.collapseOpen) {
       this.setState({
-        color: "bg-white"
+        color: 'bg-white',
       });
     } else {
       this.setState({
-        color: "navbar-transparent"
+        color: 'navbar-transparent',
       });
     }
   };
@@ -44,29 +56,30 @@ class AdminNavbar extends React.Component {
   toggleCollapse = () => {
     if (this.state.collapseOpen) {
       this.setState({
-        color: "navbar-transparent"
+        color: 'navbar-transparent',
       });
     } else {
       this.setState({
-        color: "bg-white"
+        color: 'bg-white',
       });
     }
     this.setState({
-      collapseOpen: !this.state.collapseOpen
+      collapseOpen: !this.state.collapseOpen,
     });
   };
+
   render() {
     return (
       <>
         <Navbar
-          className={classNames("navbar-absolute", this.state.color)}
+          className={classNames('navbar-absolute', this.state.color)}
           expand="lg"
         >
           <Container fluid>
             <div className="navbar-wrapper">
               <div
-                className={classNames("navbar-toggle d-inline", {
-                  toggled: this.props.sidebarOpened
+                className={classNames('navbar-toggle d-inline', {
+                  toggled: this.props.sidebarOpened,
                 })}
               >
                 <button
@@ -99,8 +112,7 @@ class AdminNavbar extends React.Component {
             </button>
             <Collapse navbar isOpen={this.state.collapseOpen}>
               <Nav className="ml-auto" navbar>
-                <InputGroup className="search-bar">
-                </InputGroup>
+                <InputGroup className="search-bar" />
                 <UncontrolledDropdown nav>
                   <DropdownToggle
                     caret
@@ -149,7 +161,7 @@ class AdminNavbar extends React.Component {
                     onClick={e => e.preventDefault()}
                   >
                     <div className="photo">
-                      <img alt="..." src={require("assets/img/anime3.png")} />
+                      <img alt="..." src={require('assets/img/anime3.png')} />
                     </div>
                     <b className="caret d-none d-lg-block d-xl-block" />
                     <p className="d-lg-none">Log out</p>
