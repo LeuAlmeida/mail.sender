@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/state-in-constructor */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import {
@@ -12,14 +14,16 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import { PropTypes } from 'prop-types';
 
 import api from '../../services/api';
 
 class CreateMailer extends Component {
   state = {
     senders: [],
-    selectedSender: {},
+    selectedSender: '',
     subject: '',
+    url: '',
   };
 
   async componentDidMount() {
@@ -38,8 +42,14 @@ class CreateMailer extends Component {
     this.setState({ subject: e.target.value });
   };
 
+  handleAddUrl = e => {
+    const urlMessage = e.target.value;
+
+    this.setState({ url: urlMessage });
+  };
+
   render() {
-    const { senders, selectedSender, subject } = this.state;
+    const { senders, selectedSender, subject, url } = this.state;
 
     return (
       <>
@@ -58,6 +68,7 @@ class CreateMailer extends Component {
                           <label>E-mail do Remetente</label>
                           <Input
                             value={selectedSender}
+                            placeholder="Selecione um remetente"
                             disabled
                             name="email"
                             type="text"
@@ -74,7 +85,10 @@ class CreateMailer extends Component {
                             id="exampleSelect"
                             onChange={this.handleSelectSender}
                           >
-                            <option style={{ backgroundColor: '#d570da' }}>
+                            <option
+                              value="Selecione um remetente"
+                              style={{ backgroundColor: '#d570da' }}
+                            >
                               Selecione um remetente
                             </option>
                             {senders.map(sender => (
@@ -130,7 +144,12 @@ class CreateMailer extends Component {
                           <label htmlFor="exampleInputEmail1">
                             URL da Mensagem
                           </label>
-                          <Input placeholder="mike@email.com" type="email" />
+                          <Input
+                            placeholder="mike@email.com"
+                            type="email"
+                            value={url}
+                            onChange={this.handleAddUrl}
+                          />
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="3">
@@ -172,5 +191,19 @@ class CreateMailer extends Component {
     );
   }
 }
+
+CreateMailer.defaultProps = {
+  senders: 'Nome do Remetente',
+  selectedSender: 'informes@metodista.br',
+  subject: 'Assunto da Mensagem',
+  url: 'http://metodista.br',
+};
+
+CreateMailer.propTypes = {
+  senders: PropTypes.string,
+  selectedSender: PropTypes.string,
+  subject: PropTypes.string,
+  url: PropTypes.string,
+};
 
 export default CreateMailer;
