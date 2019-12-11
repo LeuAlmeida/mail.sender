@@ -117,18 +117,6 @@ class CreateMailer extends Component {
                     <Row>
                       <Col className="pr-md-1" md="6">
                         <FormGroup>
-                          <label>E-mail do Remetente</label>
-                          <Input
-                            value={selectedSender.email}
-                            placeholder="Por favor, selecione um remetente"
-                            disabled
-                            name="email"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <FormGroup>
                           <label>Remetente</label>
 
                           <Input
@@ -153,6 +141,18 @@ class CreateMailer extends Component {
                               </option>
                             ))}
                           </Input>
+                        </FormGroup>
+                      </Col>
+                      <Col className="pl-md-1" md="6">
+                        <FormGroup>
+                          <label>E-mail do Remetente</label>
+                          <Input
+                            value={selectedSender.email}
+                            placeholder="Por favor, selecione um remetente"
+                            disabled
+                            name="email"
+                            type="text"
+                          />
                         </FormGroup>
                       </Col>
 
@@ -180,18 +180,7 @@ class CreateMailer extends Component {
                         </FormGroup>
                       </Col>
 
-                      <Col className="pr-md-1" md="6">
-                        <FormGroup>
-                          <label htmlFor="">Agendar Envio</label>
-                          <Input
-                            type="datetime-local"
-                            disabled
-                            style={{ textTransform: 'uppercase' }}
-                          />
-                        </FormGroup>
-                      </Col>
-
-                      <Col className="pl-md-1" md="3">
+                      <Col className="pr-md-1" md="3">
                         <FormGroup>
                           <label htmlFor="exampleInputEmail1">
                             URL da Mensagem
@@ -216,6 +205,17 @@ class CreateMailer extends Component {
                           >
                             Visualizar
                           </Button>
+                        </FormGroup>
+                      </Col>
+
+                      <Col className="pl-md-1" md="6">
+                        <FormGroup>
+                          <label htmlFor="">Agendar Envio</label>
+                          <Input
+                            type="datetime-local"
+                            disabled
+                            style={{ textTransform: 'uppercase' }}
+                          />
                         </FormGroup>
                       </Col>
                       <Col className="py-md-1" md="12">
