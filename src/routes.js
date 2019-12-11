@@ -5,7 +5,8 @@ import Senders from "views/Senders.js";
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
-import Mailer from "views/Mailer.js";
+import CreateMailer from "views/Mailer/Create.js";
+import MailerList from "views/Mailer";
 
 var routes = [
   {
@@ -18,8 +19,15 @@ var routes = [
   {
     path: "/mailer/create",
     name: "Criar Ação",
-    icon: "tim-icons icon-email-85    ",
-    component: Mailer,
+    icon: "tim-icons icon-delivery-fast",
+    component: CreateMailer,
+    layout: "/admin"
+  },
+  {
+    path: "/mailer/list",
+    name: "Listar Ações",
+    icon:"tim-icons icon-email-85",
+    component: MailerList,
     layout: "/admin"
   },
   {
