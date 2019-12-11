@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import {
   Button,
@@ -17,7 +18,8 @@ import api from '../../services/api';
 class CreateMailer extends Component {
   state = {
     senders: [],
-    selectedSender: [],
+    selectedSender: {},
+    subject: '',
   };
 
   async componentDidMount() {
@@ -28,12 +30,16 @@ class CreateMailer extends Component {
     });
   }
 
-  selectSender = e => {
+  handleSelectSender = e => {
     this.setState({ selectedSender: e.target.value });
   };
 
+  handleAddSubject = e => {
+    this.setState({ subject: e.target.value });
+  };
+
   render() {
-    const { senders } = this.state;
+    const { senders, selectedSender, subject } = this.state;
 
     return (
       <>
@@ -50,7 +56,12 @@ class CreateMailer extends Component {
                       <Col className="pr-md-1" md="6">
                         <FormGroup>
                           <label>E-mail do Remetente</label>
-                          <Input disabled type="text" />
+                          <Input
+                            value={selectedSender}
+                            disabled
+                            name="email"
+                            type="text"
+                          />
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="6">
@@ -61,11 +72,15 @@ class CreateMailer extends Component {
                             type="select"
                             name="select"
                             id="exampleSelect"
-                            onChange={this.selectSender}
+                            onChange={this.handleSelectSender}
                           >
+                            <option style={{ backgroundColor: '#d570da' }}>
+                              Selecione um remetente
+                            </option>
                             {senders.map(sender => (
                               <option
                                 key={sender.id}
+                                value={sender.email}
                                 style={{ backgroundColor: '#d570da' }}
                               >
                                 {sender.name}
@@ -80,7 +95,12 @@ class CreateMailer extends Component {
                           <label htmlFor="exampleInputEmail1">
                             Assunto da Ação
                           </label>
-                          <Input placeholder="..." type="email" />
+                          <Input
+                            placeholder="Digite o assunto da ação"
+                            type="text"
+                            value={subject}
+                            onChange={this.handleAddSubject}
+                          />
                         </FormGroup>
                       </Col>
                       <Col className="px-md-1" md="4">
