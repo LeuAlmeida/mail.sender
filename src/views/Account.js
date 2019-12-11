@@ -12,6 +12,7 @@ import {
   Input,
   Row,
   Col,
+  CardText,
 } from 'reactstrap';
 
 class Account extends Component {
