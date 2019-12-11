@@ -14,7 +14,7 @@ import {
   Col,
 } from 'reactstrap';
 
-class Mailer extends Component {
+class CreateMailer extends Component {
   render() {
     return (
       <>
@@ -126,4 +126,4 @@ class Mailer extends Component {
   }
 }
 
-export default Mailer;
+export default CreateMailer;
