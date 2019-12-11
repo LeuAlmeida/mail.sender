@@ -22,9 +22,10 @@ import api from '../../services/api';
 class CreateMailer extends Component {
   state = {
     senders: [],
-    selectedSender: '',
+    selectedSender: [],
     subject: '',
     url: '',
+    recipients: '',
   };
 
   async componentDidMount() {
@@ -36,7 +37,15 @@ class CreateMailer extends Component {
   }
 
   handleSelectSender = e => {
-    this.setState({ selectedSender: e.target.value });
+    const { senders } = this.state;
+
+    const thisSender = senders.find(
+      element => element.id === Number(e.target.value)
+    );
+
+    console.log(thisSender);
+
+    this.setState({ selectedSender: thisSender });
   };
 
   handleAddSubject = e => {
@@ -51,6 +60,25 @@ class CreateMailer extends Component {
     const { url } = this.state;
 
     console.log(url);
+  };
+
+  handleAddRecipients = e => {
+    this.setState({
+      recipients: e.target.value,
+    });
+  };
+
+  handleSendMail = () => {
+    const { selectedSender, subject, url, recipients } = this.state;
+
+    const email = {
+      sender_id: selectedSender.id,
+      recipients,
+      subject,
+      bodyurl: url,
+    };
+
+    api.post('mail', email);
   };
 
   render() {
@@ -72,7 +100,7 @@ class CreateMailer extends Component {
                         <FormGroup>
                           <label>E-mail do Remetente</label>
                           <Input
-                            value={selectedSender}
+                            value={selectedSender.email}
                             placeholder="Por favor, selecione um remetente"
                             disabled
                             name="email"
@@ -99,7 +127,7 @@ class CreateMailer extends Component {
                             {senders.map(sender => (
                               <option
                                 key={sender.id}
-                                value={sender.email}
+                                value={sender.id}
                                 style={{ backgroundColor: '#d570da' }}
                               >
                                 {sender.name}
@@ -178,6 +206,7 @@ class CreateMailer extends Component {
                           <Input
                             placeholder="leonardo.almeida@metodista.br"
                             type="textarea"
+                            onChange={this.handleAddRecipients}
                           />
                         </FormGroup>
                       </Col>
@@ -185,8 +214,13 @@ class CreateMailer extends Component {
                   </Form>
                 </CardBody>
                 <CardFooter>
-                  <Button className="btn-fill" color="primary" type="submit">
-                    Save
+                  <Button
+                    className="btn-fill"
+                    color="primary"
+                    type="submit"
+                    onClick={this.handleSendMail}
+                  >
+                    Enviar
                   </Button>
                 </CardFooter>
               </Card>
@@ -198,18 +232,18 @@ class CreateMailer extends Component {
   }
 }
 
-CreateMailer.defaultProps = {
-  senders: 'Nome do Remetente',
-  selectedSender: 'informes@metodista.br',
-  subject: 'Assunto da Mensagem',
-  url: 'http://metodista.br',
-};
+// CreateMailer.defaultProps = {
+//   senders: 'Nome do Remetente',
+//   selectedSender: 'informes@metodista.br',
+//   subject: 'Assunto da Mensagem',
+//   url: 'http://metodista.br',
+// };
 
-CreateMailer.propTypes = {
-  senders: PropTypes.string,
-  selectedSender: PropTypes.string,
-  subject: PropTypes.string,
-  url: PropTypes.string,
-};
+// CreateMailer.propTypes = {
+//   senders: PropTypes.string,
+//   selectedSender: PropTypes.string,
+//   subject: PropTypes.string,
+//   url: PropTypes.string,
+// };
 
 export default CreateMailer;
