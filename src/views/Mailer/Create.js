@@ -14,6 +14,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+
 import { PropTypes } from 'prop-types';
 
 import api from '../../services/api';
@@ -43,9 +44,13 @@ class CreateMailer extends Component {
   };
 
   handleAddUrl = e => {
-    const urlMessage = e.target.value;
+    this.setState({ url: e.target.value });
+  };
 
-    this.setState({ url: urlMessage });
+  handleViewMail = () => {
+    const { url } = this.state;
+
+    console.log(url);
   };
 
   render() {
@@ -68,7 +73,7 @@ class CreateMailer extends Component {
                           <label>E-mail do Remetente</label>
                           <Input
                             value={selectedSender}
-                            placeholder="Selecione um remetente"
+                            placeholder="Por favor, selecione um remetente"
                             disabled
                             name="email"
                             type="text"
@@ -159,6 +164,7 @@ class CreateMailer extends Component {
                             color="warning"
                             type="button"
                             style={{ width: '100%' }}
+                            onClick={this.handleViewMail}
                           >
                             Visualizar
                           </Button>
