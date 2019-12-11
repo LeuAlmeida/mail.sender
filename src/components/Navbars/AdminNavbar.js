@@ -1,23 +1,17 @@
 import React from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-
-// reactstrap components
 import {
-  Button,
   Collapse,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
-  Input,
   InputGroup,
   NavbarBrand,
   Navbar,
   NavLink,
   Nav,
   Container,
-  Modal
 } from "reactstrap";
 
 class AdminNavbar extends React.Component {
@@ -35,7 +29,6 @@ class AdminNavbar extends React.Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateColor);
   }
-  // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   updateColor = () => {
     if (window.innerWidth < 993 && this.state.collapseOpen) {
       this.setState({
@@ -47,7 +40,7 @@ class AdminNavbar extends React.Component {
       });
     }
   };
-  // this function opens and closes the collapse on small devices
+
   toggleCollapse = () => {
     if (this.state.collapseOpen) {
       this.setState({
@@ -60,12 +53,6 @@ class AdminNavbar extends React.Component {
     }
     this.setState({
       collapseOpen: !this.state.collapseOpen
-    });
-  };
-  // this function is to open the Search modal
-  toggleModalSearch = () => {
-    this.setState({
-      modalSearch: !this.state.modalSearch
     });
   };
   render() {
