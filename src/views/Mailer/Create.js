@@ -14,8 +14,9 @@ import {
   Row,
   Col,
 } from 'reactstrap';
-
 import { PropTypes } from 'prop-types';
+
+import { ToastContainer, toast } from 'react-toastify';
 
 import api from '../../services/api';
 
@@ -26,6 +27,7 @@ class CreateMailer extends Component {
     subject: '',
     url: '',
     recipients: '',
+    hasError: false,
   };
 
   async componentDidMount() {
@@ -36,14 +38,18 @@ class CreateMailer extends Component {
     });
   }
 
+  componentDidCatch(error, info) {
+    this.setState({ hasError: true });
+
+    toast.error(error, info);
+  }
+
   handleSelectSender = e => {
     const { senders } = this.state;
 
     const thisSender = senders.find(
       element => element.id === Number(e.target.value)
     );
-
-    console.log(thisSender);
 
     this.setState({ selectedSender: thisSender });
   };
@@ -68,7 +74,7 @@ class CreateMailer extends Component {
     });
   };
 
-  handleSendMail = () => {
+  handleSubmit = () => {
     const { selectedSender, subject, url, recipients } = this.state;
 
     const email = {
@@ -78,14 +84,27 @@ class CreateMailer extends Component {
       bodyurl: url,
     };
 
-    api.post('mail', email);
+    try {
+      api.post('mail', email);
+
+      toast.success('Mensagem enviada com sucesso!');
+    } catch (err) {
+      toast.info('Erro ao enviar a mensagem!');
+    }
+
+    // this.handleToaster();
   };
 
+  handleToaster = () => {};
+
   render() {
-    const { senders, selectedSender, subject, url } = this.state;
+    const { senders, selectedSender, subject, url, hasError } = this.state;
 
     return (
       <>
+        <ToastContainer autoClose={3000} />
+
+        {hasError ? toast.error('Deu um erro, ein?!') : undefined}
         <div className="content">
           <Row>
             <Col md="12">
@@ -192,7 +211,8 @@ class CreateMailer extends Component {
                             color="warning"
                             type="button"
                             style={{ width: '100%' }}
-                            onClick={this.handleViewMail}
+                            // onClick={this.handleViewMail}
+                            onClick={this.notify}
                           >
                             Visualizar
                           </Button>
@@ -218,7 +238,7 @@ class CreateMailer extends Component {
                     className="btn-fill"
                     color="primary"
                     type="submit"
-                    onClick={this.handleSendMail}
+                    onClick={this.handleSubmit}
                   >
                     Enviar
                   </Button>
@@ -242,7 +262,7 @@ CreateMailer.defaultProps = {
 
 CreateMailer.propTypes = {
   senders: PropTypes.string,
-  selectedSender: PropTypes.number,
+  selectedSender: PropTypes.string,
   subject: PropTypes.string,
   url: PropTypes.string,
   recipients: PropTypes.string,
