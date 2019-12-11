@@ -35,8 +35,6 @@ class AdminNavbar extends React.Component {
     const users = await api.get(`/users`);
 
     this.setState({ user: users.data.find(u => u.id === userId) });
-
-    console.log(this.state.user.avatar_url);
   }
 
   componentWillUnmount() {
