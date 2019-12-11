@@ -3,6 +3,7 @@ import Senders from './views/Senders';
 import Typography from './views/Typography';
 import CreateMailer from './views/Mailer/Create';
 import MailerList from './views/Mailer';
+import Account from './views/Account';
 
 const routes = [
   {
@@ -19,6 +20,7 @@ const routes = [
     component: CreateMailer,
     layout: '/admin',
   },
+
   {
     path: '/mailer/list',
     name: 'Ações Enviadas',
@@ -38,6 +40,11 @@ const routes = [
     name: 'Typography',
     icon: 'tim-icons icon-align-center',
     component: Typography,
+    layout: '/admin',
+  },
+  {
+    path: '/account',
+    component: Account,
     layout: '/admin',
   },
 ];
