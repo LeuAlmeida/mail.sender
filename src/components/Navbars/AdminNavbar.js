@@ -13,6 +13,9 @@ import {
   Nav,
   Container,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
+
+import Account from '../../views/Account';
 
 import api from '../../services/api';
 
@@ -169,9 +172,11 @@ class AdminNavbar extends React.Component {
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">
-                        Configurações
-                      </DropdownItem>
+                      <Link to="/admin/account">
+                        <DropdownItem className="nav-item">
+                          Configurações
+                        </DropdownItem>
+                      </Link>
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
