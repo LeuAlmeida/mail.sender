@@ -1,8 +1,6 @@
 import Dashboard from './views/Dashboard';
 import Icons from './views/Icons';
 import Senders from './views/Senders';
-import Notifications from './views/Notifications';
-import TableList from './views/TableList';
 import Typography from './views/Typography';
 import CreateMailer from './views/Mailer/Create';
 import MailerList from './views/Mailer';
@@ -41,20 +39,6 @@ const routes = [
     name: 'Icons',
     icon: 'tim-icons icon-atom',
     component: Icons,
-    layout: '/admin',
-  },
-  {
-    path: '/notifications',
-    name: 'Notifications',
-    icon: 'tim-icons icon-bell-55',
-    component: Notifications,
-    layout: '/admin',
-  },
-  {
-    path: '/tables',
-    name: 'Table List',
-    icon: 'tim-icons icon-puzzle-10',
-    component: TableList,
     layout: '/admin',
   },
   {
