@@ -23,10 +23,10 @@ class Account extends Component {
       <>
         <div className="content">
           <Row>
-            <Col md="12">
+            <Col md="8">
               <Card>
                 <CardHeader>
-                  <h5 className="title">Criar Ação</h5>
+                  <h5 className="title">Atualizar Perfil</h5>
                 </CardHeader>
                 <CardBody>
                   <Form>
