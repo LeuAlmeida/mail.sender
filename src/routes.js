@@ -1,69 +1,68 @@
-// import Login from "views/Login.js";
-import Dashboard from "views/Dashboard.js";
-import Icons from "views/Icons.js";
-import Senders from "views/Senders.js";
-import Notifications from "views/Notifications.js";
-import TableList from "views/TableList.js";
-import Typography from "views/Typography.js";
-import CreateMailer from "views/Mailer/Create.js";
-import MailerList from "views/Mailer";
+import Dashboard from './views/Dashboard';
+import Icons from './views/Icons';
+import Senders from './views/Senders';
+import Notifications from './views/Notifications';
+import TableList from './views/TableList';
+import Typography from './views/Typography';
+import CreateMailer from './views/Mailer/Create';
+import MailerList from './views/Mailer';
 
-var routes = [
+const routes = [
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "tim-icons icon-chart-pie-36",
+    path: '/dashboard',
+    name: 'Dashboard',
+    icon: 'tim-icons icon-chart-pie-36',
     component: Dashboard,
-    layout: "/admin"
+    layout: '/admin',
   },
   {
-    path: "/mailer/create",
-    name: "Criar Ação",
-    icon: "tim-icons icon-delivery-fast",
+    path: '/mailer/create',
+    name: 'Criar Ação',
+    icon: 'tim-icons icon-delivery-fast',
     component: CreateMailer,
-    layout: "/admin"
+    layout: '/admin',
   },
   {
-    path: "/mailer/list",
-    name: "Listar Ações",
-    icon:"tim-icons icon-email-85",
+    path: '/mailer/list',
+    name: 'Listar Ações',
+    icon: 'tim-icons icon-email-85',
     component: MailerList,
-    layout: "/admin"
+    layout: '/admin',
   },
   {
-    path: "/senders",
-    name: "Remetentes",
-    icon: "tim-icons icon-book-bookmark",
+    path: '/senders',
+    name: 'Remetentes',
+    icon: 'tim-icons icon-book-bookmark',
     component: Senders,
-    layout: "/admin"
+    layout: '/admin',
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: "tim-icons icon-atom",
+    path: '/icons',
+    name: 'Icons',
+    icon: 'tim-icons icon-atom',
     component: Icons,
-    layout: "/admin"
+    layout: '/admin',
   },
   {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "tim-icons icon-bell-55",
+    path: '/notifications',
+    name: 'Notifications',
+    icon: 'tim-icons icon-bell-55',
     component: Notifications,
-    layout: "/admin"
+    layout: '/admin',
   },
   {
-    path: "/tables",
-    name: "Table List",
-    icon: "tim-icons icon-puzzle-10",
+    path: '/tables',
+    name: 'Table List',
+    icon: 'tim-icons icon-puzzle-10',
     component: TableList,
-    layout: "/admin"
+    layout: '/admin',
   },
   {
-    path: "/typography",
-    name: "Typography",
-    icon: "tim-icons icon-align-center",
+    path: '/typography',
+    name: 'Typography',
+    icon: 'tim-icons icon-align-center',
     component: Typography,
-    layout: "/admin"
+    layout: '/admin',
   },
 ];
 export default routes;
