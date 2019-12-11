@@ -1,5 +1,4 @@
 import Dashboard from './views/Dashboard';
-import Icons from './views/Icons';
 import Senders from './views/Senders';
 import Typography from './views/Typography';
 import CreateMailer from './views/Mailer/Create';
@@ -32,13 +31,6 @@ const routes = [
     name: 'Remetentes',
     icon: 'tim-icons icon-book-bookmark',
     component: Senders,
-    layout: '/admin',
-  },
-  {
-    path: '/icons',
-    name: 'Icons',
-    icon: 'tim-icons icon-atom',
-    component: Icons,
     layout: '/admin',
   },
   {

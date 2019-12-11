@@ -6,6 +6,7 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import AdminLayout from './layouts/Admin/Admin';
 import Login from './views/Login';
+import Icons from './views/Icons';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,6 +21,7 @@ ReactDOM.render(
     <Switch>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/login" exact component={Login} />
+      <Route path="/icons" exact component={Icons} />
       <Redirect from="/" to="/admin/dashboard" />
     </Switch>
   </Router>,
