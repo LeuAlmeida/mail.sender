@@ -42,7 +42,9 @@ class Dashboard extends Component {
     const { history } = this.props;
 
     if (history.location.state === 'login') {
-      toast.success('Você está conectado, seja bem-vindo!');
+      toast.info('Você está conectado, seja bem-vindo!');
+
+      history.push('/admin/dashboard', '');
     }
   }
 
@@ -57,7 +59,7 @@ class Dashboard extends Component {
 
     return (
       <>
-        <ToastContainer autoClose={3000} />
+        <ToastContainer autoClose={2000} />
         <div className="content">
           <Row>
             <Col xs="12">
