@@ -31,7 +31,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       isAuthenticated() ? (
         <AdminLayout {...props} />
       ) : (
-        <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+        <Redirect
+          to={{ pathname: '/login', state: { from: props.location } }}
+        />
       )
     }
   />
@@ -44,7 +46,18 @@ function App() {
         <Route path="/login" exact component={Login} />
         <Route path="/icons" exact component={Icons} />
         <PrivateRoute />
-        <Redirect from="/" to="/admin/dashboard" />
+        <Redirect
+          from="/"
+          render={props =>
+            isAuthenticated() ? (
+              <AdminLayout {...props} />
+            ) : (
+              <Redirect
+                to={{ pathname: '/login', state: { from: props.location } }}
+              />
+            )
+          }
+        />
       </Switch>
     </Router>
   );
