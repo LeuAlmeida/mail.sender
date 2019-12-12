@@ -14,11 +14,13 @@ import api from '../../services/api';
 import { login } from '../../services/auth';
 
 class Login extends Component {
-  state = {
-    email: undefined,
-    password: undefined,
-    error: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: undefined,
+      password: undefined,
+    };
+  }
 
   componentDidMount() {
     const { history } = this.props;
@@ -36,8 +38,6 @@ class Login extends Component {
     const { email, password } = this.state;
 
     if (!email || !password || email === null || password === null) {
-      this.setState({ error: 'Preencha e-mail e senha para continuar!' });
-
       toast.error('Preencha e-mail e senha para continuar!');
     } else {
       try {
@@ -48,10 +48,6 @@ class Login extends Component {
 
         history.push('/admin/dashboard', 'login');
       } catch (err) {
-        this.setState({
-          error: 'E-mail e/ou senha incorretos.',
-        });
-
         toast.error('E-mail e/ou senha incorretos.');
       }
     }
