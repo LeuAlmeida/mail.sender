@@ -65,7 +65,7 @@ class CreateMailer extends Component {
   handleViewMail = () => {
     const { url } = this.state;
 
-    console.log(url);
+    window.open(url, 'NewWindow', 'resizable=yes');
   };
 
   handleAddRecipients = e => {
@@ -127,7 +127,7 @@ class CreateMailer extends Component {
                           >
                             <option
                               value="Selecione um remetente"
-                              style={{ backgroundColor: '#d570da' }}
+                              style={{ backgroundColor: '#fff', color: '#000' }}
                             >
                               Selecione um remetente
                             </option>
@@ -135,7 +135,10 @@ class CreateMailer extends Component {
                               <option
                                 key={sender.id}
                                 value={sender.id}
-                                style={{ backgroundColor: '#d570da' }}
+                                style={{
+                                  backgroundColor: '#fff',
+                                  color: '#000',
+                                }}
                               >
                                 {sender.name}
                               </option>
@@ -200,8 +203,7 @@ class CreateMailer extends Component {
                             color="warning"
                             type="button"
                             style={{ width: '100%' }}
-                            // onClick={this.handleViewMail}
-                            onClick={this.notify}
+                            onClick={this.handleViewMail}
                           >
                             Visualizar
                           </Button>

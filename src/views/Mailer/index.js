@@ -31,8 +31,6 @@ class MailerList extends Component {
     this.setState({
       senders: responseSenders.data,
     });
-
-    console.log(this.state.senders);
   }
 
   render() {
