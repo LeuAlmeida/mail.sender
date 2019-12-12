@@ -22,8 +22,6 @@ class MailerList extends Component {
   };
 
   async componentDidMount() {
-    const { page } = this.state;
-
     const response = await api.get(`/mail`, {
       params: {
         per_page: 6,
@@ -45,7 +43,7 @@ class MailerList extends Component {
   loadPage = async () => {
     const { page } = this.state;
 
-    const response = await api.get(`/mail`, {
+    const response = await api.get('/mail', {
       params: {
         per_page: 6,
         page,
@@ -63,6 +61,16 @@ class MailerList extends Component {
 
     this.loadPage();
   };
+
+  useSenderName(senderId) {
+    const { senders } = this.state;
+
+    const Sender = senders.find(sender => sender.id === senderId);
+
+    // const SenderMap = Sender.map(s => console.log(s));
+
+    console.log(Sender.id);
+  }
 
   render() {
     const { mailers, page } = this.state;
