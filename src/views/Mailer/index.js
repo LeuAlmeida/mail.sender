@@ -103,8 +103,21 @@ class MailerList extends Component {
                           </td>
                           <td>{mailer.subject}</td>
                           <td>
-                            <a
-                              href={mailer.bodyurl}
+                            <button
+                              type="button"
+                              className="text-primary"
+                              style={{
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                                cursor: 'pointer',
+                              }}
+                              onClick={() =>
+                                window.open(
+                                  mailer.bodyurl,
+                                  'NewWindow',
+                                  'resizable=yes'
+                                )
+                              }
                               target="_blank"
                               rel="noopener noreferrer"
                             >
@@ -113,7 +126,7 @@ class MailerList extends Component {
                                     mailer.bodyurl.length > 60 ? '...' : ''
                                   }`
                                 : mailer.bodyurl}
-                            </a>
+                            </button>
                           </td>
                         </tr>
                       ))}
