@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-// reactstrap components
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import {
   Card,
   CardHeader,
@@ -13,14 +12,24 @@ import {
 
 import api from '../../services/api';
 
+import { PaginationButton } from './indexStyle';
+
 class MailerList extends Component {
   state = {
     mailers: [],
     senders: [],
+    page: 1,
   };
 
   async componentDidMount() {
-    const response = await api.get(`/mail`);
+    const { page } = this.state;
+
+    const response = await api.get(`/mail`, {
+      params: {
+        per_page: 6,
+        page: 1,
+      },
+    });
 
     this.setState({
       mailers: response.data,
@@ -33,8 +42,30 @@ class MailerList extends Component {
     });
   }
 
+  loadPage = async () => {
+    const { page } = this.state;
+
+    const response = await api.get(`/mail`, {
+      params: {
+        per_page: 6,
+        page,
+      },
+    });
+
+    this.setState({ mailers: response.data });
+  };
+
+  handlePage = async action => {
+    const { page } = this.state;
+    await this.setState({
+      page: action === 'back' ? page - 1 : page + 1,
+    });
+
+    this.loadPage();
+  };
+
   render() {
-    const { mailers } = this.state;
+    const { mailers, page } = this.state;
 
     return (
       <>
@@ -82,6 +113,31 @@ class MailerList extends Component {
                   </Table>
                 </CardBody>
               </Card>
+              <Col md="12">
+                <Row>
+                  <Card
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <PaginationButton
+                      type="button"
+                      disabled={page < 2}
+                      onClick={() => this.handlePage('back')}
+                    >
+                      <FaChevronLeft size={30} color="#fff" />
+                    </PaginationButton>
+                    <PaginationButton
+                      type="button"
+                      onClick={() => this.handlePage('next')}
+                    >
+                      <FaChevronRight size={30} color="#fff" />
+                    </PaginationButton>
+                  </Card>
+                </Row>
+              </Col>
             </Col>
           </Row>
         </div>
