@@ -29,16 +29,6 @@ class AdminNavbar extends React.Component {
     };
   }
 
-  handleLogout = e => {
-    e.preventDefault();
-
-    logout();
-
-    const { history } = this.props;
-
-    history.push('/login');
-  };
-
   async componentDidMount() {
     window.addEventListener('resize', this.updateColor);
 
@@ -52,6 +42,16 @@ class AdminNavbar extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateColor);
   }
+
+  handleLogout = e => {
+    e.preventDefault();
+
+    logout();
+
+    const { history } = this.props;
+
+    history.push('/login', 'logout');
+  };
 
   updateColor = () => {
     if (window.innerWidth < 993 && this.state.collapseOpen) {
