@@ -1,4 +1,3 @@
-
 /*eslint-disable*/
 import React from "react";
 // used for making the prop types of this component
@@ -24,16 +23,15 @@ class Footer extends React.Component {
             </NavItem>
           </Nav>
           <div className="copyright">
-            © {new Date().getFullYear()} made with{" "}
-            <i className="tim-icons icon-heart-2" /> by{" "}
+            © {new Date().getFullYear()} Desenvolvido{" "}
+            pela{" "}
             <a
-              href="javascript:void(0)"
+              href="https://github.com/educacaometodista"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Creative Tim
-            </a>{" "}
-            for a better web.
+              Educação Metodista.
+            </a>
           </div>
         </Container>
       </footer>
