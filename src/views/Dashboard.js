@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { Line, Bar } from 'react-chartjs-2';
+import { ToastContainer, toast } from 'react-toastify';
 
 import {
   Button,
@@ -37,6 +38,14 @@ class Dashboard extends Component {
     };
   }
 
+  componentDidMount() {
+    const { history } = this.props;
+
+    if (history.location.state === 'login') {
+      toast.success('Você está conectado, seja bem-vindo!');
+    }
+  }
+
   setBgChartData = name => {
     this.setState({
       bigChartData: name,
@@ -48,6 +57,7 @@ class Dashboard extends Component {
 
     return (
       <>
+        <ToastContainer autoClose={3000} />
         <div className="content">
           <Row>
             <Col xs="12">
