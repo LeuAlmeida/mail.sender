@@ -1,10 +1,7 @@
-import React from 'react';
-// nodejs library that concatenates classes
+import React, { Component } from 'react';
 import classNames from 'classnames';
-// react plugin used to create charts
 import { Line, Bar } from 'react-chartjs-2';
 
-// reactstrap components
 import {
   Button,
   ButtonGroup,
@@ -25,15 +22,14 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap';
 
-// core components
 import {
   chartExample1,
   chartExample2,
   chartExample3,
   chartExample4,
-} from 'variables/charts.js';
+} from '../variables/charts';
 
-class Dashboard extends React.Component {
+class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,6 +44,8 @@ class Dashboard extends React.Component {
   };
 
   render() {
+    const { bigChartData } = this.state;
+
     return (
       <>
         <div className="content">
@@ -57,8 +55,8 @@ class Dashboard extends React.Component {
                 <CardHeader>
                   <Row>
                     <Col className="text-left" sm="6">
-                      <h5 className="card-category">Total Shipments</h5>
-                      <CardTitle tag="h2">Performance</CardTitle>
+                      <h5 className="card-category">Disparo de Mensagens</h5>
+                      <CardTitle tag="h2">Relatório de Envios</CardTitle>
                     </Col>
                     <Col sm="6">
                       <ButtonGroup
@@ -68,7 +66,7 @@ class Dashboard extends React.Component {
                         <Button
                           tag="label"
                           className={classNames('btn-simple', {
-                            active: this.state.bigChartData === 'data1',
+                            active: bigChartData === 'data1',
                           })}
                           color="info"
                           id="0"
@@ -94,7 +92,7 @@ class Dashboard extends React.Component {
                           size="sm"
                           tag="label"
                           className={classNames('btn-simple', {
-                            active: this.state.bigChartData === 'data2',
+                            active: bigChartData === 'data2',
                           })}
                           onClick={() => this.setBgChartData('data2')}
                         >
@@ -116,7 +114,7 @@ class Dashboard extends React.Component {
                           size="sm"
                           tag="label"
                           className={classNames('btn-simple', {
-                            active: this.state.bigChartData === 'data3',
+                            active: bigChartData === 'data3',
                           })}
                           onClick={() => this.setBgChartData('data3')}
                         >
@@ -139,7 +137,7 @@ class Dashboard extends React.Component {
                 <CardBody>
                   <div className="chart-area">
                     <Line
-                      data={chartExample1[this.state.bigChartData]}
+                      data={chartExample1[bigChartData]}
                       options={chartExample1.options}
                     />
                   </div>
