@@ -84,12 +84,11 @@ class CreateMailer extends Component {
       bodyurl: url,
     };
 
-    try {
+    if (!(selectedSender.length === 0) && subject && url && recipients) {
       api.post('mail', email);
-
       toast.success('Mensagem enviada com sucesso!');
-    } catch (err) {
-      toast.info('Erro ao enviar a mensagem!');
+    } else {
+      toast.error('Por favor, preencha todos os campos.');
     }
 
     // this.handleToaster();
