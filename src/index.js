@@ -21,6 +21,7 @@ ReactDOM.render(
     <Switch>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/login" exact component={Login} />
+
       <Route path="/icons" exact component={Icons} />
       <Redirect from="/" to="/admin/dashboard" />
     </Switch>
