@@ -78,13 +78,11 @@ class CreateMailer extends Component {
   handleAddRecipients = e => {
     const allRecipients = e.target.value;
 
-    const validRecipients = allRecipients.replace(/\n/g, ',');
+    const recipients = allRecipients.replace(/\n/g, ', ');
 
     this.setState({
-      recipients: validRecipients,
+      recipients,
     });
-
-    console.log(validRecipients);
   };
 
   handleSubmit = () => {
@@ -93,6 +91,8 @@ class CreateMailer extends Component {
     const urlIsValid = url.match(
       /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/g
     );
+
+    const recipientsArray = recipients.split(', ');
 
     const email = {
       sender_id: selectedSender.id,
@@ -105,16 +105,16 @@ class CreateMailer extends Component {
       !(selectedSender.length === 0) &&
       subject.length > 16 &&
       urlIsValid &&
-      recipients
+      recipientsArray < 500
     ) {
       api.post('mail', email);
       toast.success('Mensagem enviada com sucesso!');
+    } else if (recipientsArray.length >= 499) {
+      toast.warning('O limite de destinatários é de 500 e-mails.');
     } else {
       toast.error('Por favor, preencha todos os campos.');
     }
   };
-
-  handleToaster = () => {};
 
   render() {
     const { senders, selectedSender, subject, url, hasError } = this.state;
