@@ -15,7 +15,6 @@ import {
   Col,
 } from 'reactstrap';
 import { PropTypes } from 'prop-types';
-
 import { ToastContainer, toast } from 'react-toastify';
 
 import api from '../../services/api';
@@ -65,17 +64,35 @@ class CreateMailer extends Component {
   handleViewMail = () => {
     const { url } = this.state;
 
-    window.open(url, 'NewWindow', 'resizable=yes');
+    const urlIsValid = url.match(
+      /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/g
+    );
+
+    if (urlIsValid) {
+      window.open(url, 'NewWindow', 'resizable=yes');
+    } else {
+      toast.warning('Por favor, digite um endereço válido.');
+    }
   };
 
   handleAddRecipients = e => {
+    const allRecipients = e.target.value;
+
+    const validRecipients = allRecipients.replace(/\n/g, ',');
+
     this.setState({
-      recipients: e.target.value,
+      recipients: validRecipients,
     });
+
+    console.log(validRecipients);
   };
 
   handleSubmit = () => {
     const { selectedSender, subject, url, recipients } = this.state;
+
+    const urlIsValid = url.match(
+      /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/g
+    );
 
     const email = {
       sender_id: selectedSender.id,
@@ -84,14 +101,17 @@ class CreateMailer extends Component {
       bodyurl: url,
     };
 
-    if (!(selectedSender.length === 0) && subject && url && recipients) {
+    if (
+      !(selectedSender.length === 0) &&
+      subject.length > 16 &&
+      urlIsValid &&
+      recipients
+    ) {
       api.post('mail', email);
       toast.success('Mensagem enviada com sucesso!');
     } else {
       toast.error('Por favor, preencha todos os campos.');
     }
-
-    // this.handleToaster();
   };
 
   handleToaster = () => {};
@@ -188,7 +208,7 @@ class CreateMailer extends Component {
                             URL da Mensagem
                           </label>
                           <Input
-                            placeholder="mike@email.com"
+                            placeholder="Digite o endereço da mensagem"
                             type="email"
                             value={url}
                             onChange={this.handleAddUrl}
