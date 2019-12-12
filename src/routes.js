@@ -44,8 +44,10 @@ const routes = [
   },
   {
     path: '/account',
+    name: 'Editar minha conta',
     component: Account,
     layout: '/admin',
+    redirect: true,
   },
 ];
 export default routes;
