@@ -88,11 +88,40 @@ class CreateMailer extends Component {
   handleSubmit = () => {
     const { selectedSender, subject, url, recipients } = this.state;
 
+    // Sender Validators
+    const selectedSenderIsValid = selectedSender.length === undefined;
+
+    if (!selectedSenderIsValid) {
+      toast.warning('Por favor, selecione um remetente.');
+    }
+
+    // Subject Validators
+
+    const subjectIsValid = subject.length > 16;
+
+    if (!subjectIsValid) {
+      toast.warning('O assunto precisa ter mais de 16 caracteres.');
+    }
+
+    // Url Validators
     const urlIsValid = url.match(
       /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/g
     );
 
-    const recipientsArray = recipients.split(', ');
+    if (!urlIsValid) {
+      toast.warning('Por favor, digite um endereço válido.');
+    }
+
+    // Recipients Validators
+    if (!recipients) {
+      toast.warning('Informe ao menos 1 destinatário.');
+    }
+    const recipientsArray = recipients.split(',');
+    const recipientsIsValid = recipientsArray.length < 500;
+
+    if (!recipientsIsValid) {
+      toast.warning('O limite de destinatários é de 500 e-mails.');
+    }
 
     const email = {
       sender_id: selectedSender.id,
@@ -102,17 +131,13 @@ class CreateMailer extends Component {
     };
 
     if (
-      !(selectedSender.length === 0) &&
-      subject.length > 16 &&
+      selectedSenderIsValid &&
+      subjectIsValid &&
       urlIsValid &&
-      recipientsArray < 500
+      recipientsIsValid
     ) {
       api.post('mail', email);
       toast.success('Mensagem enviada com sucesso!');
-    } else if (recipientsArray.length >= 499) {
-      toast.warning('O limite de destinatários é de 500 e-mails.');
-    } else {
-      toast.error('Por favor, preencha todos os campos.');
     }
   };
 
@@ -169,7 +194,11 @@ class CreateMailer extends Component {
                         <FormGroup>
                           <label>E-mail do Remetente</label>
                           <Input
-                            value={selectedSender.email}
+                            value={
+                              selectedSender
+                                ? selectedSender.email
+                                : 'Por favor, selecione um remetente'
+                            }
                             placeholder="Por favor, selecione um remetente"
                             disabled
                             name="email"
