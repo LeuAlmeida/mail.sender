@@ -15,6 +15,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+import { logout } from '../../services/auth';
 import api from '../../services/api';
 
 class AdminNavbar extends React.Component {
@@ -27,6 +28,16 @@ class AdminNavbar extends React.Component {
       color: 'navbar-transparent',
     };
   }
+
+  handleLogout = e => {
+    e.preventDefault();
+
+    logout();
+
+    const { history } = this.props;
+
+    history.push('/login');
+  };
 
   async componentDidMount() {
     window.addEventListener('resize', this.updateColor);
@@ -177,7 +188,7 @@ class AdminNavbar extends React.Component {
                       </Link>
                     </NavLink>
                     <DropdownItem divider tag="li" />
-                    <NavLink tag="li">
+                    <NavLink tag="li" onClick={this.handleLogout}>
                       <DropdownItem className="nav-item">Sair</DropdownItem>
                     </NavLink>
                   </DropdownMenu>
