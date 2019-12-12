@@ -9,6 +9,8 @@ import {
   BrowserRouter,
 } from 'react-router-dom';
 
+import { isAuthenticated } from './services/auth';
+
 import AdminLayout from './layouts/Admin/Admin';
 import Login from './views/Login';
 import Icons from './views/Icons';
@@ -21,14 +23,27 @@ import './assets/css/nucleo-icons.css';
 
 const hist = createBrowserHistory();
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    path="/admin"
+    render={props =>
+      isAuthenticated() ? (
+        <AdminLayout {...props} />
+      ) : (
+        <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+      )
+    }
+  />
+);
+
 function App() {
   return (
     <Router history={hist}>
       <Switch>
-        <Route path="/admin" render={props => <AdminLayout {...props} />} />
         <Route path="/login" exact component={Login} />
-
         <Route path="/icons" exact component={Icons} />
+        <PrivateRoute />
         <Redirect from="/" to="/admin/dashboard" />
       </Switch>
     </Router>
