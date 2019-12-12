@@ -49,19 +49,33 @@ class MailerList extends Component {
                   <Table className="tablesorter">
                     <thead className="text-primary">
                       <tr>
-                        <th>ID</th>
                         <th>Remetente</th>
                         <th>Destinatários</th>
-                        <th className="text-center">URL</th>
+                        <th>Assunto</th>
+                        <th>URL</th>
                       </tr>
                     </thead>
                     <tbody>
                       {mailers.map(mailer => (
                         <tr key={mailer.id}>
-                          <td>{mailer.id}</td>
-                          <td>{mailer.recipients}</td>
-                          <td>{mailer.email}</td>
-                          <td className="text-center">{mailer.bodyurl}</td>
+                          <td className="text-center">{mailer.sender_id}</td>
+                          <td>
+                            Visualizar destinatários {/* mailer.recipients */}
+                          </td>
+                          <td>{mailer.subject}</td>
+                          <td>
+                            <a
+                              href={mailer.bodyurl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {mailer.bodyurl.length > 30
+                                ? `...${mailer.bodyurl.substring(30, 60)} ${
+                                    mailer.bodyurl.length > 60 ? '...' : ''
+                                  }`
+                                : mailer.bodyurl}
+                            </a>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
