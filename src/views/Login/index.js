@@ -20,6 +20,16 @@ class Login extends Component {
     error: '',
   };
 
+  componentDidMount() {
+    const { history } = this.props;
+
+    if (history.location.state === 'logout') {
+      toast.info('Você foi desconectado.');
+
+      history.push('/login', '');
+    }
+  }
+
   handleSignIn = async e => {
     e.preventDefault();
 
@@ -48,10 +58,9 @@ class Login extends Component {
   };
 
   render() {
-    const { error } = this.state;
     return (
       <>
-        <ToastContainer autoClose={3000} />
+        <ToastContainer autoClose={2000} />
         <Container>
           <LoginArea>
             <div>
