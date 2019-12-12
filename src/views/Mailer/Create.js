@@ -26,7 +26,6 @@ class CreateMailer extends Component {
     subject: '',
     url: '',
     recipients: '',
-    hasError: false,
   };
 
   async componentDidMount() {
@@ -35,12 +34,6 @@ class CreateMailer extends Component {
     this.setState({
       senders: allSenders.data,
     });
-  }
-
-  componentDidCatch(error, info) {
-    this.setState({ hasError: true });
-
-    toast.error(error, info);
   }
 
   handleSelectSender = e => {
