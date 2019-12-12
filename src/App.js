@@ -1,13 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { createBrowserHistory } from 'history';
-import {
-  Router,
-  Route,
-  Switch,
-  Redirect,
-  BrowserRouter,
-} from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import { isAuthenticated } from './services/auth';
 
