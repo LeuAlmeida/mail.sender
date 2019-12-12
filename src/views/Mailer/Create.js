@@ -138,17 +138,19 @@ class CreateMailer extends Component {
     ) {
       api.post('mail', email);
       toast.success('Mensagem enviada com sucesso!');
+
+      setTimeout(() => {
+        this.props.history.push(`/admin/mailer/list`);
+      }, 1500);
     }
   };
 
   render() {
-    const { senders, selectedSender, subject, url, hasError } = this.state;
+    const { senders, selectedSender, subject, url } = this.state;
 
     return (
       <>
         <ToastContainer autoClose={3000} />
-
-        {hasError ? toast.error('Deu um erro, ein?!') : undefined}
         <div className="content">
           <Row>
             <Col md="12">
