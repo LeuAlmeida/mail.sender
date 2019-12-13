@@ -1456,6 +1456,10 @@ textarea.form-control {
   background-color: rgba(0, 242, 195, 0.9);
   border-radius: 0.25rem; }
 
+  .custom-file-label:after {
+    color: #d670d9 !important;
+  }
+
 .was-validated .form-control:valid, .form-control.is-valid, .was-validated
 .custom-select:valid,
 .custom-select.is-valid {
