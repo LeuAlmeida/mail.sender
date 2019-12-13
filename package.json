@@ -19,6 +19,7 @@
     "react-dom": "16.5.2",
     "react-google-maps": "9.4.5",
     "react-icons": "^3.8.0",
+    "react-json-excel": "^1.0.0",
     "react-notification-alert": "0.0.8",
     "react-router-dom": "4.3.1",
     "react-scripts": "2.0.4",
