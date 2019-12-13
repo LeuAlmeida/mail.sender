@@ -17,7 +17,7 @@ function Footer() {
               href="https://github.com/educacaometodista"
               target="_blank"
             >
-              Nosso GitHub
+              Repositórios
             </NavLink>
           </NavItem>
         </Nav>
