@@ -34,6 +34,15 @@ class CreateMailer extends Component {
     this.setState({
       senders: allSenders.data,
     });
+
+    (() => {
+      if (window.localStorage) {
+        if (!localStorage.getItem('firstLoad')) {
+          localStorage.firstLoad = true;
+          window.location.reload();
+        } else localStorage.removeItem('firstLoad');
+      }
+    })();
   }
 
   handleSelectSender = e => {
@@ -80,6 +89,7 @@ class CreateMailer extends Component {
 
   handleSubmit = () => {
     const { selectedSender, subject, url, recipients } = this.state;
+    const domain = 'metodista.br';
 
     // Sender Validators
     const selectedSenderIsValid = selectedSender.length === undefined;
@@ -110,6 +120,15 @@ class CreateMailer extends Component {
       toast.warning('Informe ao menos 1 destinatário.');
     }
     const recipientsArray = recipients.split(',');
+
+    const recipientsDomain = recipientsArray.map(rec => rec.replace(/.*@/, ''));
+
+    const notValidDomain = recipientsDomain.find(recips => recips !== domain);
+
+    if (recipients && notValidDomain) {
+      toast.warning(`Todos os domínios necessitam terminar com ${domain}`);
+    }
+
     const recipientsIsValid = recipientsArray.length < 500;
 
     if (!recipientsIsValid) {
@@ -127,7 +146,8 @@ class CreateMailer extends Component {
       selectedSenderIsValid &&
       subjectIsValid &&
       urlIsValid &&
-      recipientsIsValid
+      recipientsIsValid &&
+      !notValidDomain
     ) {
       api.post('mail', email);
       toast.success('Mensagem enviada com sucesso!');
