@@ -78,12 +78,12 @@ class MailerList extends Component {
     const data = arrRecips.map(rec => ({ index: rec }));
 
     const fields = {
-      index: 'Index',
+      index: 'Destinatários',
     };
 
     const style = {
       padding: '5px',
-      backgroundColor: 'none',
+      backgroundColor: 'transparent',
       border: 'none',
     };
 
