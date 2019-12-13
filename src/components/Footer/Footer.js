@@ -1,42 +1,39 @@
-/*eslint-disable*/
-import React from "react";
-// used for making the prop types of this component
-import PropTypes from "prop-types";
+import React from 'react';
 
-// reactstrap components
-import { Container, Row, Nav, NavItem, NavLink } from "reactstrap";
+import { Container, Nav, NavItem, NavLink } from 'reactstrap';
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <footer className="footer">
-        <Container fluid>
-          <Nav>
-            <NavItem>
-              <NavLink href="javascript:void(0)">Creative Tim</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="javascript:void(0)">About Us</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="javascript:void(0)">Blog</NavLink>
-            </NavItem>
-          </Nav>
-          <div className="copyright">
-            © {new Date().getFullYear()} Desenvolvido{" "}
-            pela{" "}
-            <a
+function Footer() {
+  return (
+    <footer className="footer">
+      <Container fluid>
+        <Nav>
+          <NavItem>
+            <NavLink href="http://educacaometodista.org.br/" target="_blank">
+              Educação Metodista
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
               href="https://github.com/educacaometodista"
-              rel="noopener noreferrer"
               target="_blank"
             >
-              Educação Metodista.
-            </a>
-          </div>
-        </Container>
-      </footer>
-    );
-  }
+              Nosso GitHub
+            </NavLink>
+          </NavItem>
+        </Nav>
+        <div className="copyright">
+          © {new Date().getFullYear()} Desenvolvido pela{' '}
+          <a
+            href="https://github.com/educacaometodista"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Educação Metodista.
+          </a>
+        </div>
+      </Container>
+    </footer>
+  );
 }
 
 export default Footer;
