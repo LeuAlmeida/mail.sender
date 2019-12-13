@@ -23,9 +23,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import '../../assets/css/black-dashboard-react.css';
 
 import api from '../../services/api';
+import { getUser } from '../../services/auth';
 
 class CreateMailer extends Component {
   state = {
+    user: '',
     senders: [],
     selectedSender: [],
     subject: '',
@@ -49,6 +51,10 @@ class CreateMailer extends Component {
         } else localStorage.removeItem('firstLoad');
       }
     })();
+
+    const users = await api.get(`/users`);
+
+    this.setState({ user: users.data.find(u => u.email === getUser()) });
   }
 
   handleSelectSender = e => {
@@ -94,7 +100,7 @@ class CreateMailer extends Component {
   };
 
   handleSubmit = () => {
-    const { selectedSender, subject, url, recipients } = this.state;
+    const { selectedSender, subject, url, recipients, user } = this.state;
     const { history } = this.props;
     const domain = 'metodista.br';
 
@@ -147,6 +153,7 @@ class CreateMailer extends Component {
       recipients,
       subject,
       bodyurl: url,
+      author_id: user.id,
     };
 
     if (
@@ -186,7 +193,7 @@ class CreateMailer extends Component {
   };
 
   render() {
-    const { senders, selectedSender, subject, url, checked } = this.state;
+    const { senders, selectedSender, subject, url, user, checked } = this.state;
 
     return (
       <>
@@ -263,7 +270,7 @@ class CreateMailer extends Component {
                         <FormGroup>
                           <label>Autor deste envio</label>
                           <div className="pt-md-2 pl-md-2">
-                            <span>Léu Almeida</span>
+                            <span>{user.name}</span>
                           </div>
                         </FormGroup>
                       </Col>
