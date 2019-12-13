@@ -170,7 +170,7 @@ class Account extends Component {
                     type="submit"
                     onClick={this.handleSubmit}
                   >
-                    Save
+                    Salvar
                   </Button>
                 </CardFooter>
               </Card>
