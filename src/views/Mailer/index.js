@@ -85,6 +85,7 @@ class MailerList extends Component {
       padding: '5px',
       backgroundColor: 'transparent',
       border: 'none',
+      cursor: 'pointer',
     };
 
     return (
@@ -96,6 +97,7 @@ class MailerList extends Component {
           )}-${Math.floor(Math.random() * 1000)}`}
           fields={fields}
           style={style}
+          className="text-primary"
           text="Baixar destinatários"
         />
       </>
