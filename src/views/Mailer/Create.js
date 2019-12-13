@@ -31,7 +31,6 @@ class CreateMailer extends Component {
     subject: '',
     url: '',
     recipients: '',
-    uploadRecipients: false,
     checked: false,
   };
 
@@ -96,6 +95,7 @@ class CreateMailer extends Component {
 
   handleSubmit = () => {
     const { selectedSender, subject, url, recipients } = this.state;
+    const { history } = this.props;
     const domain = 'metodista.br';
 
     // Sender Validators
@@ -160,15 +160,29 @@ class CreateMailer extends Component {
       toast.success('Mensagem enviada com sucesso!');
 
       setTimeout(() => {
-        this.props.history.push(`/admin/mailer/list`);
+        history.push(`/admin/mailer/list`);
       }, 1500);
     }
   };
 
   handleRecipientsExtract = () => {
-    const { checked } = this.state;
+    toast.info('Ops! Essa função ainda está em desenvolvimento.');
 
-    this.setState({ checked: !checked });
+    this.setState({ checked: false });
+
+    /**
+     * Ao retomar o desenvolvimento desta função,
+     * descomentar abaixo e comentar o que está acima.
+     */
+
+    // const { checked } = this.state;
+    // this.setState({ checked: !checked });
+  };
+
+  handleSelectFile = () => {
+    toast.error(
+      'Essa função ainda está em desenvolvimento, você não deveria estar aqui.'
+    );
   };
 
   render() {
@@ -299,6 +313,7 @@ class CreateMailer extends Component {
                               Extrair destinatários
                             </Label>
                             <CustomInput
+                              onClick={this.handleSelectFile}
                               type="file"
                               id="importRecipients"
                               name="customFile"
@@ -334,7 +349,7 @@ class CreateMailer extends Component {
                                         defaultValue=""
                                         type="checkbox"
                                         checked={checked}
-                                        onClick={this.handleRecipientsExtract}
+                                        onChange={this.handleRecipientsExtract}
                                       />
                                       <span className="form-check-sign">
                                         <span className="check" />
@@ -381,6 +396,7 @@ CreateMailer.defaultProps = {
   subject: 'Assunto da Mensagem',
   url: 'http://metodista.br',
   recipients: 'informes@metodista.br',
+  history: {},
 };
 
 CreateMailer.propTypes = {
@@ -389,6 +405,7 @@ CreateMailer.propTypes = {
   subject: PropTypes.string,
   url: PropTypes.string,
   recipients: PropTypes.string,
+  history: PropTypes.object,
 };
 
 export default CreateMailer;
