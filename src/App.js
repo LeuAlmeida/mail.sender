@@ -8,6 +8,7 @@ import { isAuthenticated } from './services/auth';
 import AdminLayout from './layouts/Admin/Admin';
 import Login from './views/Login';
 import Icons from './views/Icons';
+import Tests from './views/Tests';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -39,6 +40,7 @@ function App() {
       <Switch>
         <Route path="/login" exact component={Login} />
         <Route path="/icons" exact component={Icons} />
+        <Route path="/tests" exact component={Tests} />
         <PrivateRoute />
         <ToastContainer autoClose={3000} />
         <Redirect
