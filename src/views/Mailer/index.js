@@ -9,6 +9,7 @@ import {
   CardTitle,
   Table,
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import api from '../../services/api';
 
