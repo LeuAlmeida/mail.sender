@@ -1457,6 +1457,7 @@ textarea.form-control {
   border-radius: 0.25rem; }
 
   .custom-file-label:after {
+    content: 'Buscar';
     color: #d670d9 !important;
   }
 
