@@ -103,7 +103,7 @@ class AdminNavbar extends React.Component {
                   <span className="navbar-toggler-bar bar3" />
                 </button>
               </div>
-              <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
+              <NavbarBrand href="#" onClick={e => e.preventDefault()}>
                 {brandText}
               </NavbarBrand>
             </div>
