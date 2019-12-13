@@ -174,7 +174,7 @@ class CreateMailer extends Component {
                 <CardBody>
                   <Form>
                     <Row>
-                      <Col className="pr-md-1" md="6">
+                      <Col className="pr-md-1" md="8">
                         <FormGroup>
                           <label>Remetente</label>
 
@@ -205,20 +205,16 @@ class CreateMailer extends Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col className="pl-md-1" md="6">
+                      <Col className="pl-md-2" md="4">
                         <FormGroup>
-                          <label>E-mail do Remetente</label>
-                          <Input
-                            value={
-                              selectedSender
+                          <label>E-mail do remetente</label>
+                          <div className="pt-md-2 pl-md-2">
+                            <span>
+                              {selectedSender
                                 ? selectedSender.email
-                                : 'Por favor, selecione um remetente'
-                            }
-                            placeholder="Por favor, selecione um remetente"
-                            disabled
-                            name="email"
-                            type="text"
-                          />
+                                : 'Por favor, selecione um remetente'}
+                            </span>
+                          </div>
                         </FormGroup>
                       </Col>
 
@@ -235,18 +231,17 @@ class CreateMailer extends Component {
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="px-md-1" md="4">
+
+                      <Col className="pl-md-2" md="4">
                         <FormGroup>
-                          <label htmlFor="">Autor do Disparo</label>
-                          <Input
-                            type="text"
-                            defaultValue="Léu Almeida"
-                            disabled
-                          />
+                          <label>Autor deste envio</label>
+                          <div className="pt-md-2 pl-md-2">
+                            <span>Léu Almeida</span>
+                          </div>
                         </FormGroup>
                       </Col>
 
-                      <Col className="pr-md-1" md="3">
+                      <Col className="pr-md-1" md="5">
                         <FormGroup>
                           <label htmlFor="exampleInputEmail1">
                             URL da Mensagem
@@ -273,7 +268,7 @@ class CreateMailer extends Component {
                         </FormGroup>
                       </Col>
 
-                      <Col className="pl-md-1" md="6">
+                      <Col className="pl-md-1" md="4">
                         <FormGroup>
                           <label htmlFor="">Agendar Envio</label>
                           <Input
