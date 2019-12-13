@@ -15,9 +15,12 @@ import {
   Col,
   Label,
   Table,
+  CustomInput,
 } from 'reactstrap';
 import { PropTypes } from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
+
+import '../../assets/css/black-dashboard-react.css';
 
 import api from '../../services/api';
 
@@ -29,6 +32,7 @@ class CreateMailer extends Component {
     url: '',
     recipients: '',
     uploadRecipients: false,
+    checked: false,
   };
 
   async componentDidMount() {
@@ -161,8 +165,14 @@ class CreateMailer extends Component {
     }
   };
 
+  handleRecipientsExtract = () => {
+    const { checked } = this.state;
+
+    this.setState({ checked: !checked });
+  };
+
   render() {
-    const { senders, selectedSender, subject, url } = this.state;
+    const { senders, selectedSender, subject, url, checked } = this.state;
 
     return (
       <>
@@ -281,18 +291,36 @@ class CreateMailer extends Component {
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="py-md-1" md="8">
-                        <FormGroup>
-                          <label htmlFor="exampleInputEmail1">
-                            Destinatários
-                          </label>
-                          <Input
-                            placeholder="leonardo.almeida@metodista.br"
-                            type="textarea"
-                            onChange={this.handleAddRecipients}
-                          />
-                        </FormGroup>
-                      </Col>
+
+                      {checked ? (
+                        <Col className="py-md-1" md="8">
+                          <FormGroup>
+                            <Label for="importRecipients">
+                              Extrair destinatários
+                            </Label>
+                            <CustomInput
+                              type="file"
+                              id="importRecipients"
+                              name="customFile"
+                              className="text-primary"
+                            />
+                          </FormGroup>
+                        </Col>
+                      ) : (
+                        <Col className="py-md-1" md="8">
+                          <FormGroup>
+                            <label htmlFor="exampleInputEmail1">
+                              Destinatários
+                            </label>
+                            <Input
+                              placeholder="Cole os destinatários aqui."
+                              type="textarea"
+                              onChange={this.handleAddRecipients}
+                              value={checked ? 'Nada' : undefined}
+                            />
+                          </FormGroup>
+                        </Col>
+                      )}
 
                       <Col className="pt-md-4" md="4">
                         <div className="table-full-width table-responsive">
@@ -302,7 +330,12 @@ class CreateMailer extends Component {
                                 <td>
                                   <FormGroup check>
                                     <Label check>
-                                      <Input defaultValue="" type="checkbox" />
+                                      <Input
+                                        defaultValue=""
+                                        type="checkbox"
+                                        checked={checked}
+                                        onClick={this.handleRecipientsExtract}
+                                      />
                                       <span className="form-check-sign">
                                         <span className="check" />
                                       </span>
