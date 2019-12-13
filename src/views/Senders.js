@@ -26,8 +26,6 @@ class Senders extends Component {
     this.setState({
       senders: response.data,
     });
-
-    console.log(this.state.senders);
   }
 
   render() {
