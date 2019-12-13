@@ -44,7 +44,7 @@ class Dashboard extends Component {
     if (history.location.state === 'login') {
       toast.info('Você está conectado, seja bem-vindo!');
 
-      history.push('/admin/dashboard', '');
+      history.push('/admin/dashboard', { state: null });
     }
   }
 
