@@ -15,14 +15,13 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import { logout } from '../../services/auth';
+import { logout, getUser } from '../../services/auth';
 import api from '../../services/api';
 
 class AdminNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: 1,
       user: '',
       collapseOpen: false,
       color: 'navbar-transparent',
@@ -32,11 +31,9 @@ class AdminNavbar extends React.Component {
   async componentDidMount() {
     window.addEventListener('resize', this.updateColor);
 
-    const { userId } = this.state;
-
     const users = await api.get(`/users`);
 
-    this.setState({ user: users.data.find(u => u.id === userId) });
+    this.setState({ user: users.data.find(u => u.email === getUser()) });
   }
 
   componentWillUnmount() {
