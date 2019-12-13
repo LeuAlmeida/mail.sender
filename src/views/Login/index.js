@@ -11,7 +11,7 @@ import {
 } from './styles';
 
 import api from '../../services/api';
-import { login } from '../../services/auth';
+import { login, setUser } from '../../services/auth';
 
 class Login extends Component {
   constructor(props) {
@@ -43,6 +43,8 @@ class Login extends Component {
       try {
         const response = await api.post('/login', { email, password });
         login(response.data.token);
+
+        setUser(email);
 
         const { history } = this.props;
 
