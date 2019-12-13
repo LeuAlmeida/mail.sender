@@ -2,7 +2,7 @@
 import React from 'react';
 import { createBrowserHistory } from 'history';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { isAuthenticated } from './services/auth';
 
 import AdminLayout from './layouts/Admin/Admin';
@@ -45,6 +45,7 @@ function App() {
         <ToastContainer autoClose={3000} />
         <Redirect
           from="/"
+          to="/"
           render={props =>
             isAuthenticated() ? (
               <AdminLayout {...props} />
