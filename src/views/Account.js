@@ -114,7 +114,7 @@ class Account extends Component {
                     <Row>
                       <Col className="pl-md-5" md="12">
                         <FormGroup>
-                          <label>E-mail do Cadastro</label>
+                          <label>E-mail de Cadastro</label>
                           <div className="pt-md-2">
                             <span>{user.email}</span>
                           </div>
