@@ -99,7 +99,7 @@ class CreateMailer extends Component {
     });
   };
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { selectedSender, subject, url, recipients, user } = this.state;
     const { history } = this.props;
     const domain = 'metodista.br';
@@ -163,12 +163,16 @@ class CreateMailer extends Component {
       recipientsIsValid &&
       !notValidDomain
     ) {
-      api.post('mail', email);
-      toast.success('Mensagem enviada com sucesso!');
+      try {
+        await api.post('mail', email);
+        toast.success('Mensagem enviada com sucesso!');
 
-      setTimeout(() => {
-        history.push(`/admin/mailer/list`);
-      }, 1500);
+        setTimeout(() => {
+          history.push(`/admin/mailer/list`);
+        }, 1500);
+      } catch {
+        toast.error('Ocorreu um erro ao enviar a mensagem.');
+      }
     }
   };
 
