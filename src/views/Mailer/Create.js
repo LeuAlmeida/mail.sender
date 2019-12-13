@@ -13,6 +13,8 @@ import {
   Input,
   Row,
   Col,
+  Label,
+  Table,
 } from 'reactstrap';
 import { PropTypes } from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
@@ -26,6 +28,7 @@ class CreateMailer extends Component {
     subject: '',
     url: '',
     recipients: '',
+    uploadRecipients: false,
   };
 
   async componentDidMount() {
@@ -278,7 +281,7 @@ class CreateMailer extends Component {
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="py-md-1" md="12">
+                      <Col className="py-md-1" md="8">
                         <FormGroup>
                           <label htmlFor="exampleInputEmail1">
                             Destinatários
@@ -289,6 +292,33 @@ class CreateMailer extends Component {
                             onChange={this.handleAddRecipients}
                           />
                         </FormGroup>
+                      </Col>
+
+                      <Col className="pt-md-4" md="4">
+                        <div className="table-full-width table-responsive">
+                          <Table>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <FormGroup check>
+                                    <Label check>
+                                      <Input defaultValue="" type="checkbox" />
+                                      <span className="form-check-sign">
+                                        <span className="check" />
+                                      </span>
+                                    </Label>
+                                  </FormGroup>
+                                </td>
+                                <td>
+                                  <p className="title">Extrair destinatários</p>
+                                  <p className="text-muted">
+                                    Deseja enviar para uma base específica?
+                                  </p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </Table>
+                        </div>
                       </Col>
                     </Row>
                   </Form>
