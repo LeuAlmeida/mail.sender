@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { JsonToExcel } from 'react-json-excel';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import {
   Card,
@@ -63,15 +64,45 @@ class MailerList extends Component {
     this.loadPage();
   };
 
-  useSenderName(senderId) {
+  useSenderName = senderId => {
     const { senders } = this.state;
 
     const Sender = senders.find(sender => sender.id === senderId);
 
-    // const SenderMap = Sender.map(s => console.log(s));
+    return Sender && Sender.name;
+  };
 
-    console.log(Sender.id);
-  }
+  mailerViewer = recipts => {
+    const arrRecips = recipts.split(', ');
+
+    const data = arrRecips.map(rec => ({ index: rec }));
+
+    const fields = {
+      index: 'Index',
+    };
+
+    const style = {
+      padding: '5px',
+      backgroundColor: 'none',
+      border: 'none',
+    };
+
+    return (
+      <>
+        <JsonToExcel
+          data={data}
+          filename={`destinatarios-${Math.floor(
+            new Date().getTime() / 10000
+          )}-${Math.floor(Math.random() * 1000)}`}
+          fields={fields}
+          style={style}
+          text="Baixar destinatários"
+        />
+      </>
+    );
+  };
+
+  recipientsViewer(mailerId) {}
 
   render() {
     const { mailers, page } = this.state;
@@ -98,11 +129,18 @@ class MailerList extends Component {
                     <tbody>
                       {mailers.map(mailer => (
                         <tr key={mailer.id}>
-                          <td className="text-center">{mailer.sender_id}</td>
+                          <td>{this.useSenderName(mailer.sender_id)}</td>
                           <td>
-                            Visualizar destinatários {/* mailer.recipients */}
+                            {this.mailerViewer(mailer.recipients)}
+                            {/* mailer.recipients */}
                           </td>
-                          <td>{mailer.subject}</td>
+                          <td>
+                            {mailer.subject.length > 20
+                              ? `${mailer.subject.substring(0, 20)} ${
+                                  mailer.subject.length > 20 ? '...' : ''
+                                }`
+                              : mailer.subject}
+                          </td>
                           <td>
                             <button
                               type="button"
@@ -151,6 +189,9 @@ class MailerList extends Component {
                     >
                       <FaChevronLeft size={30} color="#fff" />
                     </PaginationButton>
+                    <CardTitle className="pt-md-2" tag="h4">
+                      Página {page}
+                    </CardTitle>
                     <PaginationButton
                       type="button"
                       onClick={() => this.handlePage('next')}
