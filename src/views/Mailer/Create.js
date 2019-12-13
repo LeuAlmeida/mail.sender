@@ -163,7 +163,7 @@ class CreateMailer extends Component {
 
     return (
       <>
-        <ToastContainer autoClose={3000} />
+        <ToastContainer autoClose={4500} />
         <div className="content">
           <Row>
             <Col md="12">
