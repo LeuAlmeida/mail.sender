@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { JsonToExcel } from 'react-json-excel';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaUser } from 'react-icons/fa';
 import {
   Card,
   CardHeader,
@@ -11,6 +11,7 @@ import {
   Table,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 import api from '../../services/api';
 
@@ -20,6 +21,7 @@ class MailerList extends Component {
   state = {
     mailers: [],
     senders: [],
+    users: [],
     page: 1,
   };
 
@@ -30,15 +32,13 @@ class MailerList extends Component {
         page: 1,
       },
     });
+    const responseSenders = await api.get('/senders');
+    const responseUsers = await api.get('/users');
 
     this.setState({
       mailers: response.data,
-    });
-
-    const responseSenders = await api.get('/senders');
-
-    this.setState({
       senders: responseSenders.data,
+      users: responseUsers.data,
     });
   }
 
@@ -70,6 +70,14 @@ class MailerList extends Component {
     const Sender = senders.find(sender => sender.id === senderId);
 
     return Sender && Sender.name;
+  };
+
+  handleGetAuthor = authorId => {
+    const { users } = this.state;
+
+    const author = users.find(user => user.id === authorId);
+
+    return (author && author.name.split(' ').slice(0, -1)) || 'Desconhecido';
   };
 
   mailerViewer = recipts => {
@@ -104,8 +112,6 @@ class MailerList extends Component {
     );
   };
 
-  recipientsViewer(mailerId) {}
-
   render() {
     const { mailers, page } = this.state;
 
@@ -121,29 +127,37 @@ class MailerList extends Component {
                 <CardBody>
                   <Table className="tablesorter">
                     <thead className="text-primary">
-                      <tr>
+                      <tr className="text-center">
                         <th>Remetente</th>
                         <th>Destinatários</th>
                         <th>Assunto</th>
                         <th>URL</th>
+                        <th>Autor</th>
                       </tr>
                     </thead>
                     <tbody>
                       {mailers.map(mailer => (
                         <tr key={mailer.id}>
                           <td>{this.useSenderName(mailer.sender_id)}</td>
-                          <td>
-                            {this.mailerViewer(mailer.recipients)}
-                            {/* mailer.recipients */}
-                          </td>
-                          <td>
+
+                          <td>{this.mailerViewer(mailer.recipients)}</td>
+
+                          <td data-tip data-for={`${mailer.id}-subject`}>
                             {mailer.subject.length > 20
                               ? `${mailer.subject.substring(0, 20)} ${
                                   mailer.subject.length > 20 ? '...' : ''
                                 }`
                               : mailer.subject}
+                            <ReactTooltip
+                              id={`${mailer.id}-subject`}
+                              type="info"
+                              effect="solid"
+                            >
+                              {mailer.subject}
+                            </ReactTooltip>
                           </td>
-                          <td>
+
+                          <td data-tip data-for={`${mailer.id}-url`}>
                             <button
                               type="button"
                               className="text-primary"
@@ -168,6 +182,27 @@ class MailerList extends Component {
                                   }`
                                 : mailer.bodyurl}
                             </button>
+                            <ReactTooltip
+                              id={`${mailer.id}-url`}
+                              type="info"
+                              effect="solid"
+                            >
+                              {mailer.bodyurl}
+                            </ReactTooltip>
+                          </td>
+                          <td
+                            data-tip
+                            data-for={`${mailer.id}-author`}
+                            className="text-center"
+                          >
+                            <FaUser size={20} className="text-primary" />
+                            <ReactTooltip
+                              id={`${mailer.id}-author`}
+                              type="info"
+                              effect="solid"
+                            >
+                              {this.handleGetAuthor(mailer.author_id)}
+                            </ReactTooltip>
                           </td>
                         </tr>
                       ))}
