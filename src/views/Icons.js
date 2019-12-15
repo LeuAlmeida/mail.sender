@@ -1,8 +1,7 @@
-
-import React from "react";
+import React from 'react';
 
 // reactstrap components
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap';
 
 class Icons extends React.Component {
   render() {
@@ -15,7 +14,7 @@ class Icons extends React.Component {
                 <CardHeader>
                   <h5 className="title">100 Awesome Nucleo Icons</h5>
                   <p className="category">
-                    Handcrafted by our friends from{" "}
+                    Handcrafted by our friends from{' '}
                     <a href="https://nucleoapp.com/?ref=1712">NucleoApp</a>
                   </p>
                 </CardHeader>
