@@ -10,7 +10,7 @@ import {
   CardTitle,
   Table,
 } from 'reactstrap';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
 import api from '../../services/api';
@@ -124,91 +124,97 @@ class MailerList extends Component {
                 <CardHeader>
                   <CardTitle tag="h4">Ações Enviadas</CardTitle>
                 </CardHeader>
-                <CardBody>
-                  <Table className="tablesorter">
-                    <thead className="text-primary">
-                      <tr className="text-center">
-                        <th>Remetente</th>
-                        <th>Destinatários</th>
-                        <th>Assunto</th>
-                        <th>URL</th>
-                        <th>Autor</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {mailers.map(mailer => (
-                        <tr key={mailer.id}>
-                          <td>{this.useSenderName(mailer.sender_id)}</td>
-
-                          <td>{this.mailerViewer(mailer.recipients)}</td>
-
-                          <td data-tip data-for={`${mailer.id}-subject`}>
-                            {mailer.subject.length > 20
-                              ? `${mailer.subject.substring(0, 20)} ${
-                                  mailer.subject.length > 20 ? '...' : ''
-                                }`
-                              : mailer.subject}
-                            <ReactTooltip
-                              id={`${mailer.id}-subject`}
-                              type="info"
-                              effect="solid"
-                            >
-                              {mailer.subject}
-                            </ReactTooltip>
-                          </td>
-
-                          <td data-tip data-for={`${mailer.id}-url`}>
-                            <button
-                              type="button"
-                              className="text-primary"
-                              style={{
-                                backgroundColor: 'transparent',
-                                border: 'none',
-                                cursor: 'pointer',
-                              }}
-                              onClick={() =>
-                                window.open(
-                                  mailer.bodyurl,
-                                  'NewWindow',
-                                  'resizable=yes'
-                                )
-                              }
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {mailer.bodyurl.length > 30
-                                ? `...${mailer.bodyurl.substring(30, 60)} ${
-                                    mailer.bodyurl.length > 60 ? '...' : ''
-                                  }`
-                                : mailer.bodyurl}
-                            </button>
-                            <ReactTooltip
-                              id={`${mailer.id}-url`}
-                              type="info"
-                              effect="solid"
-                            >
-                              {mailer.bodyurl}
-                            </ReactTooltip>
-                          </td>
-                          <td
-                            data-tip
-                            data-for={`${mailer.id}-author`}
-                            className="text-center"
-                          >
-                            <FaUser size={20} className="text-primary" />
-                            <ReactTooltip
-                              id={`${mailer.id}-author`}
-                              type="info"
-                              effect="solid"
-                            >
-                              {this.handleGetAuthor(mailer.author_id)}
-                            </ReactTooltip>
-                          </td>
+                {!mailers.length === 0 ? (
+                  <CardBody>
+                    <Table className="tablesorter">
+                      <thead className="text-primary">
+                        <tr className="text-center">
+                          <th>Remetente</th>
+                          <th>Destinatários</th>
+                          <th>Assunto</th>
+                          <th>URL</th>
+                          <th>Autor</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </CardBody>
+                      </thead>
+                      <tbody>
+                        {mailers.map(mailer => (
+                          <tr key={mailer.id}>
+                            <td>{this.useSenderName(mailer.sender_id)}</td>
+
+                            <td>{this.mailerViewer(mailer.recipients)}</td>
+
+                            <td data-tip data-for={`${mailer.id}-subject`}>
+                              {mailer.subject.length > 20
+                                ? `${mailer.subject.substring(0, 20)} ${
+                                    mailer.subject.length > 20 ? '...' : ''
+                                  }`
+                                : mailer.subject}
+                              <ReactTooltip
+                                id={`${mailer.id}-subject`}
+                                type="info"
+                                effect="solid"
+                              >
+                                {mailer.subject}
+                              </ReactTooltip>
+                            </td>
+
+                            <td data-tip data-for={`${mailer.id}-url`}>
+                              <button
+                                type="button"
+                                className="text-primary"
+                                style={{
+                                  backgroundColor: 'transparent',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                }}
+                                onClick={() =>
+                                  window.open(
+                                    mailer.bodyurl,
+                                    'NewWindow',
+                                    'resizable=yes'
+                                  )
+                                }
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {mailer.bodyurl.length > 30
+                                  ? `...${mailer.bodyurl.substring(30, 60)} ${
+                                      mailer.bodyurl.length > 60 ? '...' : ''
+                                    }`
+                                  : mailer.bodyurl}
+                              </button>
+                              <ReactTooltip
+                                id={`${mailer.id}-url`}
+                                type="info"
+                                effect="solid"
+                              >
+                                {mailer.bodyurl}
+                              </ReactTooltip>
+                            </td>
+                            <td
+                              data-tip
+                              data-for={`${mailer.id}-author`}
+                              className="text-center"
+                            >
+                              <FaUser size={20} className="text-primary" />
+                              <ReactTooltip
+                                id={`${mailer.id}-author`}
+                                type="info"
+                                effect="solid"
+                              >
+                                {this.handleGetAuthor(mailer.author_id)}
+                              </ReactTooltip>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </CardBody>
+                ) : (
+                  <CardBody>
+                    <CardTitle tag="h1">Nenhum e-mail encontrado.</CardTitle>
+                  </CardBody>
+                )}
               </Card>
               <Col md="12">
                 <Row>
