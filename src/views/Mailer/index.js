@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { JsonToExcel } from 'react-json-excel';
-import { FaChevronLeft, FaChevronRight, FaUser } from 'react-icons/fa';
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaUser,
+  FaSpinner,
+} from 'react-icons/fa';
 import {
   Card,
   CardHeader,
@@ -15,7 +20,7 @@ import ReactTooltip from 'react-tooltip';
 
 import api from '../../services/api';
 
-import { PaginationButton } from './indexStyle';
+import { PaginationButton, Loading } from './indexStyle';
 
 class MailerList extends Component {
   state = {
@@ -23,12 +28,13 @@ class MailerList extends Component {
     senders: [],
     users: [],
     page: 1,
+    loading: true,
   };
 
   async componentDidMount() {
     const response = await api.get(`/mail`, {
       params: {
-        per_page: 6,
+        per_page: 10,
         page: 1,
       },
     });
@@ -39,6 +45,7 @@ class MailerList extends Component {
       mailers: response.data,
       senders: responseSenders.data,
       users: responseUsers.data,
+      loading: false,
     });
   }
 
@@ -47,7 +54,7 @@ class MailerList extends Component {
 
     const response = await api.get('/mail', {
       params: {
-        per_page: 6,
+        per_page: 10,
         page,
       },
     });
@@ -113,7 +120,15 @@ class MailerList extends Component {
   };
 
   render() {
-    const { mailers, page } = this.state;
+    const { mailers, page, loading } = this.state;
+
+    if (loading) {
+      return (
+        <Loading>
+          <FaSpinner color="#000" size={48} />
+        </Loading>
+      );
+    }
 
     return (
       <>
