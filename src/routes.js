@@ -1,4 +1,5 @@
 import Dashboard from './views/Dashboard';
+import UploadFile from './views/Files/Upload';
 import Senders from './views/Senders';
 import Typography from './views/Typography';
 import CreateMailer from './views/Mailer/Create';
@@ -13,6 +14,20 @@ const routes = [
     component: Dashboard,
     layout: '/admin',
   },
+  {
+    path: '/lists',
+    name: 'Importar lista',
+    icon: 'tim-icons icon-bullet-list-67',
+    component: UploadFile,
+    layout: '/admin',
+  },
+  // {
+  //   path: '/lists',
+  //   name: 'Visualizar listas',
+  //   icon: 'tim-icons icon-bullet-list-67',
+  //   component: UploadFile,
+  //   layout: '/admin',
+  // },
   {
     path: '/mailer/create',
     name: 'Criar Ação',
