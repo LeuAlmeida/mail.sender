@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { FaChevronLeft, FaChevronRight, FaSpinner } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
 import {
   Card,
   CardHeader,
@@ -12,6 +14,7 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap';
 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Loading } from '../loading';
 import { PaginationButton } from '../styles/pagination';
 
@@ -61,6 +64,34 @@ class Senders extends Component {
     this.loadPage();
   };
 
+  handleConfirmDelete = (id, name) => {
+    confirmAlert({
+      title: 'Confirme a exclusão.',
+      message: `Você deseja excluir o remetente ${name}?`,
+
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: () => this.handleDelete(id),
+        },
+        {
+          label: 'Cancelar',
+        },
+      ],
+    });
+  };
+
+  handleDelete = async id => {
+    try {
+      await api.delete(`/senders/${id}`);
+      toast.success('Remetente excluído com sucesso.');
+
+      this.loadPage();
+    } catch (err) {
+      toast.error('Erro ao excluir o remetente.');
+    }
+  };
+
   render() {
     const { senders, page, loading } = this.state;
     const { history } = this.props;
@@ -75,6 +106,7 @@ class Senders extends Component {
 
     return (
       <>
+        <ToastContainer autoClose={4500} />
         <div className="content">
           <Row>
             <Col md="12">
@@ -135,13 +167,18 @@ class Senders extends Component {
                                 id={`remove-${sender.id}`}
                                 title="Remover"
                                 type="top"
+                                onClick={() =>
+                                  this.handleConfirmDelete(
+                                    sender.id,
+                                    sender.name
+                                  )
+                                }
                               >
                                 <i className="tim-icons icon-trash-simple" />
                               </Button>
                               <UncontrolledTooltip
                                 delay={0}
                                 target={`remove-${sender.id}`}
-                                placement="left"
                               >
                                 Remover
                               </UncontrolledTooltip>
