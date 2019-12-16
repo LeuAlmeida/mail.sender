@@ -92,6 +92,8 @@ class Upload extends Component {
   };
 
   render() {
+    const { file } = this.state;
+
     return (
       <>
         <ToastContainer autoClose={4500} />
@@ -112,6 +114,24 @@ class Upload extends Component {
                       className="text-primary"
                       onChange={this.selectFile}
                     />
+
+                    <p>
+                      {this.state.file ? (
+                        <span
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            marginTop: 10,
+                          }}
+                        >
+                          Arquivo selecionado:{' '}
+                          <strong>{file && file.name}</strong>
+                        </span>
+                      ) : (
+                        ''
+                      )}
+                    </p>
+                    <hr />
                     <Label>Nome da Lista</Label>
                     <Input
                       type="text"
