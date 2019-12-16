@@ -3,6 +3,7 @@ import UploadFile from './views/Files/Upload';
 import FilesList from './views/Files/List';
 import Senders from './views/Senders';
 import CreateSender from './views/Senders/Create';
+import EditSender from './views/Senders/Edit';
 import CreateMailer from './views/Mailer/Create';
 import MailerList from './views/Mailer';
 import Account from './views/Account';
@@ -62,6 +63,13 @@ const routes = [
     path: '/senders/create',
     name: 'Cadastrar remetente',
     component: CreateSender,
+    layout: '/admin',
+    redirect: true,
+  },
+  {
+    path: '/senders/edit',
+    name: 'Editar remetente',
+    component: EditSender,
     layout: '/admin',
     redirect: true,
   },
