@@ -125,7 +125,7 @@ class AdminNavbar extends React.Component {
               <Nav className="ml-auto" navbar>
                 <InputGroup className="search-bar" />
                 <UncontrolledDropdown nav>
-                  <DropdownToggle
+                  {/* <DropdownToggle
                     caret
                     color="default"
                     data-toggle="dropdown"
@@ -134,7 +134,7 @@ class AdminNavbar extends React.Component {
                     <div className="notification d-none d-lg-block d-xl-block" />
                     <i className="tim-icons icon-bell-55" />
                     <p className="d-lg-none">Notifications</p>
-                  </DropdownToggle>
+                  </DropdownToggle> */}
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
                       <DropdownItem className="nav-item">
