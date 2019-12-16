@@ -8,7 +8,6 @@ import {
   FaUser,
   FaSpinner,
 } from 'react-icons/fa';
-
 import {
   Card,
   CardHeader,
@@ -18,12 +17,11 @@ import {
   CardTitle,
   Table,
 } from 'reactstrap';
-// import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
 import api from '../../services/api';
 
-import { PaginationButton } from './indexStyle';
+import { PaginationButton } from '../styles/pagination';
 import { Loading } from '../loading';
 
 class MailerList extends Component {
