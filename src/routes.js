@@ -1,7 +1,7 @@
 import Dashboard from './views/Dashboard';
 import UploadFile from './views/Files/Upload';
 import Senders from './views/Senders';
-import Typography from './views/Typography';
+// import Typography from './views/Typography';
 import CreateMailer from './views/Mailer/Create';
 import MailerList from './views/Mailer';
 import Account from './views/Account';
@@ -15,8 +15,15 @@ const routes = [
     layout: '/admin',
   },
   {
-    path: '/lists',
+    path: '/lists/create',
     name: 'Importar lista',
+    icon: 'tim-icons icon-bullet-list-67',
+    component: UploadFile,
+    layout: '/admin',
+  },
+  {
+    path: '/lists',
+    name: 'Visualizar listas',
     icon: 'tim-icons icon-bullet-list-67',
     component: UploadFile,
     layout: '/admin',
@@ -50,13 +57,13 @@ const routes = [
     component: Senders,
     layout: '/admin',
   },
-  {
-    path: '/typography',
-    name: 'Typography',
-    icon: 'tim-icons icon-align-center',
-    component: Typography,
-    layout: '/admin',
-  },
+  // {
+  //   path: '/typography',
+  //   name: 'Typography',
+  //   icon: 'tim-icons icon-align-center',
+  //   component: Typography,
+  //   layout: '/admin',
+  // },
   {
     path: '/account',
     name: 'Editar minha conta',
