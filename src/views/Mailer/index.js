@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { JsonToExcel } from 'react-json-excel';
+import { parseISO, format, subHours } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import {
   FaChevronLeft,
   FaChevronRight,
   FaUser,
   FaSpinner,
 } from 'react-icons/fa';
+
 import {
   Card,
   CardHeader,
@@ -150,6 +153,7 @@ class MailerList extends Component {
                           <th>Assunto</th>
                           <th>URL</th>
                           <th>Autor</th>
+                          <th>Envio</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -193,9 +197,9 @@ class MailerList extends Component {
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                {mailer.bodyurl.length > 30
-                                  ? `...${mailer.bodyurl.substring(30, 60)} ${
-                                      mailer.bodyurl.length > 60 ? '...' : ''
+                                {mailer.bodyurl.length > 20
+                                  ? `${mailer.bodyurl.substring(0, 20)} ${
+                                      mailer.bodyurl.length > 20 ? '...' : ''
                                     }`
                                   : mailer.bodyurl}
                               </button>
@@ -220,6 +224,13 @@ class MailerList extends Component {
                               >
                                 {this.handleGetAuthor(mailer.author_id)}
                               </ReactTooltip>
+                            </td>
+                            <td>
+                              {format(
+                                subHours(parseISO(mailer.createdAt), 1),
+                                "dd'/'MM '-' H:mm",
+                                { locale: pt }
+                              )}
                             </td>
                           </tr>
                         ))}
