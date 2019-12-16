@@ -21,13 +21,6 @@ const routes = [
     component: UploadFile,
     layout: '/admin',
   },
-  {
-    path: '/lists',
-    name: 'Visualizar listas',
-    icon: 'tim-icons icon-bullet-list-67',
-    component: UploadFile,
-    layout: '/admin',
-  },
   // {
   //   path: '/lists',
   //   name: 'Visualizar listas',
