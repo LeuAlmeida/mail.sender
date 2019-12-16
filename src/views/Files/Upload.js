@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import { ToastContainer, toast } from 'react-toastify';
 import {
   FormGroup,
@@ -188,7 +190,13 @@ class Upload extends Component {
                         <tr key={list.id} className="text-center">
                           <td>{list.declaration}</td>
                           <td>{list.name}</td>
-                          <td>{list.createdAt}</td>
+                          <td>
+                            {format(
+                              parseISO(list.createdAt),
+                              "dd'/'MM', às' H:mm",
+                              { locale: pt }
+                            )}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
