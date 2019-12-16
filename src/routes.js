@@ -2,7 +2,7 @@ import Dashboard from './views/Dashboard';
 import UploadFile from './views/Files/Upload';
 import FilesList from './views/Files/List';
 import Senders from './views/Senders';
-// import Typography from './views/Typography';
+import CreateSender from './views/Senders/Create';
 import CreateMailer from './views/Mailer/Create';
 import MailerList from './views/Mailer';
 import Account from './views/Account';
@@ -61,7 +61,7 @@ const routes = [
   {
     path: '/senders/create',
     name: 'Cadastrar remetente',
-    component: Account,
+    component: CreateSender,
     layout: '/admin',
     redirect: true,
   },
