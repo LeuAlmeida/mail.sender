@@ -46,7 +46,7 @@ class Upload extends Component {
       }
     })();
 
-    const allLists = await api.get('/files/convert');
+    const allLists = await api.get('/files');
 
     this.setState({ lists: allLists.data, loading: false });
   }
