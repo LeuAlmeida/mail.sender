@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import axios, { post } from 'axios';
 import {
   FormGroup,
   Row,
@@ -21,37 +20,75 @@ class Upload extends Component {
     super(props);
     this.state = {
       file: null,
+      declaration: '',
     };
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.selectFile = this.selectFile.bind(this);
     this.fileUpload = this.fileUpload.bind(this);
+    this.handleDeclaration = this.handleDeclaration.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
-  onFormSubmit = e => {
-    e.preventDefault(); // Stop form submit
-    try {
-      this.fileUpload(this.state.file).then(response => {
-        toast.success('Lista de destinatários enviada com sucesso.');
-      });
-    } catch (err) {
-      toast.error('Erro ao enviar a lista de destinatários.');
-    }
+  componentDidMount() {
+    (() => {
+      if (window.localStorage) {
+        if (!localStorage.getItem('firstLoad')) {
+          localStorage.firstLoad = true;
+          window.location.reload();
+        } else localStorage.removeItem('firstLoad');
+      }
+    })();
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { file } = this.state;
+
+    this.fileUpload(file);
   };
 
-  onChange = e => {
+  selectFile = e => {
     this.setState({ file: e.target.files[0] });
   };
 
+  handleDeclaration = e => {
+    this.setState({ declaration: e.target.value });
+  };
+
   fileUpload = async file => {
+    const { declaration } = this.state;
+    const { history } = this.props;
+
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('declaration', declaration);
     const config = {
       headers: {
         'content-type': 'multipart/form-data',
       },
     };
 
-    return api.post('/files', formData, config);
+    if (!file) {
+      toast.warn('Selecione um arquivo válido e tente novamente.');
+    }
+
+    if (!declaration) {
+      toast.warn('Por favor, defina um nome para essa base.');
+    }
+    if (file && declaration) {
+      try {
+        api.post('/files', formData, config);
+        toast.success('Lista de destinatários importada com sucesso.');
+
+        setTimeout(() => {
+          history.push(`/admin/dashboard`);
+        }, 1500);
+      } catch (err) {
+        return toast.error(
+          'Erro ao importar a base. Por favor, tente novamente mais tarde'
+        );
+      }
+    }
   };
 
   render() {
@@ -73,16 +110,21 @@ class Upload extends Component {
                       id="file"
                       name="file"
                       className="text-primary"
-                      onChange={this.onChange}
+                      onChange={this.selectFile}
                     />
                     <Label>Nome da Lista</Label>
-                    <Input />
+                    <Input
+                      type="text"
+                      id="declaration"
+                      name="declaration"
+                      onChange={this.handleDeclaration}
+                    />
                     <Button
                       className="btn-fill mt-md-4"
                       color="warning"
                       type="button"
                       style={{ width: '100%' }}
-                      onClick={this.onFormSubmit}
+                      onClick={this.handleSubmit}
                     >
                       Enviar
                     </Button>
