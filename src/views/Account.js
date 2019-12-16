@@ -184,14 +184,12 @@ class Account extends Component {
                     <div className="block block-two" />
                     <div className="block block-three" />
                     <div className="block block-four" />
-                    <a href="#pablo" onClick={e => e.preventDefault()}>
-                      <img
-                        alt={user.name}
-                        className="avatar"
-                        src={user.avatar_url}
-                      />
-                      <h5 className="title">{user.name}</h5>
-                    </a>
+                    <img
+                      alt={user.name}
+                      className="avatar"
+                      src={user.avatar_url}
+                    />
+                    <h5 className="title">{user.name}</h5>
                     <p className="description">
                       Gerência de Comunicação e Marketing
                     </p>
