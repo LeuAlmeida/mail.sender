@@ -151,6 +151,9 @@ class Senders extends Component {
                                 id={`edit-${sender.id}`}
                                 title="Editar"
                                 type="button"
+                                onClick={() =>
+                                  history.push('/admin/senders/edit', sender.id)
+                                }
                               >
                                 <i className="tim-icons icon-pencil" />
                               </Button>
