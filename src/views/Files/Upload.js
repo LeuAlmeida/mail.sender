@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
+import { subHours, parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { ToastContainer, toast } from 'react-toastify';
 import {
@@ -192,7 +192,7 @@ class Upload extends Component {
                           <td>{list.name}</td>
                           <td>
                             {format(
-                              parseISO(list.createdAt),
+                              subHours(parseISO(list.createdAt), 1),
                               "dd'/'MM', às' H:mm",
                               { locale: pt }
                             )}
