@@ -20,8 +20,10 @@ import Autosuggest from 'react-autosuggest';
 import { PropTypes } from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import { FaSpinner } from 'react-icons/fa';
+import { confirmAlert } from 'react-confirm-alert'; // Import
 import { Loading } from '../loading';
 
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import '../../assets/css/black-dashboard-react.css';
 import './Autosuggest.css';
 
@@ -119,51 +121,6 @@ class CreateMailer extends Component {
   handleSubmit = async () => {
     const { selectedSender, subject, url, recipients, user } = this.state;
     const { history } = this.props;
-    const domain = 'metodista.br';
-
-    // Sender Validators
-    const selectedSenderIsValid = selectedSender.length === undefined;
-
-    if (!selectedSenderIsValid) {
-      toast.warning('Por favor, selecione um remetente.');
-    }
-
-    // Subject Validators
-
-    const subjectIsValid = subject.length > 16;
-
-    if (!subjectIsValid) {
-      toast.warning('O assunto precisa ter mais de 16 caracteres.');
-    }
-
-    // Url Validators
-    const urlIsValid = url.match(
-      /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/g
-    );
-
-    if (!urlIsValid) {
-      toast.warning('Por favor, digite um endereço válido.');
-    }
-
-    // Recipients Validators
-    if (!recipients) {
-      toast.warning('Informe ao menos 1 destinatário.');
-    }
-    const recipientsArray = recipients.split(',');
-
-    const recipientsDomain = recipientsArray.map(rec => rec.replace(/.*@/, ''));
-
-    const notValidDomain = recipientsDomain.find(recips => recips !== domain);
-
-    if (recipients && notValidDomain) {
-      toast.warning(`Todos os domínios necessitam terminar com ${domain}`);
-    }
-
-    const recipientsIsValid = recipientsArray.length < 500;
-
-    if (!recipientsIsValid) {
-      toast.warning('O limite de destinatários é de 500 e-mails.');
-    }
 
     const email = {
       sender_id: selectedSender.id,
@@ -173,23 +130,15 @@ class CreateMailer extends Component {
       author_id: user.id,
     };
 
-    if (
-      selectedSenderIsValid &&
-      subjectIsValid &&
-      urlIsValid &&
-      recipientsIsValid &&
-      !notValidDomain
-    ) {
-      try {
-        await api.post('mail', email);
-        toast.success('Mensagem enviada com sucesso!');
+    try {
+      await api.post('mail', email);
+      toast.success('Mensagem enviada com sucesso!');
 
-        setTimeout(() => {
-          history.push(`/admin/mailer/list`);
-        }, 1500);
-      } catch {
-        toast.error('Ocorreu um erro ao enviar a mensagem.');
-      }
+      setTimeout(() => {
+        history.push(`/admin/mailer/list`);
+      }, 1500);
+    } catch {
+      toast.error('Ocorreu um erro ao enviar a mensagem.');
     }
   };
 
@@ -261,9 +210,84 @@ class CreateMailer extends Component {
   };
 
   handleConfirmSubmit = () => {
-    alert('Confirma?');
+    const { recipients, subject, selectedSender, url } = this.state;
+    const recipientsSize = recipients.split(' ,').length;
+    const domain = 'metodista.br';
 
-    this.handleSubmit();
+    /**
+     * VALIDATORS
+     */
+
+    // Sender Validators
+    const selectedSenderIsValid = selectedSender.length === undefined;
+
+    if (!selectedSenderIsValid) {
+      toast.warning('Por favor, selecione um remetente.');
+    }
+
+    // Subject Validators
+
+    const subjectIsValid = subject.length > 16;
+
+    if (!subjectIsValid) {
+      toast.warning('O assunto precisa ter mais de 16 caracteres.');
+    }
+
+    // Url Validators
+    const urlIsValid = url.match(
+      /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/g
+    );
+
+    if (!urlIsValid) {
+      toast.warning('Por favor, digite um endereço válido.');
+    }
+
+    // Recipients Validators
+    if (!recipients) {
+      toast.warning('Informe ao menos 1 destinatário.');
+    }
+    const recipientsArray = recipients.split(',');
+
+    const recipientsDomain = recipientsArray.map(rec => rec.replace(/.*@/, ''));
+
+    const notValidDomain = recipientsDomain.find(recips => recips !== domain);
+
+    if (recipients && notValidDomain) {
+      toast.warning(`Todos os domínios necessitam terminar com ${domain}`);
+    }
+
+    const recipientsIsValid = recipientsArray.length < 500;
+
+    if (!recipientsIsValid) {
+      toast.warning('O limite de destinatários é de 500 e-mails.');
+    }
+
+    if (
+      selectedSenderIsValid &&
+      subjectIsValid &&
+      urlIsValid &&
+      recipientsIsValid &&
+      !notValidDomain
+    ) {
+      confirmAlert({
+        title: 'Confirme o envio.',
+        message: `Você deseja enviar a mensagem ${subject} para ${recipientsSize} ${
+          recipientsSize > 1 ? 'pessoas' : 'pessoa'
+        } com o remetente ${selectedSender.name}?`,
+
+        buttons: [
+          {
+            label: 'Sim',
+            onClick: () => this.handleSubmit(),
+          },
+          {
+            label: 'Cancelar',
+          },
+        ],
+      });
+    }
+
+    //
   };
 
   render() {
@@ -506,7 +530,6 @@ CreateMailer.defaultProps = {
   subject: 'Assunto da Mensagem',
   url: 'http://metodista.br',
   recipients: 'informes@metodista.br',
-  history: {},
 };
 
 CreateMailer.propTypes = {
@@ -515,7 +538,6 @@ CreateMailer.propTypes = {
   subject: PropTypes.string,
   url: PropTypes.string,
   recipients: PropTypes.string,
-  history: PropTypes.string,
 };
 
 export default CreateMailer;
