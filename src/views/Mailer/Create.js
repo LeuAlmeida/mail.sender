@@ -194,14 +194,7 @@ class CreateMailer extends Component {
   };
 
   handleRecipientsExtract = () => {
-    // toast.info('Ops! Essa função ainda está em desenvolvimento.');
-
     this.setState({ checked: false, recipients: '' });
-
-    /**
-     * Ao retomar o desenvolvimento desta função,
-     * descomentar abaixo e comentar o que está acima.
-     */
 
     const { checked } = this.state;
     this.setState({ checked: !checked });
@@ -265,6 +258,12 @@ class CreateMailer extends Component {
 
       this.setState({ recipients: recipientList.data });
     }
+  };
+
+  handleConfirmSubmit = () => {
+    alert('Confirma?');
+
+    this.handleSubmit();
   };
 
   render() {
@@ -487,7 +486,7 @@ class CreateMailer extends Component {
                     className="btn-fill"
                     color="primary"
                     type="submit"
-                    onClick={this.handleSubmit}
+                    onClick={this.handleConfirmSubmit}
                   >
                     Enviar
                   </Button>
@@ -516,7 +515,7 @@ CreateMailer.propTypes = {
   subject: PropTypes.string,
   url: PropTypes.string,
   recipients: PropTypes.string,
-  history: PropTypes.object,
+  history: PropTypes.string,
 };
 
 export default CreateMailer;
