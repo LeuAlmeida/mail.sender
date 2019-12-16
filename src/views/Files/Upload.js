@@ -12,6 +12,8 @@ import {
   Input,
   Button,
 } from 'reactstrap';
+import { FaSpinner } from 'react-icons/fa';
+import { Loading } from '../loading';
 
 import api from '../../services/api';
 
@@ -21,6 +23,7 @@ class Upload extends Component {
     this.state = {
       file: null,
       declaration: '',
+      loading: true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.selectFile = this.selectFile.bind(this);
@@ -38,6 +41,8 @@ class Upload extends Component {
         } else localStorage.removeItem('firstLoad');
       }
     })();
+
+    this.setState({ loading: false });
   }
 
   handleSubmit = e => {
@@ -77,7 +82,7 @@ class Upload extends Component {
     }
     if (file && declaration) {
       try {
-        api.post('/files', formData, config);
+        await api.post('/files', formData, config);
         toast.success('Lista de destinatários importada com sucesso.');
 
         setTimeout(() => {
@@ -85,14 +90,22 @@ class Upload extends Component {
         }, 1500);
       } catch (err) {
         return toast.error(
-          'Erro ao importar a base. Por favor, tente novamente mais tarde'
+          'Erro ao importar a base. Por favor, verifique a extensão do arquivo e tente novamente.'
         );
       }
     }
   };
 
   render() {
-    const { file } = this.state;
+    const { file, loading } = this.state;
+
+    if (loading) {
+      return (
+        <Loading>
+          <FaSpinner color="#000" size={48} />
+        </Loading>
+      );
+    }
 
     return (
       <>
