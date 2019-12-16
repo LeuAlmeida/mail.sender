@@ -45,7 +45,7 @@ const routes = [
     layout: '/admin',
   },
   {
-    path: '/senders',
+    path: '/senders/list',
     name: 'Remetentes',
     icon: 'tim-icons icon-book-bookmark',
     component: Senders,
