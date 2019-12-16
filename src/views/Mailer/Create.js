@@ -19,6 +19,8 @@ import {
 import Autosuggest from 'react-autosuggest';
 import { PropTypes } from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
+import { FaSpinner } from 'react-icons/fa';
+import { Loading } from '../loading';
 
 import '../../assets/css/black-dashboard-react.css';
 import './Autosuggest.css';
@@ -37,14 +39,8 @@ class CreateMailer extends Component {
     checked: false,
     value: '',
     suggestions: [],
-    lists: [
-      {
-        name: 'C',
-      },
-      {
-        name: 'Elm',
-      },
-    ],
+    lists: '',
+    loading: true,
   };
 
   async componentDidMount() {
@@ -70,6 +66,12 @@ class CreateMailer extends Component {
     const lists = await api.get(`/files`);
 
     this.setState({ lists: lists.data });
+
+    /**
+     * FINAL LOADING
+     */
+
+    this.setState({ loading: false });
   }
 
   handleSelectSender = e => {
@@ -266,14 +268,31 @@ class CreateMailer extends Component {
   };
 
   render() {
-    const { senders, selectedSender, subject, url, user, checked } = this.state;
-    const { value, suggestions } = this.state;
+    const {
+      senders,
+      selectedSender,
+      subject,
+      url,
+      user,
+      checked,
+      loading,
+      value,
+      suggestions,
+    } = this.state;
 
     const inputProps = {
       placeholder: 'Digite o nome de uma lista de contatos.',
       value,
       onChange: this.onChange,
     };
+
+    if (loading) {
+      return (
+        <Loading>
+          <FaSpinner color="#000" size={48} />
+        </Loading>
+      );
+    }
 
     return (
       <>
