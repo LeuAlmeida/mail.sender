@@ -24,6 +24,8 @@ class Tests extends React.Component {
   }
 
   fileUpload(file) {
+    const { history } = this.props;
+
     const url = 'http://localhost:3333/files';
     const formData = new FormData();
     formData.append('file', file);
