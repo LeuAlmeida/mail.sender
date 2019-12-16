@@ -11,6 +11,7 @@ import {
   CardBody,
   Input,
   Button,
+  Table,
 } from 'reactstrap';
 import { FaSpinner } from 'react-icons/fa';
 import { Loading } from '../loading';
@@ -24,6 +25,7 @@ class Upload extends Component {
       file: null,
       declaration: '',
       loading: true,
+      lists: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.selectFile = this.selectFile.bind(this);
@@ -32,7 +34,7 @@ class Upload extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     (() => {
       if (window.localStorage) {
         if (!localStorage.getItem('firstLoad')) {
@@ -42,7 +44,9 @@ class Upload extends Component {
       }
     })();
 
-    this.setState({ loading: false });
+    const allLists = await api.get('/files/convert');
+
+    this.setState({ lists: allLists.data, loading: false });
   }
 
   handleSubmit = e => {
@@ -97,7 +101,7 @@ class Upload extends Component {
   };
 
   render() {
-    const { file, loading } = this.state;
+    const { file, loading, lists } = this.state;
 
     if (loading) {
       return (
@@ -162,6 +166,33 @@ class Upload extends Component {
                       Enviar
                     </Button>
                   </FormGroup>
+                </CardBody>
+              </Card>
+            </Col>
+            <Col md="6">
+              <Card>
+                <CardHeader>
+                  <h5 className="title">Últimas listas</h5>
+                </CardHeader>
+                <CardBody>
+                  <Table className="tablesorter">
+                    <thead className="text-primary">
+                      <tr className="text-center">
+                        <th>Nome da Base</th>
+                        <th>Nome do Arquivo</th>
+                        <th>Data da Criação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {lists.map(list => (
+                        <tr key={list.id} className="text-center">
+                          <td>{list.declaration}</td>
+                          <td>{list.name}</td>
+                          <td>{list.createdAt}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
                 </CardBody>
               </Card>
             </Col>
