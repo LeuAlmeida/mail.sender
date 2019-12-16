@@ -1,49 +1,77 @@
 import React from 'react';
-import axios, { post } from 'axios';
+import Autosuggest from 'react-autosuggest';
+
+import './Tests.css';
 
 class Tests extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      file: null,
-    };
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.fileUpload = this.fileUpload.bind(this);
-  }
-
-  onFormSubmit(e) {
-    e.preventDefault(); // Stop form submit
-    this.fileUpload(this.state.file).then(response => {
-      console.log(response.data);
-    });
-  }
-
-  onChange(e) {
-    this.setState({ file: e.target.files[0] });
-  }
-
-  fileUpload(file) {
-    const { history } = this.props;
-
-    const url = 'http://localhost:3333/files';
-    const formData = new FormData();
-    formData.append('file', file);
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data',
+  state = {
+    value: '',
+    suggestions: [],
+    languages: [
+      {
+        name: 'C',
       },
-    };
-    return post(url, formData, config);
-  }
+      {
+        name: 'Elm',
+      },
+    ],
+  };
+
+  getSuggestions = value => {
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+
+    return inputLength === 0
+      ? []
+      : this.state.languages.filter(
+          lang => lang.name.toLowerCase().slice(0, inputLength) === inputValue
+        );
+  };
+
+  getSuggestionValue = suggestion => suggestion.name;
+
+  renderSuggestion = suggestion => <div>{suggestion.name}</div>;
+
+  onChange = (event, { newValue }) => {
+    this.setState({
+      value: newValue,
+    });
+
+    const { value } = this.state;
+
+    console.log(value);
+  };
+
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: this.getSuggestions(value),
+    });
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: [],
+    });
+  };
 
   render() {
+    const { value, suggestions } = this.state;
+
+    const inputProps = {
+      placeholder: 'Type a programming language',
+      value,
+      onChange: this.onChange,
+    };
+
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <h1>File Upload</h1>
-        <input type="file" onChange={this.onChange} />
-        <button type="submit">Upload</button>
-      </form>
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        getSuggestionValue={this.getSuggestionValue}
+        renderSuggestion={this.renderSuggestion}
+        inputProps={inputProps}
+      />
     );
   }
 }
