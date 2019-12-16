@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-// reactstrap components
+import { FaSpinner } from 'react-icons/fa';
 import {
   Card,
   CardHeader,
@@ -12,12 +11,14 @@ import {
   Button,
   UncontrolledTooltip,
 } from 'reactstrap';
+import { Loading } from './loading';
 
 import api from '../services/api';
 
 class Senders extends Component {
   state = {
     senders: [],
+    loading: true,
   };
 
   async componentDidMount() {
@@ -25,11 +26,20 @@ class Senders extends Component {
 
     this.setState({
       senders: response.data,
+      loading: false,
     });
   }
 
   render() {
-    const { senders } = this.state;
+    const { senders, loading } = this.state;
+
+    if (loading) {
+      return (
+        <Loading>
+          <FaSpinner color="#000" size={48} />
+        </Loading>
+      );
+    }
 
     return (
       <>
