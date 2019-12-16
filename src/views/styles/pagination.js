@@ -19,8 +19,6 @@ export const PaginationButton = styled.button`
   }
 
   svg {
-    background: #2773f6;
-    border-radius: 50px;
     padding: 5px;
   }
 `;
