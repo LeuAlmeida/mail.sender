@@ -113,10 +113,7 @@ class FilesList extends Component {
                             </td>
                             <td className="text-center">
                               <a href={file.url}>
-                                <FaDownload
-                                  size={20}
-                                  className="text-primary"
-                                />
+                                <FaDownload size={20} color="#1b87f8" />
                               </a>
                             </td>
                           </tr>
@@ -145,7 +142,7 @@ class FilesList extends Component {
                     disabled={page < 2}
                     onClick={() => this.handlePage('back')}
                   >
-                    <FaChevronLeft size={30} color="#fff" />
+                    <FaChevronLeft size={30} color="#1b87f8" />
                   </PaginationButton>
                   <CardTitle className="pt-md-2" tag="h4">
                     Página {page}
@@ -154,7 +151,7 @@ class FilesList extends Component {
                     type="button"
                     onClick={() => this.handlePage('next')}
                   >
-                    <FaChevronRight size={30} color="#fff" />
+                    <FaChevronRight size={30} color="#1b87f8" />
                   </PaginationButton>
                 </Card>
               </Row>

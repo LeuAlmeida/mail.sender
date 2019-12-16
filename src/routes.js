@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/lists/create',
     name: 'Importar lista',
-    icon: 'tim-icons icon-bullet-list-67',
+    icon: 'tim-icons icon-upload',
     component: UploadFile,
     layout: '/admin',
   },

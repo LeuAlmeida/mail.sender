@@ -102,6 +102,7 @@ class MailerList extends Component {
       padding: '5px',
       backgroundColor: 'transparent',
       border: 'none',
+      color: '#1b87f8',
       cursor: 'pointer',
     };
 
@@ -114,7 +115,6 @@ class MailerList extends Component {
           )}-${Math.floor(Math.random() * 1000)}`}
           fields={fields}
           style={style}
-          className="text-primary"
           text="Baixar destinatários"
         />
       </>
@@ -179,10 +179,10 @@ class MailerList extends Component {
                             <td data-tip data-for={`${mailer.id}-url`}>
                               <button
                                 type="button"
-                                className="text-primary"
                                 style={{
                                   backgroundColor: 'transparent',
                                   border: 'none',
+                                  color: '#1b87f8',
                                   cursor: 'pointer',
                                 }}
                                 onClick={() =>
@@ -214,7 +214,7 @@ class MailerList extends Component {
                               data-for={`${mailer.id}-author`}
                               className="text-center"
                             >
-                              <FaUser size={20} className="text-primary" />
+                              <FaUser size={20} color="#1b87f8" />
                               <ReactTooltip
                                 id={`${mailer.id}-author`}
                                 type="info"
@@ -255,7 +255,7 @@ class MailerList extends Component {
                       disabled={page < 2}
                       onClick={() => this.handlePage('back')}
                     >
-                      <FaChevronLeft size={30} color="#fff" />
+                      <FaChevronLeft size={30} color="#1b87f8" />
                     </PaginationButton>
                     <CardTitle className="pt-md-2" tag="h4">
                       Página {page}
@@ -264,7 +264,7 @@ class MailerList extends Component {
                       type="button"
                       onClick={() => this.handlePage('next')}
                     >
-                      <FaChevronRight size={30} color="#fff" />
+                      <FaChevronRight size={30} color="#1b87f8" />
                     </PaginationButton>
                   </Card>
                 </Row>
