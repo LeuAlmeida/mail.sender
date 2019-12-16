@@ -51,16 +51,16 @@ const routes = [
     component: Senders,
     layout: '/admin',
   },
-  // {
-  //   path: '/typography',
-  //   name: 'Typography',
-  //   icon: 'tim-icons icon-align-center',
-  //   component: Typography,
-  //   layout: '/admin',
-  // },
   {
     path: '/account',
     name: 'Editar minha conta',
+    component: Account,
+    layout: '/admin',
+    redirect: true,
+  },
+  {
+    path: '/senders/create',
+    name: 'Cadastrar remetente',
     component: Account,
     layout: '/admin',
     redirect: true,
