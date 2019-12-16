@@ -15,12 +15,13 @@ import {
   Col,
   Label,
   Table,
-  CustomInput,
 } from 'reactstrap';
+import Autosuggest from 'react-autosuggest';
 import { PropTypes } from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 
 import '../../assets/css/black-dashboard-react.css';
+import './Autosuggest.css';
 
 import api from '../../services/api';
 import { getUser } from '../../services/auth';
@@ -34,6 +35,16 @@ class CreateMailer extends Component {
     url: '',
     recipients: '',
     checked: false,
+    value: '',
+    suggestions: [],
+    lists: [
+      {
+        name: 'C',
+      },
+      {
+        name: 'Elm',
+      },
+    ],
   };
 
   async componentDidMount() {
@@ -55,6 +66,10 @@ class CreateMailer extends Component {
     const users = await api.get(`/users`);
 
     this.setState({ user: users.data.find(u => u.email === getUser()) });
+
+    const lists = await api.get(`/files`);
+
+    this.setState({ lists: lists.data });
   }
 
   handleSelectSender = e => {
@@ -177,27 +192,88 @@ class CreateMailer extends Component {
   };
 
   handleRecipientsExtract = () => {
-    toast.info('Ops! Essa função ainda está em desenvolvimento.');
+    // toast.info('Ops! Essa função ainda está em desenvolvimento.');
 
-    this.setState({ checked: false });
+    this.setState({ checked: false, recipients: '' });
 
     /**
      * Ao retomar o desenvolvimento desta função,
      * descomentar abaixo e comentar o que está acima.
      */
 
-    // const { checked } = this.state;
-    // this.setState({ checked: !checked });
+    const { checked } = this.state;
+    this.setState({ checked: !checked });
   };
 
   handleSelectFile = () => {
-    toast.error(
-      'Essa função ainda está em desenvolvimento, você não deveria estar aqui.'
-    );
+    // toast.error(
+    //   'Essa função ainda está em desenvolvimento, você não deveria estar aqui.'
+    // );
+  };
+
+  getSuggestions = value => {
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+
+    return inputLength === 0
+      ? []
+      : this.state.lists.filter(
+          list =>
+            list.declaration.toLowerCase().slice(0, inputLength) === inputValue
+        );
+  };
+
+  getSuggestionValue = suggestion => suggestion.declaration;
+
+  renderSuggestion = suggestion => <div>{suggestion.declaration}</div>;
+
+  onChange = (event, { newValue }) => {
+    this.setState({
+      value: newValue,
+    });
+
+    this.handleRenderRecipientsByList(newValue);
+  };
+
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: this.getSuggestions(value),
+    });
+  };
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: [],
+    });
+  };
+
+  handleRenderRecipientsByList = async list => {
+    this.setState({ recipients: '' });
+
+    const lists = await api.get('/files');
+
+    const thisList = lists.data.find(l => l.declaration === list);
+
+    if (thisList) {
+      const { path } = thisList;
+
+      const recipientList = await api.post(`/files/convert`, {
+        filename: path,
+      });
+
+      this.setState({ recipients: recipientList.data });
+    }
   };
 
   render() {
     const { senders, selectedSender, subject, url, user, checked } = this.state;
+    const { value, suggestions } = this.state;
+
+    const inputProps = {
+      placeholder: 'Digite o nome de uma lista de contatos.',
+      value,
+      onChange: this.onChange,
+    };
 
     return (
       <>
@@ -321,14 +397,19 @@ class CreateMailer extends Component {
                         <Col className="py-md-1" md="8">
                           <FormGroup>
                             <Label for="importRecipients">
-                              Extrair destinatários
+                              Importar destinatários
                             </Label>
-                            <CustomInput
-                              onClick={this.handleSelectFile}
-                              type="file"
-                              id="importRecipients"
-                              name="customFile"
-                              className="text-primary"
+                            <Autosuggest
+                              suggestions={suggestions}
+                              onSuggestionsFetchRequested={
+                                this.onSuggestionsFetchRequested
+                              }
+                              onSuggestionsClearRequested={
+                                this.onSuggestionsClearRequested
+                              }
+                              getSuggestionValue={this.getSuggestionValue}
+                              renderSuggestion={this.renderSuggestion}
+                              inputProps={inputProps}
                             />
                           </FormGroup>
                         </Col>
