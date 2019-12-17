@@ -62,7 +62,12 @@ class Users extends Component {
                       className="btn-fill"
                       color="primary"
                       type="submit"
-                      onClick={() => history.push(`/admin/users/create`)}
+                      onClick={() =>
+                        history.push(
+                          `/admin/users/create`,
+                          history.location.state
+                        )
+                      }
                     >
                       Cadastrar
                     </Button>
@@ -108,7 +113,7 @@ class Users extends Component {
                                 title="Editar"
                                 type="button"
                                 onClick={() =>
-                                  history.push('/admin/senders/edit', 'id1')
+                                  history.push('/admin/users/edit', 'id1')
                                 }
                               >
                                 <i className="tim-icons icon-pencil" />
