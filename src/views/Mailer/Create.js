@@ -111,10 +111,13 @@ class CreateMailer extends Component {
   handleAddRecipients = e => {
     const allRecipients = e.target.value;
 
-    const recipients = allRecipients.replace(/\n/g, ', ');
+    const validateRecipient = allRecipients
+      .replace(/(,(?=\S)|:)/g, ', ')
+      .replace(/\n/g, ', ')
+      .replace(',,', ', ');
 
     this.setState({
-      recipients,
+      recipients: validateRecipient,
     });
   };
 
@@ -122,16 +125,14 @@ class CreateMailer extends Component {
     const { selectedSender, subject, url, recipients, user } = this.state;
     const { history } = this.props;
 
-    const email = {
-      sender_id: selectedSender.id,
-      recipients,
-      subject,
-      bodyurl: url,
-      author_id: user.id,
-    };
-
     try {
-      await api.post('mail', email);
+      await api.post('mail', {
+        sender_id: selectedSender.id,
+        recipients,
+        subject,
+        bodyurl: url,
+        author_id: user.id,
+      });
       toast.success('Mensagem enviada com sucesso!');
 
       setTimeout(() => {
@@ -213,7 +214,7 @@ class CreateMailer extends Component {
     e.preventDefault();
 
     const { recipients, subject, selectedSender, url } = this.state;
-    const recipientsSize = recipients.split(' ,').length;
+    const recipientsSize = recipients.split(',').length;
     const domain = 'metodista.br';
 
     /**
