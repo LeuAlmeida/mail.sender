@@ -107,106 +107,132 @@ class Register extends Component {
     const { name, email, avatar } = this.state;
     const { history } = this.props;
 
-    return (
-      <>
-        <ToastContainer autoClose={4500} />
-        <div className="content">
-          <Row>
-            <Col md="9">
-              <Card>
-                <CardHeader>
-                  <h5 className="title">Cadastrar Usuário</h5>
-                </CardHeader>
-                <CardBody>
-                  <Form>
-                    <Row>
-                      <Col className="pr-md-3" md="6">
-                        <FormGroup>
-                          <label>Nome do Usuário</label>
-                          <Input
-                            placeholder="Digite o nome do usuário"
-                            type="text"
-                            onChange={this.handleSetName}
-                          />
-                        </FormGroup>
-                      </Col>
+    if (history.location.state === 1) {
+      return (
+        <>
+          <ToastContainer autoClose={4500} />
+          <div className="content">
+            <Row>
+              <Col md="9">
+                <Card>
+                  <CardHeader>
+                    <h5 className="title">Cadastrar Usuário</h5>
+                  </CardHeader>
+                  <CardBody>
+                    <Form>
+                      <Row>
+                        <Col className="pr-md-3" md="6">
+                          <FormGroup>
+                            <label>Nome do Usuário</label>
+                            <Input
+                              placeholder="Digite o nome do usuário"
+                              type="text"
+                              onChange={this.handleSetName}
+                            />
+                          </FormGroup>
+                        </Col>
 
-                      <Col className="pl-md-3 pr-md-3" md="6">
-                        <FormGroup>
-                          <label>Avatar do Usuário</label>
-                          <Input
-                            placeholder="Digite a URL do avatar"
-                            type="text"
-                            onChange={this.handleSetAvatar}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col md="12">
-                        <hr />
-                      </Col>
-                      <Col className="pr-md-3" md="6">
-                        <FormGroup>
-                          <label>Senha</label>
-                          <Input
-                            placeholder="Digite a senha do novo usuário"
-                            type="password"
-                            onChange={this.handleSetPass}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pr-md-3" md="6">
-                        <FormGroup>
-                          <label>E-mail do Usuário</label>
-                          <Input
-                            placeholder="Digite o e-mail do usuário"
-                            type="email"
-                            onChange={this.handleSetEmail}
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </Form>
-                </CardBody>
-                <CardFooter>
-                  <Button
-                    className="btn-info"
-                    type="submit"
-                    onClick={this.handleSubmit}
-                  >
-                    Cadastrar
-                  </Button>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col md="3">
-              <Card>
-                <CardHeader>
-                  <h3 tag="h3" className="text-center">
-                    {name || 'Nome do usuário'}
-                  </h3>
-                </CardHeader>
-                <CardBody>
-                  <Col className="pr-md-3" md="12">
-                    <img
-                      alt={name || 'Avatar do Usuário'}
-                      src={
-                        this.handleShowAvatar(avatar) ||
-                        'https://placehold.it/200x150'
-                      }
-                      style={{ width: 200, height: 150, borderRadius: 4 }}
-                    />
-                  </Col>
-                </CardBody>
-                <CardFooter>
-                  <h4 tag="h4" className="text-center">
-                    {email || 'E-mail do Usuário'}
-                  </h4>
-                </CardFooter>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      </>
+                        <Col className="pl-md-3 pr-md-3" md="6">
+                          <FormGroup>
+                            <label>Avatar do Usuário</label>
+                            <Input
+                              placeholder="Digite a URL do avatar"
+                              type="text"
+                              onChange={this.handleSetAvatar}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col md="12">
+                          <hr />
+                        </Col>
+                        <Col className="pr-md-3" md="6">
+                          <FormGroup>
+                            <label>Senha</label>
+                            <Input
+                              placeholder="Digite a senha do novo usuário"
+                              type="password"
+                              onChange={this.handleSetPass}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pr-md-3" md="6">
+                          <FormGroup>
+                            <label>E-mail do Usuário</label>
+                            <Input
+                              placeholder="Digite o e-mail do usuário"
+                              type="email"
+                              onChange={this.handleSetEmail}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </CardBody>
+                  <CardFooter>
+                    <Button
+                      className="btn-info"
+                      type="submit"
+                      onClick={this.handleSubmit}
+                    >
+                      Cadastrar
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Col>
+              <Col md="3">
+                <Card>
+                  <CardHeader>
+                    <h3 tag="h3" className="text-center">
+                      {name || 'Nome do usuário'}
+                    </h3>
+                  </CardHeader>
+                  <CardBody>
+                    <Col className="pr-md-3" md="12">
+                      <img
+                        alt={name || 'Avatar do Usuário'}
+                        src={
+                          this.handleShowAvatar(avatar) ||
+                          'https://placehold.it/200x150'
+                        }
+                        style={{ width: 200, height: 150, borderRadius: 4 }}
+                      />
+                    </Col>
+                  </CardBody>
+                  <CardFooter>
+                    <h4 tag="h4" className="text-center">
+                      {email || 'E-mail do Usuário'}
+                    </h4>
+                  </CardFooter>
+                </Card>
+              </Col>
+            </Row>
+          </div>
+        </>
+      );
+    }
+    return (
+      <div className="content">
+        <Row>
+          <Col md="12">
+            <Card>
+              <CardHeader>
+                <h4 tag="h4">Erro</h4>
+              </CardHeader>
+              <CardBody>
+                Você não tem permissão para acessar esta página.
+              </CardBody>
+              <CardFooter>
+                <Button
+                  className="btn-info"
+                  onClick={() => history.push('/admin/dashboard')}
+                >
+                  Voltar
+                </Button>
+              </CardFooter>
+            </Card>
+          </Col>
+        </Row>
+      </div>
     );
   }
 }
