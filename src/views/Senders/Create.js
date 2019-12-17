@@ -21,6 +21,17 @@ class SendersCreate extends Component {
     email: '',
   };
 
+  componentDidMount() {
+    (() => {
+      if (window.localStorage) {
+        if (!localStorage.getItem('firstLoad')) {
+          localStorage.firstLoad = true;
+          window.location.reload();
+        } else localStorage.removeItem('firstLoad');
+      }
+    })();
+  }
+
   handleSetEmail = e => {
     this.setState({ email: e.target.value });
   };
