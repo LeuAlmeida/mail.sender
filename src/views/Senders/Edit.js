@@ -16,19 +16,50 @@ import {
 import api from '../../services/api';
 
 class EditSenders extends Component {
-  state = {};
+  state = {
+    sender: '',
+    email: '',
+    name: '',
+  };
 
   async componentDidMount() {
     const { history } = this.props;
-
     const { state: id } = history.location;
 
-    const response = await api.put(`/senders/${id}`);
+    const response = await api.get('/senders/');
 
-    console.log(response.data);
+    const { data } = response;
+
+    const sender = data.find(d => d.id === id);
+
+    this.setState({ sender });
   }
 
+  handleSetEmail = e => {
+    this.setState({ email: e.target.value });
+  };
+
+  handleSetName = e => {
+    this.setState({ name: e.target.value });
+  };
+
+  handleSubmit = async () => {
+    const { sender, name, email } = this.state;
+
+    try {
+      await api.put(`/senders/${sender.id}`, {
+        name,
+        email,
+      });
+      toast.success('Sucesso!');
+    } catch (err) {
+      toast.error('Erro!');
+    }
+  };
+
   render() {
+    const { sender } = this.state;
+
     return (
       <>
         <ToastContainer autoClose={4500} />
@@ -46,7 +77,7 @@ class EditSenders extends Component {
                         <FormGroup>
                           <label>Nome do Remetente</label>
                           <Input
-                            placeholder="Digite o nome do remetente"
+                            defaultValue={sender.name}
                             type="text"
                             onChange={this.handleSetName}
                           />
@@ -56,7 +87,7 @@ class EditSenders extends Component {
                         <FormGroup>
                           <label>E-mail do Remetente</label>
                           <Input
-                            placeholder="Digite o e-mail do remetente"
+                            defaultValue={sender.email}
                             type="text"
                             onChange={this.handleSetEmail}
                           />
