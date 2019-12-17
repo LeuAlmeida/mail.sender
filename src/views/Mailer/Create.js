@@ -413,8 +413,7 @@ class CreateMailer extends Component {
                       <Col className="pl-md-1" md="3">
                         <FormGroup>
                           <Button
-                            className="btn-fill mt-md-4"
-                            color="warning"
+                            className="btn-info mt-md-4"
                             type="button"
                             style={{ width: '100%' }}
                             onClick={this.handleViewMail}
@@ -503,18 +502,16 @@ class CreateMailer extends Component {
                         </div>
                       </Col>
                     </Row>
+                    <Button
+                      className="btn-primary btn-lg"
+                      color="warning"
+                      type="submit"
+                      onClick={this.handleConfirmSubmit}
+                    >
+                      Enviar
+                    </Button>
                   </Form>
                 </CardBody>
-                <CardFooter>
-                  <Button
-                    className="btn-fill"
-                    color="primary"
-                    type="submit"
-                    onClick={this.handleConfirmSubmit}
-                  >
-                    Enviar
-                  </Button>
-                </CardFooter>
               </Card>
             </Col>
           </Row>
