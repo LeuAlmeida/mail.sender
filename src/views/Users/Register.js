@@ -23,10 +23,89 @@ class Register extends Component {
     password: '',
   };
 
-  handleSet;
+  componentDidMount() {
+    (() => {
+      if (window.localStorage) {
+        if (!localStorage.getItem('firstLoad')) {
+          localStorage.firstLoad = true;
+          window.location.reload();
+        } else localStorage.removeItem('firstLoad');
+      }
+    })();
+  }
+
+  handleSetName = e => {
+    this.setState({ name: e.target.value });
+  };
+
+  handleSetEmail = e => {
+    this.setState({ email: e.target.value });
+  };
+
+  handleSetPass = e => {
+    this.setState({ password: e.target.value });
+  };
+
+  handleSetAvatar = e => {
+    this.setState({ avatar: e.target.value });
+  };
+
+  handleSubmit = async () => {
+    const { name, email, avatar, password } = this.state;
+    const { history } = this.props;
+
+    const urlIsValid = avatar.match(
+      /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/g
+    );
+
+    if (!name) {
+      toast.warn('Por favor, informe um nome.');
+    }
+
+    if (!email) {
+      toast.warn('Por favor, informe um e-mail.');
+    }
+
+    if (!password) {
+      toast.warn('Por favor, informe uma senha.');
+    }
+
+    if (!urlIsValid) {
+      toast.warn('Por favor, informe um avatar válido.');
+    }
+
+    if (name && email && password && urlIsValid) {
+      try {
+        await api.post('/users/', {
+          name,
+          email,
+          password,
+          avatar_url: avatar,
+        });
+
+        toast.success('Usuário cadastrado com sucesso.');
+        setTimeout(() => {
+          history.push(`/admin/users/list`, history.location.state);
+        }, 1500);
+      } catch (err) {
+        toast.error(
+          'Erro ao cadastrar usuário. Verifique os dados informados e tente novamente.'
+        );
+      }
+    }
+  };
+
+  handleShowAvatar = avatar => {
+    const isValid = avatar.match(
+      /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/g
+    );
+
+    return isValid && isValid;
+  };
 
   render() {
-    const { name, email, avatar, password } = this.state;
+    const { name, email, avatar } = this.state;
+    const { history } = this.props;
 
     return (
       <>
@@ -41,7 +120,7 @@ class Register extends Component {
                 <CardBody>
                   <Form>
                     <Row>
-                      <Col className="pr-md-3" md="4">
+                      <Col className="pr-md-3" md="6">
                         <FormGroup>
                           <label>Nome do Usuário</label>
                           <Input
@@ -51,17 +130,8 @@ class Register extends Component {
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="pr-md-3" md="4">
-                        <FormGroup>
-                          <label>E-mail do Usuário</label>
-                          <Input
-                            placeholder="Digite o e-mail do usuário"
-                            type="email"
-                            onChange={this.handleSetName}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-md-3 pr-md-3" md="4">
+
+                      <Col className="pl-md-3 pr-md-3" md="6">
                         <FormGroup>
                           <label>Avatar do Usuário</label>
                           <Input
@@ -84,13 +154,13 @@ class Register extends Component {
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="pr-md-1" md="6">
+                      <Col className="pr-md-3" md="6">
                         <FormGroup>
-                          <label>Confirme a Senha</label>
+                          <label>E-mail do Usuário</label>
                           <Input
-                            placeholder="Confirme a senha do novo usuário"
-                            type="password"
-                            onChange={this.handleConfirmPass}
+                            placeholder="Digite o e-mail do usuário"
+                            type="email"
+                            onChange={this.handleSetEmail}
                           />
                         </FormGroup>
                       </Col>
@@ -99,12 +169,11 @@ class Register extends Component {
                 </CardBody>
                 <CardFooter>
                   <Button
-                    className="btn-fill"
-                    color="primary"
+                    className="btn-info"
                     type="submit"
                     onClick={this.handleSubmit}
                   >
-                    Enviar
+                    Cadastrar
                   </Button>
                 </CardFooter>
               </Card>
@@ -120,15 +189,18 @@ class Register extends Component {
                   <Col className="pr-md-3" md="12">
                     <img
                       alt={name || 'Avatar do Usuário'}
-                      src={avatar || 'https://placehold.it/200x150'}
+                      src={
+                        this.handleShowAvatar(avatar) ||
+                        'https://placehold.it/200x150'
+                      }
                       style={{ width: 200, height: 150, borderRadius: 4 }}
                     />
                   </Col>
                 </CardBody>
                 <CardFooter>
-                  <h5 tag="h5" className="text-center">
+                  <h4 tag="h4" className="text-center">
                     {email || 'E-mail do Usuário'}
-                  </h5>
+                  </h4>
                 </CardFooter>
               </Card>
             </Col>
