@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { FaSpinner } from 'react-icons/fa';
 import {
   Button,
   Card,
@@ -13,12 +14,15 @@ import {
   Col,
 } from 'reactstrap';
 
+import { Loading } from '../loading';
+
 import api from '../../services/api';
 
 class SendersCreate extends Component {
   state = {
     name: '',
     email: '',
+    loading: true,
   };
 
   componentDidMount() {
@@ -30,6 +34,8 @@ class SendersCreate extends Component {
         } else localStorage.removeItem('firstLoad');
       }
     })();
+
+    this.setState({ loading: false });
   }
 
   handleSetEmail = e => {
@@ -71,6 +77,16 @@ class SendersCreate extends Component {
   };
 
   render() {
+    const { loading } = this.state;
+
+    if (loading) {
+      return (
+        <Loading>
+          <FaSpinner color="#000" size={48} />
+        </Loading>
+      );
+    }
+
     return (
       <>
         <ToastContainer autoClose={4500} />
