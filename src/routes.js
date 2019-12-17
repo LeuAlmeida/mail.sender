@@ -2,6 +2,7 @@ import Dashboard from './views/Dashboard';
 
 import Account from './views/Account';
 import Users from './views/Users';
+import RegisterUser from './views/Users/Register';
 
 import UploadFile from './views/Files/Upload';
 import FilesList from './views/Files/List';
@@ -82,6 +83,13 @@ const routes = [
     path: '/users/list',
     name: 'Usuários',
     component: Users,
+    layout: '/admin',
+    redirect: true,
+  },
+  {
+    path: '/users/create',
+    name: 'Cadastrar Usuário',
+    component: RegisterUser,
     layout: '/admin',
     redirect: true,
   },
