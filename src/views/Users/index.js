@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-// import { Container } from './styles';
+class Users extends Component {
+  state = {};
 
-export default function Users() {
-  return <div />;
+  render() {
+    return <h1>Ok!</h1>;
+  }
 }
+
+export default Users;
