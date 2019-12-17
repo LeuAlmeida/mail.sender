@@ -12,7 +12,6 @@ import {
   NavLink,
   Nav,
   Container,
-  Button,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -185,11 +184,21 @@ class AdminNavbar extends React.Component {
                         </DropdownItem>
                       </Link>
                       {user.id === 1 ? (
-                        <Link to="/admin/users/list">
+                        <button
+                          type="button"
+                          style={{
+                            backgroundColor: 'transparent',
+                            border: 0,
+                            paddingLeft: 0,
+                          }}
+                          onClick={() =>
+                            history.push('/admin/users/list', user.id)
+                          }
+                        >
                           <DropdownItem className="nav-item">
                             Gerenciar Usuários
                           </DropdownItem>
-                        </Link>
+                        </button>
                       ) : (
                         ''
                       )}
