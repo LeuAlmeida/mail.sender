@@ -209,7 +209,9 @@ class CreateMailer extends Component {
     }
   };
 
-  handleConfirmSubmit = () => {
+  handleConfirmSubmit = e => {
+    e.preventDefault();
+
     const { recipients, subject, selectedSender, url } = this.state;
     const recipientsSize = recipients.split(' ,').length;
     const domain = 'metodista.br';
@@ -271,13 +273,13 @@ class CreateMailer extends Component {
     ) {
       confirmAlert({
         title: 'Confirme o envio.',
-        message: `Você deseja enviar a mensagem ${subject} para ${recipientsSize} ${
+        message: `Você deseja enviar a mensagem: "${subject}" para ${recipientsSize} ${
           recipientsSize > 1 ? 'pessoas' : 'pessoa'
         } com o remetente ${selectedSender.name}?`,
 
         buttons: [
           {
-            label: 'Sim',
+            label: 'Enviar',
             onClick: () => this.handleSubmit(),
           },
           {
