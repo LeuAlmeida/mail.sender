@@ -86,7 +86,8 @@ class MailerList extends Component {
 
     const author = users.find(user => user.id === authorId);
 
-    return (author && author.name.split(' ').slice(0, -1)) || 'Desconhecido';
+    // return (author && author.name.split(' ').slice(0, -1)) || 'Desconhecido';
+    return (author && author.name) || 'Desconhecido';
   };
 
   mailerViewer = recipts => {
@@ -157,7 +158,11 @@ class MailerList extends Component {
                       <tbody>
                         {mailers.map(mailer => (
                           <tr key={mailer.id}>
-                            <td>{this.useSenderName(mailer.sender_id)}</td>
+                            <td>
+                              {mailer.sender_id
+                                ? this.useSenderName(mailer.sender_id)
+                                : 'Remetente desconhecido'}
+                            </td>
 
                             <td>{this.mailerViewer(mailer.recipients)}</td>
 
