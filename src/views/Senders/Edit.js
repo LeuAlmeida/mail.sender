@@ -23,6 +23,15 @@ class EditSenders extends Component {
   };
 
   async componentDidMount() {
+    (() => {
+      if (window.localStorage) {
+        if (!localStorage.getItem('firstLoad')) {
+          localStorage.firstLoad = true;
+          window.location.reload();
+        } else localStorage.removeItem('firstLoad');
+      }
+    })();
+
     const { history } = this.props;
     const { state: id } = history.location;
 
@@ -31,6 +40,15 @@ class EditSenders extends Component {
     const { data } = response;
 
     const sender = data.find(d => d.id === id);
+
+    this.setState({ name: sender.name, email: sender.email });
+
+    if (!sender) {
+      toast.error('Você precisa selecionar um remetente válido');
+      setTimeout(() => {
+        history.push(`/admin/senders/list`);
+      }, 1500);
+    }
 
     this.setState({ sender });
   }
@@ -45,20 +63,33 @@ class EditSenders extends Component {
 
   handleSubmit = async () => {
     const { sender, name, email } = this.state;
+    const { history } = this.props;
 
-    try {
-      await api.put(`/senders/${sender.id}`, {
-        name,
-        email,
-      });
-      toast.success('Sucesso!');
-    } catch (err) {
-      toast.error('Erro!');
+    if (name === sender.name && email === sender.email) {
+      toast.info('Nenhuma informação foi alterada.');
+      setTimeout(() => {
+        history.push(`/admin/senders/list`);
+      }, 1500);
+    } else {
+      try {
+        await api.put(`/senders/${sender.id}`, {
+          name,
+          email,
+        });
+        toast.success(`Remetente alterado com sucesso.`);
+        setTimeout(() => {
+          history.push(`/admin/senders/list`);
+        }, 1500);
+      } catch (err) {
+        toast.error(
+          'Erro ao editar este remetente. Por favor, tente novamente.'
+        );
+      }
     }
   };
 
   render() {
-    const { sender } = this.state;
+    const { name, email } = this.state;
 
     return (
       <>
@@ -77,7 +108,7 @@ class EditSenders extends Component {
                         <FormGroup>
                           <label>Nome do Remetente</label>
                           <Input
-                            defaultValue={sender.name}
+                            defaultValue={name}
                             type="text"
                             onChange={this.handleSetName}
                           />
@@ -87,7 +118,7 @@ class EditSenders extends Component {
                         <FormGroup>
                           <label>E-mail do Remetente</label>
                           <Input
-                            defaultValue={sender.email}
+                            defaultValue={email}
                             type="text"
                             onChange={this.handleSetEmail}
                           />
