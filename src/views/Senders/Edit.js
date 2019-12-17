@@ -23,6 +23,15 @@ class EditSenders extends Component {
   };
 
   async componentDidMount() {
+    (() => {
+      if (window.localStorage) {
+        if (!localStorage.getItem('firstLoad')) {
+          localStorage.firstLoad = true;
+          window.location.reload();
+        } else localStorage.removeItem('firstLoad');
+      }
+    })();
+
     const { history } = this.props;
     const { state: id } = history.location;
 
