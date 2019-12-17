@@ -161,7 +161,10 @@ class Users extends Component {
                                 title="Editar"
                                 type="button"
                                 onClick={() =>
-                                  history.push('/admin/users/edit', 'id1')
+                                  history.push(
+                                    `/admin/users/edit/${user.id}`,
+                                    history.location.state
+                                  )
                                 }
                               >
                                 <i className="tim-icons icon-pencil" />
