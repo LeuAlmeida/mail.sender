@@ -15,6 +15,7 @@ import {
   Col,
   CardTitle,
   Table,
+  Button,
 } from 'reactstrap';
 
 import { Loading } from '../loading';
@@ -67,6 +68,7 @@ class FilesList extends Component {
 
   render() {
     const { files, page, loading } = this.state;
+    const { history } = this.props;
 
     if (loading) {
       return (
@@ -82,8 +84,22 @@ class FilesList extends Component {
           <Row>
             <Col md="12">
               <Card>
-                <CardHeader>
+                <CardHeader
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}
+                >
                   <CardTitle tag="h4">Listas de Destinatários</CardTitle>
+                  <Button
+                    className="btn-fill"
+                    color="primary"
+                    type="submit"
+                    onClick={() => history.push(`/admin/lists/create`)}
+                  >
+                    Importar Nova
+                  </Button>
                 </CardHeader>
                 {files.length > 0 ? (
                   <CardBody>
