@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
 import { FaSpinner } from 'react-icons/fa';
 import {
   Card,
@@ -25,10 +26,57 @@ class Users extends Component {
   };
 
   async componentDidMount() {
+    (() => {
+      if (window.localStorage) {
+        if (!localStorage.getItem('firstLoad')) {
+          localStorage.firstLoad = true;
+          window.location.reload();
+        } else localStorage.removeItem('firstLoad');
+      }
+    })();
+
     const response = await api.get('/users');
 
     this.setState({ users: response.data, loading: false });
   }
+
+  handleConfirmDelete = (id, name) => {
+    confirmAlert({
+      title: 'Confirme a exclusão.',
+      message: `Você deseja excluir o usuário ${name}?`,
+
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: () => this.handleDelete(id),
+        },
+        {
+          label: 'Cancelar',
+        },
+      ],
+    });
+  };
+
+  handleDelete = async id => {
+    if (id !== 1) {
+      try {
+        await api.delete(`/users/${id}`);
+        toast.success('Usuário excluído com sucesso.');
+
+        this.loadPage();
+      } catch (err) {
+        toast.error('Erro ao excluir o usuário.');
+      }
+    } else {
+      toast.error('Você não pode excluir este usuário.');
+    }
+  };
+
+  loadPage = async () => {
+    const response = await api.get('/users');
+
+    this.setState({ users: response.data });
+  };
 
   render() {
     const { history } = this.props;
@@ -131,7 +179,9 @@ class Users extends Component {
                                 id="remove-id1"
                                 title="Remover"
                                 type="top"
-                                onClick={() => this.handleConfirmDelete()}
+                                onClick={() =>
+                                  this.handleConfirmDelete(user.id, user.name)
+                                }
                               >
                                 <i className="tim-icons icon-trash-simple" />
                               </Button>
