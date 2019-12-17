@@ -7,7 +7,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   FormGroup,
   Form,
   Input,
@@ -20,10 +19,10 @@ import Autosuggest from 'react-autosuggest';
 import { PropTypes } from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import { FaSpinner } from 'react-icons/fa';
-import { confirmAlert } from 'react-confirm-alert'; // Import
+import { confirmAlert } from 'react-confirm-alert';
 import { Loading } from '../loading';
 
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../../assets/css/black-dashboard-react.css';
 import './Autosuggest.css';
 
@@ -121,39 +120,11 @@ class CreateMailer extends Component {
     });
   };
 
-  handleSubmit = async () => {
-    const { selectedSender, subject, url, recipients, user } = this.state;
-    const { history } = this.props;
-
-    try {
-      await api.post('mail', {
-        sender_id: selectedSender.id,
-        recipients,
-        subject,
-        bodyurl: url,
-        author_id: user.id,
-      });
-      toast.success('Mensagem enviada com sucesso!');
-
-      setTimeout(() => {
-        history.push(`/admin/mailer/list`);
-      }, 1500);
-    } catch {
-      toast.error('Ocorreu um erro ao enviar a mensagem.');
-    }
-  };
-
   handleRecipientsExtract = () => {
     this.setState({ checked: false, recipients: '' });
 
     const { checked } = this.state;
     this.setState({ checked: !checked });
-  };
-
-  handleSelectFile = () => {
-    // toast.error(
-    //   'Essa função ainda está em desenvolvimento, você não deveria estar aqui.'
-    // );
   };
 
   getSuggestions = value => {
@@ -269,7 +240,7 @@ class CreateMailer extends Component {
       selectedSenderIsValid &&
       subjectIsValid &&
       urlIsValid &&
-      recipientsIsValid &&
+      // recipientsIsValid &&
       !notValidDomain
     ) {
       confirmAlert({
@@ -291,6 +262,31 @@ class CreateMailer extends Component {
     }
 
     //
+  };
+
+  handleSubmit = async () => {
+    const { selectedSender, subject, url, recipients, user } = this.state;
+    const { history } = this.props;
+
+    const email = {
+      sender_id: selectedSender.id,
+      recipients,
+      subject,
+      bodyurl: url,
+      author_id: user.id,
+    };
+
+    try {
+      await api.post('mail', email);
+      console.log(email);
+      toast.success('Mensagem enviada com sucesso!');
+
+      setTimeout(() => {
+        history.push(`/admin/mailer/list`);
+      }, 1500);
+    } catch {
+      toast.error('Ocorreu um erro ao enviar a mensagem.');
+    }
   };
 
   render() {
