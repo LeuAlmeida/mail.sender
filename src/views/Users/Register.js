@@ -15,7 +15,7 @@ import {
 
 import api from '../../services/api';
 
-class Register extends Component {
+class RegisterUser extends Component {
   state = {
     name: '',
     email: '',
@@ -237,4 +237,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default RegisterUser;
