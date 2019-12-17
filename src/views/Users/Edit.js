@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-// import { Container } from './styles';
+class EditUsers extends Component {
+  state = {};
 
-export default function EditUsers() {
-  return <div />;
+  render() {
+    return (
+      <>
+        <h1>Ok</h1>
+      </>
+    );
+  }
 }
+
+export default EditUsers;
