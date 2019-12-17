@@ -12,6 +12,7 @@ import {
   NavLink,
   Nav,
   Container,
+  Button,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -81,7 +82,7 @@ class AdminNavbar extends React.Component {
 
   render() {
     const { user, color, collapseOpen } = this.state;
-    const { sidebarOpened, toggleSidebar, brandText } = this.props;
+    const { sidebarOpened, toggleSidebar, brandText, history } = this.props;
 
     return (
       <>
@@ -183,6 +184,15 @@ class AdminNavbar extends React.Component {
                           Configurações
                         </DropdownItem>
                       </Link>
+                      {user.id === 1 ? (
+                        <Link to="/admin/users/list">
+                          <DropdownItem className="nav-item">
+                            Gerenciar Usuários
+                          </DropdownItem>
+                        </Link>
+                      ) : (
+                        ''
+                      )}
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li" onClick={this.handleLogout}>
