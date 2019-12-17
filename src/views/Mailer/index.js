@@ -16,6 +16,7 @@ import {
   Col,
   CardTitle,
   Table,
+  Button,
 } from 'reactstrap';
 import ReactTooltip from 'react-tooltip';
 
@@ -124,6 +125,7 @@ class MailerList extends Component {
 
   render() {
     const { mailers, page, loading } = this.state;
+    const { history } = this.props;
 
     if (loading) {
       return (
@@ -139,8 +141,22 @@ class MailerList extends Component {
           <Row>
             <Col md="12">
               <Card>
-                <CardHeader>
+                <CardHeader
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}
+                >
                   <CardTitle tag="h4">Ações Enviadas</CardTitle>
+                  <Button
+                    className="btn-fill"
+                    color="primary"
+                    type="submit"
+                    onClick={() => history.push(`/admin/mailer/create`)}
+                  >
+                    Criar Nova
+                  </Button>
                 </CardHeader>
                 {mailers.length > 0 ? (
                   <CardBody>
