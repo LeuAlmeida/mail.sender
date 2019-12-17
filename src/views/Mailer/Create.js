@@ -222,6 +222,12 @@ class CreateMailer extends Component {
     }
     const recipientsArray = recipients.split(',');
 
+    const recipientsIsValid = recipientsArray.length < 500;
+
+    if (!recipientsIsValid) {
+      toast.warning('O limite de destinatários é de 500 e-mails.');
+    }
+
     const recipientsDomain = recipientsArray.map(rec => rec.replace(/.*@/, ''));
 
     const notValidDomain = recipientsDomain.find(recips => recips !== domain);
@@ -230,17 +236,11 @@ class CreateMailer extends Component {
       toast.warning(`Todos os domínios necessitam terminar com ${domain}`);
     }
 
-    const recipientsIsValid = recipientsArray.length < 500;
-
-    if (!recipientsIsValid) {
-      toast.warning('O limite de destinatários é de 500 e-mails.');
-    }
-
     if (
       selectedSenderIsValid &&
       subjectIsValid &&
       urlIsValid &&
-      // recipientsIsValid &&
+      recipientsIsValid &&
       !notValidDomain
     ) {
       confirmAlert({
@@ -278,7 +278,6 @@ class CreateMailer extends Component {
 
     try {
       await api.post('mail', email);
-      console.log(email);
       toast.success('Mensagem enviada com sucesso!');
 
       setTimeout(() => {
