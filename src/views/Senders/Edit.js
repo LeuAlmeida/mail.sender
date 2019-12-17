@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaSpinner } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import {
   Button,
@@ -13,6 +14,8 @@ import {
   Col,
 } from 'reactstrap';
 
+import { Loading } from '../loading';
+
 import api from '../../services/api';
 
 class EditSenders extends Component {
@@ -20,6 +23,7 @@ class EditSenders extends Component {
     sender: '',
     email: '',
     name: '',
+    loading: true,
   };
 
   async componentDidMount() {
@@ -50,7 +54,7 @@ class EditSenders extends Component {
       }, 1500);
     }
 
-    this.setState({ sender });
+    this.setState({ sender, loading: false });
   }
 
   handleSetEmail = e => {
@@ -89,7 +93,15 @@ class EditSenders extends Component {
   };
 
   render() {
-    const { name, email } = this.state;
+    const { name, email, loading } = this.state;
+
+    if (loading) {
+      return (
+        <Loading>
+          <FaSpinner color="#000" size={48} />
+        </Loading>
+      );
+    }
 
     return (
       <>
