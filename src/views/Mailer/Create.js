@@ -222,11 +222,11 @@ class CreateMailer extends Component {
     }
     const recipientsArray = recipients.split(',');
 
-    const recipientsIsValid = recipientsArray.length < 500;
+    // const recipientsIsValid = recipientsArray.length < 500;
 
-    if (!recipientsIsValid) {
-      toast.warning('O limite de destinatários é de 500 e-mails.');
-    }
+    // if (!recipientsIsValid) {
+    //   toast.warning('O limite de destinatários é de 500 e-mails.');
+    // }
 
     const recipientsDomain = recipientsArray.map(rec => rec.replace(/.*@/, ''));
 
@@ -240,7 +240,7 @@ class CreateMailer extends Component {
       selectedSenderIsValid &&
       subjectIsValid &&
       urlIsValid &&
-      recipientsIsValid &&
+      // recipientsIsValid &&
       !notValidDomain
     ) {
       confirmAlert({
