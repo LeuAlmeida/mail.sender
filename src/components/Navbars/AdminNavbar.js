@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
@@ -187,6 +188,7 @@ class AdminNavbar extends React.Component {
                       </Link>
                       {user.id === 1 ? (
                         <a
+                          href="#"
                           style={{
                             backgroundColor: 'transparent',
                             border: 0,
