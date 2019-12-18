@@ -1,6 +1,7 @@
 import Dashboard from './views/Dashboard';
 
 import Account from './views/Account';
+import Reports from './views/Reports';
 
 import Users from './views/Users';
 import RegisterUser from './views/Users/Register';
@@ -70,7 +71,7 @@ const routes = [
   {
     path: '/reports',
     name: 'Relatórios de Envios',
-    // component: Account,
+    component: Reports,
     layout: '/admin',
     redirect: true,
   },
