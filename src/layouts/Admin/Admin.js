@@ -94,17 +94,20 @@ class Admin extends React.Component {
         return routes[i].name;
       }
     }
-    return 'Brand';
+    return 'Disparador de E-mails';
   };
 
   render() {
+    const { location } = this.props;
+    const { backgroundColor, sidebarOpened } = this.state;
+
     return (
       <>
         <div className="wrapper">
           <Sidebar
             {...this.props}
             routes={routes}
-            bgColor={this.state.backgroundColor}
+            bgColor={backgroundColor}
             logo={{
               outterLink: 'https://github.com/educacaometodista',
               text: 'Metodista',
@@ -112,26 +115,18 @@ class Admin extends React.Component {
             }}
             toggleSidebar={this.toggleSidebar}
           />
-          <div
-            className="main-panel"
-            ref="mainPanel"
-            data={this.state.backgroundColor}
-          >
+          <div className="main-panel" ref="mainPanel" data={backgroundColor}>
             <AdminNavbar
               {...this.props}
-              brandText={this.getBrandText(this.props.location.pathname)}
+              brandText={this.getBrandText(location.pathname)}
               toggleSidebar={this.toggleSidebar}
-              sidebarOpened={this.state.sidebarOpened}
+              sidebarOpened={sidebarOpened}
             />
             <Switch>{this.getRoutes(routes)}</Switch>
-            {// we don't want the Footer to be rendered on map page
-            this.props.location.pathname.indexOf('maps') !== -1 ? null : (
-              <Footer fluid />
-            )}
           </div>
         </div>
         <FixedPlugin
-          bgColor={this.state.backgroundColor}
+          bgColor={backgroundColor}
           handleBgClick={this.handleBgClick}
         />
       </>
