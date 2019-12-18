@@ -14,10 +14,12 @@ import {
   Col,
 } from 'reactstrap';
 
+import { getUser } from '../../services/auth';
 import api from '../../services/api';
 
 class EditUser extends Component {
   state = {
+    token: '',
     user: '',
     name: '',
     email: '',
@@ -48,6 +50,7 @@ class EditUser extends Component {
 
     this.setState({
       user,
+      token: response.data.find(u => u.email === getUser()),
       avatar: user.avatar_url,
       email: user.email,
     });
@@ -123,10 +126,10 @@ class EditUser extends Component {
   };
 
   render() {
-    const { user, name, email, avatar } = this.state;
+    const { token, user, name, email, avatar } = this.state;
     const { history } = this.props;
 
-    if (history.location.state === 1) {
+    if (token.id === 1) {
       return (
         <>
           <ToastContainer autoClose={4500} />
@@ -240,6 +243,7 @@ class EditUser extends Component {
         </>
       );
     }
+
     return (
       <div className="content">
         <Row>
