@@ -68,6 +68,13 @@ const routes = [
     redirect: true,
   },
   {
+    path: '/reports',
+    name: 'Relatórios de Envios',
+    // component: Account,
+    layout: '/admin',
+    redirect: true,
+  },
+  {
     path: '/senders/create',
     name: 'Cadastrar remetente',
     component: CreateSender,
