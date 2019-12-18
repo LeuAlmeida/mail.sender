@@ -13,17 +13,19 @@ import {
   Col,
 } from 'reactstrap';
 
+import { getUser } from '../../services/auth';
 import api from '../../services/api';
 
 class RegisterUser extends Component {
   state = {
+    token: '',
     name: '',
     email: '',
     avatar: '',
     password: '',
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     (() => {
       if (window.localStorage) {
         if (!localStorage.getItem('firstLoad')) {
@@ -32,6 +34,10 @@ class RegisterUser extends Component {
         } else localStorage.removeItem('firstLoad');
       }
     })();
+
+    const response = await api.get('/users');
+
+    this.setState({ token: response.data.find(u => u.email === getUser()) });
   }
 
   handleSetName = e => {
@@ -104,10 +110,10 @@ class RegisterUser extends Component {
   };
 
   render() {
-    const { name, email, avatar } = this.state;
+    const { token, name, email, avatar } = this.state;
     const { history } = this.props;
 
-    if (history.location.state === 1) {
+    if (token.id === 1) {
       return (
         <>
           <ToastContainer autoClose={4500} />
