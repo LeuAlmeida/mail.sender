@@ -15,29 +15,26 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap';
 
+import { getUser } from '../../services/auth';
 import api from '../../services/api';
 
 import { Loading } from '../loading';
 
 class Users extends Component {
   state = {
+    token: '',
     users: '',
     loading: true,
   };
 
   async componentDidMount() {
-    (() => {
-      if (window.localStorage) {
-        if (!localStorage.getItem('firstLoad')) {
-          localStorage.firstLoad = true;
-          window.location.reload();
-        } else localStorage.removeItem('firstLoad');
-      }
-    })();
-
     const response = await api.get('/users');
 
-    this.setState({ users: response.data, loading: false });
+    this.setState({
+      users: response.data,
+      token: response.data.find(u => u.email === getUser()),
+      loading: false,
+    });
   }
 
   handleConfirmDelete = (id, name) => {
@@ -80,7 +77,7 @@ class Users extends Component {
 
   render() {
     const { history } = this.props;
-    const { users, loading } = this.state;
+    const { token, users, loading } = this.state;
 
     if (loading) {
       return (
@@ -90,7 +87,7 @@ class Users extends Component {
       );
     }
 
-    if (history.location.state === 1) {
+    if (token.id === 1) {
       return (
         <>
           <ToastContainer autoClose={4500} />
