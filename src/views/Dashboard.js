@@ -66,7 +66,6 @@ class Dashboard extends Component {
 
   render() {
     const { bigChartData, mailers, files } = this.state;
-
     return (
       <>
         <ToastContainer autoClose={2000} />
