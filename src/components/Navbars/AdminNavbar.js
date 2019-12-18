@@ -14,6 +14,7 @@ import {
   Navbar,
   NavLink,
   Nav,
+  UncontrolledTooltip,
   Container,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -128,7 +129,7 @@ class AdminNavbar extends React.Component {
               <Nav className="ml-auto" navbar>
                 <InputGroup className="search-bar" />
                 <UncontrolledDropdown nav>
-                  {/* <DropdownToggle
+                  <DropdownToggle
                     caret
                     color="default"
                     data-toggle="dropdown"
@@ -137,7 +138,7 @@ class AdminNavbar extends React.Component {
                     <div className="notification d-none d-lg-block d-xl-block" />
                     <i className="tim-icons icon-bell-55" />
                     <p className="d-lg-none">Notifications</p>
-                  </DropdownToggle> */}
+                  </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
                       <DropdownItem className="nav-item">
@@ -165,6 +166,26 @@ class AdminNavbar extends React.Component {
                       </DropdownItem>
                     </NavLink>
                   </DropdownMenu>
+                </UncontrolledDropdown>
+                <UncontrolledDropdown nav>
+                  <DropdownToggle
+                    caret
+                    color="default"
+                    data-toggle="dropdown"
+                    nav
+                    id="relatorios"
+                    onClick={() => history.push('/admin/reports')}
+                  >
+                    <i className="tim-icons icon-chart-bar-32" />
+                    <p className="d-lg-none">Relatórios</p>
+                    <UncontrolledTooltip
+                      delay={0}
+                      target="relatorios"
+                      placement="top"
+                    >
+                      Relatórios
+                    </UncontrolledTooltip>
+                  </DropdownToggle>
                 </UncontrolledDropdown>
                 <UncontrolledDropdown nav>
                   <DropdownToggle
