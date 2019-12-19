@@ -18,7 +18,7 @@ import {
 import { getUser } from '../../services/auth';
 import api from '../../services/api';
 
-import { Loading } from '../loading';
+import { Loading } from '../../components/Loading';
 
 class Users extends Component {
   state = {
