@@ -18,7 +18,7 @@ import {
   Button,
 } from 'reactstrap';
 
-import { Loading } from '../loading';
+import { Loading } from '../../components/Loading';
 import { PaginationButton } from '../styles/pagination';
 
 import api from '../../services/api';
