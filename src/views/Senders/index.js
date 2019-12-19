@@ -15,7 +15,7 @@ import {
 } from 'reactstrap';
 
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { Loading } from '../loading';
+import { Loading } from '../../components/Loading';
 import { PaginationButton } from '../styles/pagination';
 
 import api from '../../services/api';
