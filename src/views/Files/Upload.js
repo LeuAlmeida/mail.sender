@@ -16,7 +16,7 @@ import {
   Table,
 } from 'reactstrap';
 import { FaSpinner } from 'react-icons/fa';
-import { Loading } from '../loading';
+import { Loading } from '../../components/Loading';
 
 import api from '../../services/api';
 
