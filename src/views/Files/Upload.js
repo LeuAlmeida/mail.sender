@@ -215,7 +215,7 @@ class Upload extends Component {
 
 Upload.defaultProps = {
   history: {
-    push: this.handleSubmit,
+    push: '',
   },
 };
 

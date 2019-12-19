@@ -14,15 +14,11 @@
 //   }
 
 //   return tempArray;
-}
+// }
 // Split in group of 3 items
 // const result = chunkArray(arr, 10);
 
-
-
 // Outputs : [ [1,2,3] , [4,5,6] ,[7,8] ]
-
-
 
 // console.log(result);
 

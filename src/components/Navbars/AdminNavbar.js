@@ -249,7 +249,7 @@ class AdminNavbar extends React.Component {
 
 AdminNavbar.defaultProps = {
   history: {
-    push: this.handleSubmit,
+    push: '',
   },
   sidebarOpened: '',
   toggleSidebar: '',
