@@ -23,7 +23,7 @@ import ReactTooltip from 'react-tooltip';
 import api from '../../services/api';
 
 import { PaginationButton } from '../styles/pagination';
-import { Loading } from '../loading';
+import { Loading } from '../../components/Loading';
 
 class MailerList extends Component {
   state = {
