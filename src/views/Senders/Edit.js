@@ -14,7 +14,7 @@ import {
   Col,
 } from 'reactstrap';
 
-import { Loading } from '../loading';
+import { Loading } from '../../components/Loading';
 
 import api from '../../services/api';
 
