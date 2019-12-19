@@ -20,7 +20,7 @@ import { PropTypes } from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import { FaSpinner } from 'react-icons/fa';
 import { confirmAlert } from 'react-confirm-alert';
-import { Loading } from '../loading';
+import { Loading } from '../../components/Loading';
 
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../../assets/css/black-dashboard-react.css';
