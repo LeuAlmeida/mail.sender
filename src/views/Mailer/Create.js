@@ -202,10 +202,10 @@ class CreateMailer extends Component {
 
     // Subject Validators
 
-    const subjectIsValid = subject.length > 16;
+    const subjectIsValid = subject.length > 12;
 
     if (!subjectIsValid) {
-      toast.warning('O assunto precisa ter mais de 16 caracteres.');
+      toast.warning('O assunto precisa ter mais de 12 caracteres.');
     }
 
     // Url Validators
@@ -521,7 +521,7 @@ CreateMailer.defaultProps = {
   url: 'http://metodista.br',
   recipients: 'informes@metodista.br',
   history: {
-    push: this.handleSubmit,
+    push: '',
   },
 };
 
