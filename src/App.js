@@ -7,7 +7,10 @@ import { isAuthenticated } from './services/auth';
 
 import AdminLayout from './layouts/Admin/Admin';
 import Login from './views/Login';
-import Icons from './views/Icons';
+
+import Icons from './views/legacy/Icons';
+import Tests from './views/legacy/Tests';
+import Typography from './views/legacy/Typography';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -38,7 +41,9 @@ function App() {
     <Router history={hist}>
       <Switch>
         <Route path="/login" exact component={Login} />
-        <Route path="/icons" exact component={Icons} />
+        <Route path="/legacy/icons" exact component={Icons} />
+        <Route path="/legacy/tests" exact component={Tests} />
+        <Route path="/legacy/typography" exact component={Typography} />
         <PrivateRoute />
         <ToastContainer autoClose={3000} />
         <Redirect
