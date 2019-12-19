@@ -128,12 +128,13 @@ class CreateMailer extends Component {
   };
 
   getSuggestions = value => {
+    const { lists } = this.state;
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
     return inputLength === 0
       ? []
-      : this.state.lists.filter(
+      : lists.filter(
           list =>
             list.declaration.toLowerCase().slice(0, inputLength) === inputValue
         );
@@ -519,6 +520,9 @@ CreateMailer.defaultProps = {
   subject: 'Assunto da Mensagem',
   url: 'http://metodista.br',
   recipients: 'informes@metodista.br',
+  history: {
+    push: this.handleSubmit,
+  },
 };
 
 CreateMailer.propTypes = {
@@ -527,6 +531,9 @@ CreateMailer.propTypes = {
   subject: PropTypes.string,
   url: PropTypes.string,
   recipients: PropTypes.string,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
 };
 
 export default CreateMailer;
