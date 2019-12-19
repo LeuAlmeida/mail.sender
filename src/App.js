@@ -8,6 +8,7 @@ import { isAuthenticated } from './services/auth';
 
 import AdminLayout from './layouts/Admin/Admin';
 import Login from './views/Login';
+import Dashboard from './views/Dashboard';
 import Icons from './views/legacy/Icons';
 import Tests from './views/legacy/Tests';
 import Typography from './views/legacy/Typography';
