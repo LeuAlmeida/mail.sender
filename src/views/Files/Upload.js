@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { subHours, parseISO, format } from 'date-fns';
+import { PropTypes } from 'prop-types';
 import pt from 'date-fns/locale/pt';
 import { ToastContainer, toast } from 'react-toastify';
 import {
@@ -100,6 +101,7 @@ class Upload extends Component {
         );
       }
     }
+    return null;
   };
 
   render() {
@@ -135,7 +137,7 @@ class Upload extends Component {
                     />
 
                     <p>
-                      {this.state.file ? (
+                      {file ? (
                         <span
                           style={{
                             display: 'flex',
@@ -210,5 +212,17 @@ class Upload extends Component {
     );
   }
 }
+
+Upload.defaultProps = {
+  history: {
+    push: this.handleSubmit,
+  },
+};
+
+Upload.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+};
 
 export default Upload;
