@@ -1,32 +1,59 @@
-// import React from 'react';
+import React, { Component } from 'react';
+import {
+  Input,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardHeader,
+  CardTitle,
+} from 'reactstrap';
 
-// const arr = data.split(',');
+import { addHours, parseISO, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
-// export default function views() {
-// function chunkArray(myArray, chunkSize) {
-//   let index = 0;
-//   const arrayLength = myArray.length;
-//   const tempArray = [];
+class Tests extends Component {
+  state = {
+    date: null,
+  };
 
-//   for (index = 0; index < arrayLength; index += chunkSize) {
-//     const myChunk = myArray.slice(index, index + chunkSize);
-//     tempArray.push(myChunk);
-//   }
+  formatDate = date => {
+    format(date, "'dia' dd 'de' MMMM', às' H:mm'h'", { locale: pt });
+  };
 
-//   return tempArray;
-// }
-// Split in group of 3 items
-// const result = chunkArray(arr, 10);
+  handleSetDate = e => {
+    const date = format(
+      addHours(parseISO(e.target.value), 3),
+      "yyy'-'MM'-'dd'T'H:mm:ss"
+    );
 
-// Outputs : [ [1,2,3] , [4,5,6] ,[7,8] ]
+    this.setState({ date });
 
-// console.log(result);
+    console.log(this.formatDate(new Date(date)));
+  };
 
-// result.map(res => console.log(res));
+  render() {
+    return (
+      <>
+        <Row>
+          <Col md="6">
+            <Card>
+              <CardHeader>
+                <CardTitle tag="h1">Título</CardTitle>
+              </CardHeader>
+              <Col md="6">
+                <Input
+                  type="datetime-local"
+                  style={{ textTransform: 'uppercase' }}
+                  onChange={this.handleSetDate}
+                />
+              </Col>
+            </Card>
+          </Col>
+        </Row>
+      </>
+    );
+  }
+}
 
-//   return (
-//     <>
-//       <h1>Ok!</h1>
-//     </>
-//   );
-// }
+export default Tests;
