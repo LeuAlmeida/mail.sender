@@ -64,7 +64,7 @@ class Reports extends Component {
   }
 
   loadPage = async () => {
-    const { interval, page } = this.state;
+    const { interval } = this.state;
 
     const mails = await api.get(`/reports/interval/${interval}`);
 
