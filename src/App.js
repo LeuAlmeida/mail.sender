@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { createBrowserHistory } from 'history';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { PropTypes } from 'prop-types';
 
 import { isAuthenticated } from './services/auth';
 
@@ -63,23 +63,5 @@ function App() {
     </Router>
   );
 }
-
-App.defaultProps = {
-  location: '',
-};
-
-App.propTypes = {
-  location: PropTypes.string,
-};
-
-PrivateRoute.defaultProps = {
-  location: '',
-  component: '',
-};
-
-PrivateRoute.propTypes = {
-  location: PropTypes.string,
-  component: PropTypes.string,
-};
 
 export default App;
