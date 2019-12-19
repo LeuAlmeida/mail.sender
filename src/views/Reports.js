@@ -15,7 +15,7 @@ import {
 } from 'reactstrap';
 import { FaChevronLeft, FaChevronRight, FaSpinner } from 'react-icons/fa';
 import { PaginationButton } from './styles/pagination';
-import { Loading } from './loading';
+import { Loading } from '../components/Loading';
 
 import api from '../services/api';
 
