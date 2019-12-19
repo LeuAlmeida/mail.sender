@@ -6,11 +6,10 @@ import PerfectScrollbar from 'perfect-scrollbar';
 // core components
 import routes from '../../routes';
 import AdminNavbar from '../../components/Navbars/AdminNavbar';
-import Footer from '../../components/Footer/Footer';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import FixedPlugin from '../../components/FixedPlugin/FixedPlugin';
 
-import logo from '../../assets/img/react-logo.png';
+import logo from '../../assets/img/logo.png';
 
 let ps;
 
