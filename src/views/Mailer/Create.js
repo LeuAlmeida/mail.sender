@@ -16,6 +16,8 @@ import {
   Table,
 } from 'reactstrap';
 import Autosuggest from 'react-autosuggest';
+import { addHours, parseISO, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import { PropTypes } from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import { FaSpinner } from 'react-icons/fa';
@@ -36,6 +38,8 @@ class CreateMailer extends Component {
     selectedSender: [],
     subject: '',
     url: '',
+    date: null,
+    originalDate: '',
     recipients: '',
     checked: false,
     value: '',
@@ -182,25 +186,40 @@ class CreateMailer extends Component {
     }
   };
 
+  handleSetDate = e => {
+    const originalDate = parseISO(e.target.value);
+
+    const date = format(
+      addHours(parseISO(e.target.value), 3),
+      "yyy'-'MM'-'dd'T'H:mm:ss'.000Z'"
+    );
+
+    this.setState({ date, originalDate });
+  };
+
+  formatDate = d => {
+    return format(d, "'dia' dd 'de' MMMM', às' H'h'mm", { locale: pt });
+  };
+
   handleConfirmSubmit = e => {
     e.preventDefault();
 
-    const { recipients, subject, selectedSender, url } = this.state;
+    const {
+      recipients,
+      subject,
+      selectedSender,
+      url,
+      date,
+      originalDate,
+    } = this.state;
     const recipientsSize = recipients.split(',').length;
     const domain = 'metodista.br';
 
-    /**
-     * VALIDATORS
-     */
-
-    // Sender Validators
     const selectedSenderIsValid = selectedSender.length === undefined;
 
     if (!selectedSenderIsValid) {
       toast.warning('Por favor, selecione um remetente.');
     }
-
-    // Subject Validators
 
     const subjectIsValid = subject.length > 12;
 
@@ -208,7 +227,6 @@ class CreateMailer extends Component {
       toast.warning('O assunto precisa ter mais de 12 caracteres.');
     }
 
-    // Url Validators
     const urlIsValid = url.match(
       /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/g
     );
@@ -217,7 +235,6 @@ class CreateMailer extends Component {
       toast.warning('Por favor, digite um endereço válido.');
     }
 
-    // Recipients Validators
     if (!recipients) {
       toast.warning('Informe ao menos 1 destinatário.');
     }
@@ -235,14 +252,15 @@ class CreateMailer extends Component {
       selectedSenderIsValid &&
       subjectIsValid &&
       urlIsValid &&
-      // recipientsIsValid &&
       !notValidDomain
     ) {
       confirmAlert({
         title: 'Confirme o envio.',
         message: `Você deseja enviar a mensagem: "${subject}" para ${recipientsSize} ${
           recipientsSize > 1 ? 'pessoas' : 'pessoa'
-        } com o remetente ${selectedSender.name}?`,
+        } com o remetente ${selectedSender.name} ${
+          date ? this.formatDate(originalDate) : ''
+        }?`,
 
         buttons: [
           {
@@ -260,11 +278,12 @@ class CreateMailer extends Component {
   };
 
   handleSubmit = async () => {
-    const { selectedSender, subject, url, recipients, user } = this.state;
+    const { selectedSender, subject, url, recipients, user, date } = this.state;
     const { history } = this.props;
 
     const email = {
       sender_id: selectedSender.id,
+      date,
       recipients,
       subject,
       bodyurl: url,
@@ -421,8 +440,8 @@ class CreateMailer extends Component {
                           <label htmlFor="">Agendar Envio</label>
                           <Input
                             type="datetime-local"
-                            disabled
                             style={{ textTransform: 'uppercase' }}
+                            onChange={this.handleSetDate}
                           />
                         </FormGroup>
                       </Col>
