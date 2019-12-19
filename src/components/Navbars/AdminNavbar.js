@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+
 import React from 'react';
 import classNames from 'classnames';
+import { PropTypes } from 'prop-types';
 import {
   Collapse,
   DropdownToggle,
@@ -55,7 +57,9 @@ class AdminNavbar extends React.Component {
   };
 
   updateColor = () => {
-    if (window.innerWidth < 993 && this.state.collapseOpen) {
+    const { collapseOpen } = this.state;
+
+    if (window.innerWidth < 993 && collapseOpen) {
       this.setState({
         color: 'bg-white',
       });
@@ -242,5 +246,23 @@ class AdminNavbar extends React.Component {
     );
   }
 }
+
+AdminNavbar.defaultProps = {
+  history: {
+    push: this.handleSubmit,
+  },
+  sidebarOpened: '',
+  toggleSidebar: '',
+  brandText: '',
+};
+
+AdminNavbar.propTypes = {
+  sidebarOpened: PropTypes.string,
+  toggleSidebar: PropTypes.string,
+  brandText: PropTypes.string,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+};
 
 export default AdminNavbar;
