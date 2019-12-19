@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 import React from 'react';
 import classNames from 'classnames';
-import { PropTypes } from 'prop-types';
 import {
   Collapse,
   DropdownToggle,
@@ -246,23 +246,5 @@ class AdminNavbar extends React.Component {
     );
   }
 }
-
-AdminNavbar.defaultProps = {
-  history: {
-    push: '',
-  },
-  sidebarOpened: '',
-  toggleSidebar: '',
-  brandText: '',
-};
-
-AdminNavbar.propTypes = {
-  sidebarOpened: PropTypes.string,
-  toggleSidebar: PropTypes.string,
-  brandText: PropTypes.string,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-};
 
 export default AdminNavbar;
