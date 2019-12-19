@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable no-unused-expressions */
+
 import React, { Component } from 'react';
 
 class FixedPlugin extends Component {
@@ -58,7 +62,7 @@ class FixedPlugin extends Component {
     return (
       <div className="fixed-plugin">
         <div className={classes}>
-          <div onClick={this.handleClick}>
+          <div onClick={() => this.handleClick}>
             <i className="fa fa-cog fa-2x" />
           </div>
           <ul className="dropdown-menu show">
