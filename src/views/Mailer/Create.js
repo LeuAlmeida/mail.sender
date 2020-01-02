@@ -436,7 +436,7 @@ class CreateMailer extends Component {
                         </FormGroup>
                       </Col>
 
-                      <Col className="pr-md-1" md="6">
+                      <Col className="pr-md-1 py-md-1" md="8">
                         <FormGroup>
                           <label htmlFor="">Agendar Envio</label>
                           <Input
@@ -447,7 +447,7 @@ class CreateMailer extends Component {
                         </FormGroup>
                       </Col>
 
-                      <Col className="pt-md-4" md="6">
+                      <Col className="pt-md-4" md="4">
                         <div className="table-full-width">
                           <Table>
                             <tbody>
