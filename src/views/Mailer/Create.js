@@ -45,6 +45,7 @@ class CreateMailer extends Component {
     value: '',
     suggestions: [],
     lists: '',
+    scheduleChecked: false,
     loading: true,
   };
 
@@ -409,7 +410,7 @@ class CreateMailer extends Component {
                         </FormGroup>
                       </Col>
 
-                      <Col className="pr-md-1" md="5">
+                      <Col className="pr-md-1" md="8">
                         <FormGroup>
                           <label htmlFor="exampleInputEmail1">
                             URL da Mensagem
@@ -422,7 +423,7 @@ class CreateMailer extends Component {
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="pl-md-1" md="3">
+                      <Col className="pl-md-1" md="4">
                         <FormGroup>
                           <Button
                             className="btn-info mt-md-4"
@@ -435,7 +436,7 @@ class CreateMailer extends Component {
                         </FormGroup>
                       </Col>
 
-                      <Col className="pl-md-1" md="4">
+                      <Col className="pr-md-1" md="6">
                         <FormGroup>
                           <label htmlFor="">Agendar Envio</label>
                           <Input
@@ -444,6 +445,38 @@ class CreateMailer extends Component {
                             onChange={this.handleSetDate}
                           />
                         </FormGroup>
+                      </Col>
+
+                      <Col className="pt-md-4" md="6">
+                        <div className="table-full-width">
+                          <Table>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <FormGroup check>
+                                    <Label check>
+                                      <Input
+                                        defaultValue=""
+                                        type="checkbox"
+                                        // checked={checked}
+                                        onChange={() => {}}
+                                      />
+                                      <span className="form-check-sign">
+                                        <span className="check" />
+                                      </span>
+                                    </Label>
+                                  </FormGroup>
+                                </td>
+                                <td>
+                                  <p className="title">Agendamento</p>
+                                  <p className="text-muted">
+                                    Deseja agendar este envio?
+                                  </p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </Table>
+                        </div>
                       </Col>
 
                       {checked ? (
