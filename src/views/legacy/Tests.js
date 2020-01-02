@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Input,
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-} from 'reactstrap';
+import { Input, Row, Col, Card, CardHeader, CardTitle } from 'reactstrap';
 
 import { addHours, parseISO, format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
