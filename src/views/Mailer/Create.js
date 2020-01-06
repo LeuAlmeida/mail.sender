@@ -132,6 +132,13 @@ class CreateMailer extends Component {
     this.setState({ checked: !checked });
   };
 
+  handleSchedule = () => {
+    this.setState({ scheduleChecked: false, date: null });
+
+    const { scheduleChecked } = this.state;
+    this.setState({ scheduleChecked: !scheduleChecked });
+  };
+
   getSuggestions = value => {
     const { lists } = this.state;
     const inputValue = value.trim().toLowerCase();
@@ -314,6 +321,7 @@ class CreateMailer extends Component {
       loading,
       value,
       suggestions,
+      scheduleChecked,
     } = this.state;
 
     const inputProps = {
@@ -443,6 +451,8 @@ class CreateMailer extends Component {
                             type="datetime-local"
                             style={{ textTransform: 'uppercase' }}
                             onChange={this.handleSetDate}
+                            disabled={!scheduleChecked}
+                            value={null}
                           />
                         </FormGroup>
                       </Col>
@@ -458,8 +468,8 @@ class CreateMailer extends Component {
                                       <Input
                                         defaultValue=""
                                         type="checkbox"
-                                        // checked={checked}
-                                        onChange={() => {}}
+                                        checked={scheduleChecked}
+                                        onChange={this.handleSchedule}
                                       />
                                       <span className="form-check-sign">
                                         <span className="check" />
