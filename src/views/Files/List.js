@@ -110,7 +110,7 @@ class FilesList extends Component {
                           <th>Nome da Base</th>
                           <th>Nome do Arquivo</th>
                           <th>Data de Criação</th>
-                          <th className="text-center">Ações</th>
+                          <th className="text-center">Baixar</th>
                         </tr>
                       </thead>
                       <tbody>
