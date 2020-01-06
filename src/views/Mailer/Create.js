@@ -56,8 +56,6 @@ class CreateMailer extends Component {
       senders: allSenders.data,
     });
 
-    
-
     const users = await api.get(`/users`);
 
     this.setState({ user: users.data.find(u => u.email === getUser()) });
