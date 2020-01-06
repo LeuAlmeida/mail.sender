@@ -1,6 +1,6 @@
-<!-- <h1 align="center">
-  <img alt="Devfit" title="Devfit" src="readme/logo-black.png" width="200px" />
-</h1> -->
+<p align="center">
+  <img src="http://educacaometodista.org.br/++theme++novo-logo-rede/img/lrm.png" width="120">
+</p>
 
 <h3 align="center">
   Mail Sender Tool :mailbox:
