@@ -56,14 +56,7 @@ class CreateMailer extends Component {
       senders: allSenders.data,
     });
 
-    (() => {
-      if (window.localStorage) {
-        if (!localStorage.getItem('firstLoad')) {
-          localStorage.firstLoad = true;
-          window.location.reload();
-        } else localStorage.removeItem('firstLoad');
-      }
-    })();
+    
 
     const users = await api.get(`/users`);
 
