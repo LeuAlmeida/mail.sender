@@ -40,6 +40,18 @@ function App() {
   return (
     <Router history={hist}>
       <Switch>
+        <Route
+          path="/"
+          exact
+          render={props => (
+            <Redirect
+              to={{
+                pathname: '/admin/dashboard',
+                state: { from: props.location },
+              }}
+            />
+          )}
+        />
         <Route path="/login" exact component={Login} />
         <Route path="/legacy/icons" exact component={Icons} />
         <Route path="/legacy/tests" exact component={Tests} />
