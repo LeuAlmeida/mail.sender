@@ -52,7 +52,7 @@ Email submission tool using own SMTP server for internal mass mailing made by <a
 
 <h3>:white_check_mark: About the Application</h3>
 
-Incoming...
+This project is an application utilizing a <a href="https://github.com/LeuAlmeida/mail.sender.api">robust and secure full backend</a> for bulk emailing without the need for an intermediary tool like Outlook. With this tool you can send emails to individual recipients or in .xls files, set a subject for the message, keep senders through a specific CRUD for that, keep users (only the id 1 user can manage the others, like a "super user"), list stocks, and generate weekly, biweekly, or monthly reports, with an average price being $ 0.06 per recipient.
 
 <h3>:electric_plug: Preparing the server</h3>
 
@@ -73,14 +73,9 @@ $ cd mail.sender
 $ yarn
 ```
 
-In the first terminal:
+In the terminal:
 ```console
-$ yarn dev
-```
-
-In the second terminal:
-```console
-$ yarn queue
+$ yarn start
 ```
 
 <hr/>
