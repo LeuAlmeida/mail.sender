@@ -155,7 +155,7 @@ class Reports extends Component {
                         className="btn btn-lg btn-info"
                         style={{ textTransform: 'capitalize' }}
                       >
-                        {format(getMonth(new Date()), 'MMMM', { locale: pt })}
+                        {format(new Date().getMonth(), 'MMMM', { locale: pt })}
                       </span>
                     </h3>
                   </CardHeader>
