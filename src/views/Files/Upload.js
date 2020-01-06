@@ -38,15 +38,6 @@ class Upload extends Component {
   }
 
   async componentDidMount() {
-    (() => {
-      if (window.localStorage) {
-        if (!localStorage.getItem('firstLoad')) {
-          localStorage.firstLoad = true;
-          window.location.reload();
-        } else localStorage.removeItem('firstLoad');
-      }
-    })();
-
     const allLists = await api.get('/files');
 
     this.setState({ lists: allLists.data, loading: false });
