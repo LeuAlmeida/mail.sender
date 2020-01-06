@@ -77,22 +77,30 @@ class Account extends Component {
       toast.warn('Sua nova senha deve conter no mínimo 5 caracteres');
     }
 
-    try {
-      await api.put(`users/${user.id}`, {
-        email: user.email,
-        oldPassword,
-        password,
-        confirmPassword,
-      });
+    if (
+      oldPassword &&
+      password &&
+      confirmPassword &&
+      password.length >= 5 &&
+      passwordMatch
+    ) {
+      try {
+        await api.put(`users/${user.id}`, {
+          email: user.email,
+          oldPassword,
+          password,
+          confirmPassword,
+        });
 
-      toast.success('Suas configurações foram redefinidas.');
-      setTimeout(() => {
-        history.push(`/admin/dashboard`);
-      }, 4750);
-    } catch (_) {
-      toast.err(
-        'Erro ao redefinir suas configurações, verifique os dados e tente novamente.'
-      );
+        toast.success('Suas configurações foram redefinidas.');
+        setTimeout(() => {
+          history.push(`/admin/dashboard`);
+        }, 4750);
+      } catch (_) {
+        toast.err(
+          'Erro ao redefinir suas configurações, verifique os dados e tente novamente.'
+        );
+      }
     }
   };
 
