@@ -26,15 +26,6 @@ class RegisterUser extends Component {
   };
 
   async componentDidMount() {
-    (() => {
-      if (window.localStorage) {
-        if (!localStorage.getItem('firstLoad')) {
-          localStorage.firstLoad = true;
-          window.location.reload();
-        } else localStorage.removeItem('firstLoad');
-      }
-    })();
-
     const response = await api.get('/users');
 
     this.setState({ token: response.data.find(u => u.email === getUser()) });
