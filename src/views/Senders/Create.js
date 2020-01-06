@@ -26,15 +26,6 @@ class SendersCreate extends Component {
   };
 
   componentDidMount() {
-    (() => {
-      if (window.localStorage) {
-        if (!localStorage.getItem('firstLoad')) {
-          localStorage.firstLoad = true;
-          window.location.reload();
-        } else localStorage.removeItem('firstLoad');
-      }
-    })();
-
     this.setState({ loading: false });
   }
 
