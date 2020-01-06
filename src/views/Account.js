@@ -97,7 +97,7 @@ class Account extends Component {
           history.push(`/admin/dashboard`);
         }, 4750);
       } catch (_) {
-        toast.err(
+        toast.error(
           'Erro ao redefinir suas configurações, verifique os dados e tente novamente.'
         );
       }
