@@ -27,6 +27,7 @@ import { Loading } from '../../components/Loading';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../../assets/css/black-dashboard-react.css';
 import './Autosuggest.css';
+import '../../assets/css/custom.css';
 
 import api from '../../services/api';
 import { getUser } from '../../services/auth';
@@ -254,7 +255,7 @@ class CreateMailer extends Component {
       !notValidDomain
     ) {
       confirmAlert({
-        title: 'Confirme o envio.',
+        title: 'Confirmação de envio',
         message: `Você deseja enviar a mensagem: "${subject}" para ${recipientsSize} ${
           recipientsSize > 1 ? 'pessoas' : 'pessoa'
         } com o remetente ${selectedSender.name} ${
