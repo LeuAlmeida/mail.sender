@@ -5,7 +5,7 @@
   "homepage": "http://mail.1dois.com.br",
   "dependencies": {
     "@types/react": "16.4.16",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bootstrap": "4.3.1",
     "chart.js": "^2.7.2",
     "classnames": "2.2.6",
